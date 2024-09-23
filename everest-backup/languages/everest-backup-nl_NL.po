@@ -1,0 +1,1491 @@
+# Translation of Plugins - Everest Backup &#8211; WordPress Cloud Backup, Migration, Restore &amp; Cloning Plugin - Stable (latest release) in Dutch
+# This file is distributed under the same license as the Plugins - Everest Backup &#8211; WordPress Cloud Backup, Migration, Restore &amp; Cloning Plugin - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2022-07-16 18:16:06+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/4.0.0-alpha.1\n"
+"Language: nl\n"
+"Project-Id-Version: Plugins - Everest Backup &#8211; WordPress Cloud Backup, Migration, Restore &amp; Cloning Plugin - Stable (latest release)\n"
+
+#: inc/views/addons/listings.php:29
+msgid "--- All ----"
+msgstr "--- Alle ----"
+
+#: inc/modules/history/class-history-table.php:415
+msgid "Download As ZIP"
+msgstr "Downloaden als ZIP"
+
+#: inc/functions.php:984
+msgid "Ignore wp-content folder"
+msgstr "Negeer wp-content map"
+
+#: inc/functions.php:983
+msgid "WP Content (Files)"
+msgstr "WP Content (bestanden)"
+
+#. translators: Here, %1$s is the size limit set by the server and %2$s is link
+#. to addons page.
+#: inc/classes/class-everest-backup.php:730
+msgid "The file size is larger than %1$s. View %2$s to bypass server upload limit."
+msgstr "De bestandsgrootte is groter dan %1$s. Bekijk %2$s om de uploadlimiet van de server te omzeilen."
+
+#: inc/classes/class-everest-backup.php:469
+msgid "File does not exists."
+msgstr "Bestand bestaat niet."
+
+#. translators: %s is unreadable file basename.
+#: inc/classes/class-archiver.php:285
+msgid "Skipping file \"%s\" because it is unreadable."
+msgstr "Bestand \"%s\" wordt overgeslagen omdat het onleesbaar is."
+
+#: inc/views/template-parts/proc-lock-info.php:115
+msgid "Force Abort"
+msgstr "Forceer afbreken"
+
+#: inc/views/template-parts/proc-lock-info.php:113
+msgid "It seems like this process has been running for too long. If you think Everest Backup is showing a false message, then you can \"Force Abort\" this process and clear this notice."
+msgstr "Het lijkt erop dat dit proces te lang heeft geduurd. Als je denkt dat Everest Backup een vals bericht geeft, dan kan je dit proces \"Forceer afbreken\" en dit bericht wissen."
+
+#: inc/views/template-parts/proc-lock-info.php:112
+msgid "*** Attention Required ***"
+msgstr "*** Attentie vereist ***"
+
+#: inc/views/settings/general.php:53
+msgid "Display \"Included\" modules or \"Excluded\" modules as tags in backup files listings. Ex: In history page."
+msgstr "Toon \"Inbegrepen\" modules of \"Uitgesloten\" modules als tags in back-up bestanden lijsten. Voorbeeld: in de geschiedenis pagina."
+
+#: inc/views/settings/general.php:52
+msgid "Tags Display Type"
+msgstr "Tags weergavetype"
+
+#: inc/views/settings/debug.php:35
+msgid "Click \"Generate\" to generate fake lockfile."
+msgstr "Klik op \"Genereer\" om een nep lockfile te genereren."
+
+#: inc/views/settings/debug.php:34
+msgid "LOCKFILE"
+msgstr "LOCKFILE"
+
+#: inc/views/migration-clone/migration.php:68
+msgid "Please copy above migration key and paste it in the \"Clone\" tab of your another website."
+msgstr "Kopieer bovenstaande migratie sleutel en plak het in de \"Kloon\" tab van je andere site."
+
+#: inc/views/backup/manual-backup.php:133
+#: inc/views/backup/schedule-backup.php:150
+msgid "( Optional )"
+msgstr "(Optioneel)"
+
+#: inc/views/backup/manual-backup.php:128
+#: inc/views/backup/schedule-backup.php:144
+msgid "Set custom name tag for backup file. Your custom name tag will be displayed as: \"ebwp-CUSTOM-NAME-TAG-xxxx-xxxx.ebwp\""
+msgstr "Aangepaste naam tag instellen voor back-upbestand. Je aangepaste naam tag zal worden weergegeven als: \"ebwp-CUSTOM-NAME-TAG-xxxx-xxxx.ebwp\""
+
+#: inc/views/backup/manual-backup.php:126
+#: inc/views/backup/schedule-backup.php:143
+msgid "Custom name tag"
+msgstr "Aangepaste naam tag"
+
+#: inc/views/backup/manual-backup.php:105
+#: inc/views/backup/schedule-backup.php:119
+msgid "Delete the backup file from the server after uploading the file to the cloud."
+msgstr "Verwijder het back-upbestand van de server na het uploaden van het bestand naar de cloud."
+
+#: inc/views/backup/manual-backup.php:103
+#: inc/views/backup/schedule-backup.php:118
+msgid "Delete from Local Web Server"
+msgstr "Verwijderen van lokale webserver"
+
+#: inc/views/backup/manual-backup.php:78
+msgid "Backup Location"
+msgstr "Back-up locatie"
+
+#: inc/views/backup/manual-backup.php:27
+#: inc/views/backup/schedule-backup.php:161
+msgid "Unchecked modules will be ignored during the backup."
+msgstr "Niet aangevinkte modules worden genegeerd tijdens de back-up."
+
+#: inc/views/backup/manual-backup.php:25
+msgid "Exclude Modules"
+msgstr "Modules uitsluiten"
+
+#: inc/modules/history/class-history-table.php:481
+#: inc/views/settings/general.php:59
+msgid "Excluded"
+msgstr "Uitgesloten"
+
+#. translators: %s is tags display type.
+#: inc/modules/history/class-history-table.php:120
+msgid "Tags ( %s )"
+msgstr "Tags (%s)"
+
+#. translators: %s is the link for Backup page.
+#: inc/modules/history/class-history-table.php:71
+msgid "No backup found. %s to create a new backup."
+msgstr "Geen back-up gevonden. %s om een nieuwe back-up te maken."
+
+#: inc/modules/history/class-history-table.php:69
+msgid "Click here"
+msgstr "Klik hier"
+
+#: inc/functions.php:189
+msgid "Using dummy file to check free space (it can take some time)."
+msgstr "Gebruik een dummy bestand om de vrije ruimte te controleren (dit kan enige tijd duren)."
+
+#: inc/functions.php:188
+msgid "Disk free space function is disabled by hosting."
+msgstr "Schijf vrije ruimte functie is uitgeschakeld door hosting."
+
+#: inc/classes/class-server-information.php:284
+msgid "View JSON"
+msgstr "Bekijk JSON"
+
+#: inc/classes/class-server-information.php:284
+msgid "View Table"
+msgstr "Tabel bekijken"
+
+#. translators: %1$s is Human time difference and %2$s is username.
+#: inc/classes/class-everest-backup.php:303
+msgid "Everest Backup process that was running since %1$s has been forcefully aborted by: %2$s"
+msgstr "Everest Backup proces dat liep sinds %1$s is geforceerd afgebroken door: %2$s"
+
+#: inc/classes/class-everest-backup.php:300
+msgid "Everest Backup: Force Abort"
+msgstr "Everest Backup: forceer afbreken"
+
+#. translators: %1$s is Addon name, %2$s is Everest Backup required version and
+#. %3$s is Everest Backup plugin name.
+#: inc/classes/class-everest-backup.php:187
+msgid "%1$s plugin requires %2$s or later. Please update your existing %3$s plugin to the latest version."
+msgstr "%1$s plugin vereist %2$s of later. Werk je bestaande %3$s plugin bij naar de laatste versie."
+
+#: inc/classes/class-compress.php:314
+msgid "Deleting the backup file from the server."
+msgstr "Het back-upbestand van de server verwijderen."
+
+#. translators: %s is the name of rollback args required key.
+#: inc/classes/class-cloud.php:434
+msgid "%s is a required argument."
+msgstr "%s is een vereist argument."
+
+#: inc/classes/class-cloud.php:347
+msgid "Reset Cache Now"
+msgstr "Reset cache nu"
+
+#. translators: %s is human_time_diff result.
+#: inc/classes/class-cloud.php:343
+msgid "Cache resets in: %s"
+msgstr "Cache reset in: %s"
+
+#. translators: %s is the cloud label name.
+#: inc/classes/class-cloud.php:268
+msgid "Failed to upload file to %s."
+msgstr "Kan geen bestand uploaden naar %s."
+
+#. translators: %s is the cloud label name.
+#: inc/classes/class-cloud.php:265
+msgid "Zip uploaded to %s."
+msgstr "Zip geüpload naar %s."
+
+#. translators: %s is the cloud label name.
+#: inc/classes/class-cloud.php:261
+msgid "Uploading zip to %s."
+msgstr "Zip aan het uploaden naar %s."
+
+#. translators: %s is the cloud label name.
+#: inc/classes/class-cloud.php:252
+msgid ""
+"We're uploading your site's backup to %s in the background. \n"
+"You can now close this pop up."
+msgstr ""
+"We uploaden de back-up van je site naar %s op de achtergrond. \n"
+"Je kunt deze pop-up nu sluiten."
+
+#: inc/functions.php:1278
+msgid "Permission denied."
+msgstr "Toestemming geweigerd."
+
+#. translators: %1$s is Everest Backup plugin name, %2$s is process type, %3$s
+#. is time started and %4$s is time elapsed.
+#: inc/views/template-parts/proc-lock-info.php:87
+msgid "%1$s is performing %2$s since %3$s [ Elapsed: %4$s ]"
+msgstr "%1$s is %2$s aan het uitvoeren sinds %3$s [ Verstreken: %4$s ]"
+
+#. translators: %1$s is user nicename, %2$s is process type, %3$s is time
+#. started and %4$s is time elapsed.
+#: inc/views/template-parts/proc-lock-info.php:78
+msgid "The user %1$s is performing %2$s since %3$s [ Elapsed: %4$s ]"
+msgstr "De gebruiker %1$s is bezig met %2$s sinds %3$s [ Verstreken: %4$s ]"
+
+#: inc/views/template-parts/proc-lock-info.php:68
+msgid "Everest Backup's process is running"
+msgstr "Everest Backup's proces loopt"
+
+#: inc/views/settings/debug.php:72
+msgid "Exclude Languages Folder"
+msgstr "Talen map uitsluiten"
+
+#: inc/views/settings/debug.php:58
+msgid "Disable Log Sleep"
+msgstr "Log sleep uitschakelen"
+
+#: inc/views/settings/debug.php:44
+msgid "Use Fallback Archiver"
+msgstr "Fallback archiver gebruiken"
+
+#: inc/modules/restore/class-restore-users.php:47
+msgid "Restoring subsite users"
+msgstr "Gebruikers van sub sites terugzetten"
+
+#. translators: %d is database restore progress percent.
+#: inc/modules/database/class-import-database.php:135
+msgid "Restoring database ( %d%% )"
+msgstr "Database aan het terugzetten (%d%%)"
+
+#. translators: %d is database export progress percent.
+#: inc/modules/database/class-export-database.php:254
+msgid "Exporting database ( %d%% )"
+msgstr "Database exporteren ( %d%% )"
+
+#: inc/modules/backup/class-backup-uploads.php:41
+msgid "Listing media files"
+msgstr "Lijst mediabestanden"
+
+#: inc/modules/backup/class-backup-themes.php:41
+msgid "Listing themes"
+msgstr "Thema's oplijsten"
+
+#: inc/modules/backup/class-backup-plugins.php:91
+msgid "Listing plugins"
+msgstr "Plugins oplijsten"
+
+#. translators: %s is the size of the database file.
+#: inc/modules/backup/class-backup-database.php:92
+msgid "Listing database ( %s )"
+msgstr "Lijst database ( %s )"
+
+#: inc/modules/backup/class-backup-content.php:90
+msgid "Listing wp-content files"
+msgstr "Lijst van wp-content bestanden"
+
+#: inc/modules/backup/class-backup-config.php:143
+msgid "Creating backup config file"
+msgstr "Back-up configuratiebestand maken"
+
+#: inc/functions.php:410
+msgid "Downloading file from host..."
+msgstr "Bestand downloaden van host..."
+
+#: inc/classes/class-server-information.php:194
+msgid "Temporary Directory Writable"
+msgstr "Tijdelijke folder schrijfbaar"
+
+#: inc/classes/class-server-information.php:189
+msgid "Temporary Directory Path"
+msgstr "Tijdelijk folder pad"
+
+#: inc/classes/class-extract.php:155
+msgid "Rollback started."
+msgstr "Het terugdraaien is begonnen."
+
+#: inc/classes/class-everest-backup.php:737
+msgid "Package uploaded. Click \"Restore\" to start the restore."
+msgstr "Pakket geüpload. Klik op \"Terugzetten\" om het terugzetten te starten."
+
+#. translators: %s is size of backup file.
+#: inc/classes/class-compress.php:263
+msgid "Failed to created backup"
+msgstr "Back-up is niet aangemaakt"
+
+#. translators: %s is size of backup file.
+#: inc/classes/class-compress.php:263
+msgid "Backup created of size %s"
+msgstr "Back-up gemaakt van grootte %s"
+
+#. translators: %s is the error message.
+#: inc/classes/class-archiver.php:482
+msgid "Backup failed. Reason: %s"
+msgstr "Back-up mislukt. Reden: %s"
+
+#. translators: %d is the total number of files.
+#: inc/classes/class-archiver.php:386
+msgid "Archiving %d files. This step can take some time."
+msgstr "%d bestanden archiveren. Deze stap kan enige tijd in beslag nemen."
+
+#. translators: %d is the progress percent.
+#: inc/classes/class-archiver.php:358
+msgid "Archiving wp-content files ( %d%% )"
+msgstr "Archiveren van wp-content bestanden ( %d%% )"
+
+#. translators: %d is the progress percent.
+#: inc/classes/class-archiver.php:349
+msgid "Archiving plugin files ( %d%% )"
+msgstr "Archiveren van plugin bestanden ( %d%% )"
+
+#. translators: %d is the progress percent.
+#: inc/classes/class-archiver.php:340
+msgid "Archiving theme files ( %d%% )"
+msgstr "Archiveren van themabestanden ( %d%% )"
+
+#. translators: %d is the progress percent.
+#: inc/classes/class-archiver.php:331
+msgid "Archiving media files ( %d%% )"
+msgstr "Mediabestanden archiveren ( %d%% )"
+
+#. translators: %s is the total restore time.
+#: inc/classes/class-ajax.php:441
+msgid "Total time: %s"
+msgstr "Totale tijd: %s"
+
+#: inc/classes/class-ajax.php:427
+msgid "Cleaning remaining extracted files"
+msgstr "Opschonen resterende uitgepakte bestanden"
+
+#: inc/classes/class-ajax.php:408
+msgid "Extracting package"
+msgstr "Pakket aan het uitpakken"
+
+#: inc/functions.php:81
+msgid "Backup initialized"
+msgstr "Back-up geïnitialiseerd"
+
+#: inc/functions.php:66
+msgid "Setting up environment"
+msgstr "Opzetten van de omgeving"
+
+#: inc/views/settings/debug.php:26
+msgid "Tweakable parameters for testing and debugging."
+msgstr "Tweakbare parameters voor testen en debuggen."
+
+#. translators: %s is cloud storage label. Ex: Google Drive
+#: inc/views/restore.php:51
+msgid "Downloading file from %s"
+msgstr "Bestand downloaden van %s"
+
+#: inc/functions.php:1000 inc/modules/tabs/class-settings-tab.php:78
+msgid "Debug"
+msgstr "Debug"
+
+#: inc/classes/class-everest-backup.php:736 inc/views/restore.php:56
+msgid "Uploading package..."
+msgstr "Pakket aan het uploaden..."
+
+#: inc/views/restore.php:53
+msgid "Initializing rollback..."
+msgstr "Initialiseren terugdraaien..."
+
+#: inc/views/restore.php:30
+msgid "Restoration Aborted"
+msgstr "Terugzetten afgebroken"
+
+#: inc/views/restore.php:30
+msgid "Rollback Aborted"
+msgstr "Terugdraaien afgebroken"
+
+#: inc/views/restore.php:21
+msgid "Rollback Completed"
+msgstr "Terugdraaien afgerond"
+
+#: inc/views/migration-clone.php:46
+msgid "Initialized cloning. Downloading file from host..."
+msgstr "Klonen geïnitialiseerd. Bestand wordt gedownload van host..."
+
+#: inc/views/migration-clone.php:32
+msgid "Cloning Aborted"
+msgstr "Klonen afgebroken"
+
+#: inc/views/migration-clone.php:23
+msgid "Website Cloned"
+msgstr "Site gekloond"
+
+#. translators: %s is the memory used value.
+#: inc/functions.php:690
+msgid "Memory used: %s"
+msgstr "Gebruikt geheugen: %s"
+
+#: inc/classes/class-ajax.php:294
+msgid "Process aborted. Cleaning extracted files."
+msgstr "Proces afgebroken. Uitgepakte bestanden aan het opschonen."
+
+#. translators: Here, %1$s is package php version and %2$ is current site php
+#. version.
+#: inc/classes/class-ajax.php:293
+msgid ""
+"Attention Needed!!! \n"
+"\n"
+"You are trying to restore the package from PHP Version %1$s to PHP Version %2$s. An incompatible plugin or theme might cause the issue. \n"
+"\n"
+"Do you want to continue?"
+msgstr ""
+"Aandacht nodig!!! \n"
+"\n"
+"Je probeert het pakket te herstellen van PHP versie %1$s naar PHP versie %2$s. Een incompatibele plugin of thema kan het probleem veroorzaken. \n"
+"\n"
+"Wil je doorgaan?"
+
+#: inc/classes/class-ajax.php:273
+msgid "Importing database..."
+msgstr "Importeren van database..."
+
+#: inc/classes/class-ajax.php:273
+msgid "Configuring multisite restore..."
+msgstr "Configuratie van multisite terugzetten..."
+
+#: inc/classes/class-ajax.php:234
+msgid "Clone failed because package download url is missing."
+msgstr "Kloon mislukt omdat pakket download url ontbreekt."
+
+#: inc/views/restore.php:146
+msgid "Rollback denied because package size is larger than allowed maximum upload size."
+msgstr "Terugdraaien geweigerd omdat pakket groter is dan toegestane maximale upload grootte."
+
+#: inc/views/backup.php:72
+msgid "View Activity Log"
+msgstr "Activiteitenlog bekijken"
+
+#: inc/views/backup.php:71
+msgid "Unable to complete the backup process. Please check log for the details."
+msgstr "Kan het back-upproces niet voltooien. Controleer de log voor de details."
+
+#: inc/views/backup.php:66
+msgid "Backup Failed"
+msgstr "Back-up mislukt"
+
+#: inc/modules/migration-clone/class-cloner.php:187
+msgid "Cannot clone because package size is larger than allowed maximum upload size."
+msgstr "Kan niet klonen omdat de pakketgrootte groter is dan de toegestane maximale uploadgrootte."
+
+#: inc/modules/backup/class-backup-uploads.php:67
+msgid "Unable to add media files."
+msgstr "Kan geen mediabestanden toevoegen."
+
+#: inc/modules/backup/class-backup-uploads.php:45
+msgid "Adding media files."
+msgstr "Toevoegen van mediabestanden."
+
+#: inc/modules/migration-clone/class-cloner.php:181
+msgid "Cannot clone to a same domain. Please enter the migration key in different domain for cloning."
+msgstr "Kan niet klonen naar hetzelfde domein. Voer de migratiesleutel in een ander domein in om te klonen."
+
+#: inc/modules/history/class-history-table.php:262
+msgid "Are you sure you want to delete this file?"
+msgstr "Weet je zeker dat je dit bestand wil verwijderen?"
+
+#: inc/views/backup.php:55
+msgid "Backup Completed"
+msgstr "Back-up afgerond"
+
+#: inc/views/backup.php:38
+msgid "We are creating backup of your website. Please do not close this window."
+msgstr "We maken een back-up van je site. Sluit dit venster niet."
+
+#: inc/views/addons/listings.php:131
+msgid "Buy Now"
+msgstr "Koop nu"
+
+#: inc/views/addons/listings.php:127
+msgid "Install & Activate"
+msgstr "Installeer & activeer"
+
+#: inc/views/addons/listings.php:123
+msgid "View Details"
+msgstr "Bekijk details"
+
+#: inc/views/addons/listings.php:120
+msgid "Installing..."
+msgstr "Aan het installeren..."
+
+#: inc/views/addons/listings.php:113
+msgid "Activate"
+msgstr "Activeer"
+
+#: inc/views/addons/listings.php:90
+msgid "PREMIUM"
+msgstr "PREMIUM"
+
+#: inc/views/addons/listings.php:79 inc/views/addons/listings.php:84
+msgid "Active"
+msgstr "Actief"
+
+#: inc/views/addons/addon-not-found.php:20
+msgid "Visit our website: wpeverestbackup.com"
+msgstr "Bezoek onze site: wpeverestbackup.com"
+
+#: inc/views/addons/addon-not-found.php:19
+msgid "OR"
+msgstr "OF"
+
+#: inc/views/addons/addon-not-found.php:18
+msgid "Oops, unable to fetch addon information. Please try again later."
+msgstr "Niet in staat om add-on informatie op te halen. Probeer het later nog eens."
+
+#: inc/modules/logs/class-logs-table.php:46
+msgid "Clear All Logs"
+msgstr "Wis alle logs"
+
+#: inc/classes/class-everest-backup.php:373
+msgid "Addon activated."
+msgstr "Add-on geactiveerd."
+
+#: inc/classes/class-everest-backup.php:366
+msgid "Plugin slug empty."
+msgstr "Plugin slug leeg."
+
+#: inc/classes/class-admin-menu.php:236 inc/classes/class-admin-menu.php:237
+#: inc/classes/class-everest-backup.php:718
+msgid "Addons"
+msgstr "Add-ons"
+
+#: inc/views/migration-clone.php:27 inc/views/migration-clone.php:35
+#: inc/views/restore.php:25 inc/views/restore.php:33
+msgid "Go To Dashboard"
+msgstr "Naar het dashboard"
+
+#: inc/views/migration-clone.php:26 inc/views/restore.php:24
+msgid "Please do not forget to save the permalink from sites settings."
+msgstr "Vergeet niet de permalink op te slaan in de site instellingen."
+
+#: inc/views/template-parts/header.php:60
+msgid "Contact Us"
+msgstr "Neem contact op"
+
+#: inc/views/template-parts/header.php:57
+msgid "View Documentation"
+msgstr "Documentatie bekijken"
+
+#: inc/views/settings/general.php:81
+msgid "The file extension must be separated by single comma, without the dot as: zip, lock."
+msgstr "De bestandsextensie moet gescheiden worden door een enkele komma, zonder punt zoals: zip, lock."
+
+#: inc/views/settings/general.php:80
+msgid "Exclude Files"
+msgstr "Bestanden uitsluiten"
+
+#: inc/views/settings/general.php:68
+msgid "Auto remove backup files after defined number of days, set 0 to keep all the files."
+msgstr "Automatische verwijdering van back-upbestanden na een bepaald aantal dagen, stel 0 in om alle bestanden te bewaren."
+
+#: inc/views/settings/general.php:73
+msgid "days."
+msgstr "dagen."
+
+#: inc/views/settings/general.php:67
+msgid "Auto Remove"
+msgstr "Auto verwijderen"
+
+#: inc/views/settings/general.php:40
+msgid "Email address that will be used by Everest Backup plugin. WordPress admin email will be used as default."
+msgstr "E-mailadres dat zal worden gebruikt door Everest Backup plugin. WordPress beheer e-mail zal worden gebruikt als standaard."
+
+#: inc/views/settings/general.php:45
+msgid "Send Test Email"
+msgstr "Verzend test e-mail"
+
+#: inc/views/settings/general.php:39
+msgid "Admin Email"
+msgstr "Beheerder e-mail"
+
+#: inc/views/settings/general.php:22
+msgid "General configuration for your Everest Backup plugin."
+msgstr "Algemene configuratie voor je Everest Backup plugin."
+
+#: inc/views/settings/cloud.php:24
+msgid "Configuration for your cloud storage."
+msgstr "Configuratie voor je cloud opslag."
+
+#: inc/views/settings/cloud.php:22
+msgid "Install our addons to store your backup files on the cloud."
+msgstr "Installeer onze add-ons om je back-upbestanden op te slaan in de cloud."
+
+#: inc/views/restore/upload-file.php:33
+msgid "Maximum upload size:"
+msgstr "Maximale upload grootte:"
+
+#: inc/views/restore/upload-file.php:28
+msgid "Select File"
+msgstr "Selecteer bestand"
+
+#: inc/views/restore/upload-file.php:27
+msgctxt "Uploader: Drop files here - or - Select Files"
+msgid "or"
+msgstr "of"
+
+#: inc/views/restore/upload-file.php:26
+msgid "Drop file here"
+msgstr "Drop bestand hier"
+
+#: inc/views/restore.php:169
+msgid "Go to history"
+msgstr "Ga naar geschiedenis"
+
+#: inc/views/restore.php:168
+msgid "Oops! The selected package is either broken or does not exist."
+msgstr "Het geselecteerde pakket is kapot of bestaat niet."
+
+#: inc/views/restore.php:81 inc/views/restore.php:154
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: inc/views/restore.php:152
+msgid "Are you sure? It cannot be undone after rollback is started."
+msgstr "Weet je het zeker? Het kan niet ongedaan gemaakt worden nadat het terugdraaien gestart is."
+
+#: inc/views/restore.php:133
+msgid "Package Information"
+msgstr "Pakket informatie"
+
+#: inc/views/restore.php:130
+msgid "Please wait while we are rolling back your website to the previous version."
+msgstr "Wacht even terwijl wij je site terugdraaien naar de vorige versie."
+
+#: inc/views/restore.php:69
+msgid "Restoration/Rollback is in progress. Please do not close this window or tab."
+msgstr "Terugzetten/terugdraaien is aan de gang. Sluit dit venster of tab niet."
+
+#: inc/views/restore.php:21
+msgid "Restoration Completed"
+msgstr "Terugzetten afgerond"
+
+#: inc/views/migration-clone/migration.php:102
+msgid "--- OR ---"
+msgstr "--- OF ---"
+
+#: inc/views/migration-clone/migration.php:93
+msgid "Go To Backup Page"
+msgstr "Ga naar de back-up pagina"
+
+#: inc/views/migration-clone/migration.php:91
+msgid "Create New Backup"
+msgstr "Nieuwe back-up maken"
+
+#: inc/views/migration-clone/migration.php:74 inc/views/settings/debug.php:39
+msgid "Generate"
+msgstr "Genereer"
+
+#: inc/modules/history/class-history-table.php:431
+#: inc/views/migration-clone/migration.php:60
+msgid "Migration Key"
+msgstr "Migratiesleutel"
+
+#: inc/views/migration-clone/migration.php:43
+msgid "Select from available backup files"
+msgstr "Kies uit beschikbare back-upbestanden"
+
+#: inc/classes/class-everest-backup.php:732
+#: inc/views/migration-clone/migration.php:34
+msgid "Generate Migration Key"
+msgstr "Genereer migratiesleutel"
+
+#: inc/views/migration-clone/clone.php:109
+msgid "Make sure your server has enough free space available."
+msgstr "Zorg ervoor dat je server genoeg vrije ruimte heeft."
+
+#: inc/views/migration-clone/clone.php:108
+msgid "Make sure the \"Migration Key Length\" is equal on both of the websites."
+msgstr "Zorg ervoor dat de \"Migratie sleutellengte\" op beide sites gelijk is."
+
+#: inc/views/migration-clone/clone.php:107
+msgid "Make sure you have pasted the valid migration key."
+msgstr "Zorg ervoor dat je de geldige migratiesleutel hebt geplakt."
+
+#: inc/views/migration-clone/clone.php:90 inc/views/restore.php:137
+msgid "Filename"
+msgstr "Bestandsnaam"
+
+#: inc/views/migration-clone/clone.php:87
+msgid "Please make sure below informations are correct."
+msgstr "Zorg ervoor dat de onderstaande informatie correct is."
+
+#: inc/views/migration-clone/clone.php:72
+msgid "Please paste your migration key that you have copied from another website, to extract the file information."
+msgstr "Plak je migratiesleutel die je van een andere site hebt gekopieerd, om de bestandsinformatie uit te pakken."
+
+#: inc/views/migration-clone/clone.php:53
+msgid "Verify Key"
+msgstr "Verifieer sleutel"
+
+#: inc/views/migration-clone/clone.php:48
+#: inc/views/migration-clone/migration.php:67
+msgid "Migration Key Length"
+msgstr "Migratie sleutellengte"
+
+#: inc/views/migration-clone/clone.php:44
+msgid "Paste Migration Key"
+msgstr "Plakken migratie sleutel"
+
+#: inc/views/migration-clone/clone.php:35
+msgid "Clone Site"
+msgstr "Kloon site"
+
+#: inc/views/migration-clone.php:57
+msgid "The cloning is in progress. Please do not close this window or tab."
+msgstr "Het klonen is bezig. Sluit dit venster of tab niet."
+
+#: inc/views/backup/schedule-backup.php:239 inc/views/settings/cloud.php:49
+#: inc/views/settings/debug.php:89 inc/views/settings/general.php:104
+msgid "Save Settings"
+msgstr "Instellingen opslaan"
+
+#: inc/views/backup/schedule-backup.php:214
+msgid "Send me an email log after schedule backup is completed."
+msgstr "Stuur mij een e-mail log nadat de geabonnementde back-up is afgerond."
+
+#: inc/views/backup/schedule-backup.php:203
+msgid "Notify"
+msgstr "Informeer"
+
+#: inc/views/backup/schedule-backup.php:156
+msgid "Exclude"
+msgstr "Uitsluiten"
+
+#: inc/views/backup/schedule-backup.php:109
+msgid "after schedule backup is completed."
+msgstr "nadat de geabonnementde back-up is afgerond."
+
+#: inc/views/backup/schedule-backup.php:100
+msgid "Save backup file to"
+msgstr "Back-up bestand opslaan in"
+
+#: inc/views/backup/schedule-backup.php:97
+msgid "Save To"
+msgstr "Opslaan naar"
+
+#: inc/views/backup/schedule-backup.php:92
+msgid "Next Backup In:"
+msgstr "Volgende back-up:"
+
+#: inc/views/backup/schedule-backup.php:90
+msgid "Server Time:"
+msgstr "Server tijd:"
+
+#: inc/views/backup/schedule-backup.php:86
+msgid "at"
+msgstr "om"
+
+#: inc/views/backup/schedule-backup.php:69
+msgid "Cron Cycle"
+msgstr "Cron cyclus"
+
+#: inc/views/backup/schedule-backup.php:63
+msgid "Enable/Disable schedule backup."
+msgstr "Geplande back-up inschakelen/uitschakelen."
+
+#: inc/views/backup/schedule-backup.php:31
+msgid "Backup your website automatically in your set schedule."
+msgstr "Maak automatisch een back-up van je site volgens de door je ingestelde planning."
+
+#: inc/views/backup/manual-backup.php:146
+msgid "Backup Now!"
+msgstr "Back-up nu!"
+
+#: inc/views/backup/manual-backup.php:85
+msgid "Save a copy to"
+msgstr "Een kopie opslaan in"
+
+#: inc/views/backup/manual-backup.php:80
+msgid "Select the backup storage location. Choosing “Local Web Server” will keep the backups only in the web server."
+msgstr "Selecteer de opslaglocatie voor de back-ups. Als je \"Lokale webserver\" kiest, worden de back-ups alleen op de webserver bewaard."
+
+#: inc/modules/history/class-history-table.php:478
+#: inc/views/backup/manual-backup.php:62
+#: inc/views/backup/schedule-backup.php:181 inc/views/settings/general.php:58
+msgid "Included"
+msgstr "Inbegrepen"
+
+#: inc/views/backup/manual-backup.php:63
+#: inc/views/backup/schedule-backup.php:182
+msgid "Ignored"
+msgstr "Genegeerd"
+
+#: inc/classes/class-compress.php:184
+msgid "Total files:"
+msgstr "Totaal bestanden:"
+
+#: inc/traits/trait-backup.php:156
+msgid "Process aborted."
+msgstr "Proces afgebroken."
+
+#. translators: Here, %s is the name of current module.
+#: inc/traits/trait-backup.php:97
+msgid "%s is ignored."
+msgstr "%s wordt genegeerd."
+
+#: inc/modules/tabs/class-settings-tab.php:70
+#: inc/views/migration-clone/clone.php:69
+msgid "Information"
+msgstr "No suggestions"
+
+#: inc/modules/tabs/class-settings-tab.php:65
+msgid "Cloud"
+msgstr "Cloud"
+
+#: inc/modules/tabs/class-settings-tab.php:60
+msgid "General"
+msgstr "Algemeen"
+
+#: inc/modules/tabs/class-restore-tab.php:66
+msgid "Available Files"
+msgstr "Beschikbare bestanden"
+
+#: inc/modules/tabs/class-restore-tab.php:61
+msgid "Upload File"
+msgstr "Bestand uploaden"
+
+#: inc/modules/tabs/class-restore-tab.php:46
+msgid "Unlimited"
+msgstr "Onbeperkt"
+
+#: inc/modules/tabs/class-migration-clone-tab.php:58
+msgid "Migration"
+msgstr "Migratie"
+
+#: inc/modules/tabs/class-backup-tab.php:59
+msgid "Manual Backup"
+msgstr "Handmatige back-up"
+
+#: inc/modules/restore/class-restore-uploads.php:93
+msgid "Media files restored."
+msgstr "Mediabestanden teruggezet."
+
+#: inc/modules/restore/class-restore-uploads.php:42
+msgid "Restoring media files."
+msgstr "Mediabestanden aan het terugzetten."
+
+#: inc/modules/restore/class-restore-themes.php:77
+msgid "Themes restored."
+msgstr "Thema's teruggezet."
+
+#: inc/modules/restore/class-restore-themes.php:42
+msgid "Restoring themes."
+msgstr "Thema's aan het terugzetten."
+
+#: inc/modules/restore/class-restore-plugins.php:93
+msgid "Plugins restored."
+msgstr "Plugins teruggezet."
+
+#: inc/modules/restore/class-restore-plugins.php:69
+msgid "Restoring plugins."
+msgstr "Plugins aan het terugzetten."
+
+#. translators: %d is the number of subsites created.
+#: inc/modules/restore/class-restore-multisite.php:251
+msgid "%d subsite created."
+msgid_plural "%d subsites created."
+msgstr[0] "%d subsite gecreëerd."
+msgstr[1] "%d subsites gecreëerd."
+
+#: inc/modules/restore/class-restore-multisite.php:211
+msgid "Getting things ready for subsite import."
+msgstr "Dingen klaarmaken voor sub site import."
+
+#: inc/modules/restore/class-restore-multisite.php:200
+msgid "Cannot import the multisite package to the single site."
+msgstr "Kan het multisite pakket niet importeren naar de enkelvoudige site."
+
+#: inc/modules/restore/class-restore-multisite.php:179
+msgid "Failed to get the blog id."
+msgstr "Lukt niet om de blog id te krijgen."
+
+#. translators: %s is the subsite url or domain name.
+#: inc/modules/restore/class-restore-multisite.php:164
+msgid "Domain %s does not exist. Creating a new subsite."
+msgstr "Domein %s bestaat niet. Aanmaken van een nieuwe sub site."
+
+#. translators: %s is the subsite url or domain name.
+#: inc/modules/restore/class-restore-multisite.php:159
+msgid "Domain %s already exists."
+msgstr "Domein %s bestaat al."
+
+#: inc/modules/restore/class-restore-database.php:169
+msgid "Failed to restore database."
+msgstr "Mislukt om database te herstellen."
+
+#: inc/modules/restore/class-restore-database.php:166
+msgid "Database restored."
+msgstr "Database hersteld."
+
+#: inc/modules/restore/class-restore-database.php:110
+msgid "Database file not found."
+msgstr "Database bestand niet gevonden."
+
+#: inc/modules/restore/class-restore-database.php:105
+msgid "Restoring database"
+msgstr "Database aan het herstellen"
+
+#: inc/modules/restore/class-restore-content.php:102
+msgid "Restored wp-content folder."
+msgstr "Wp-content map hersteld."
+
+#: inc/modules/restore/class-restore-content.php:85
+msgid "Restoring wp-content folder."
+msgstr "Herstellen van wp-content map."
+
+#: inc/modules/restore/class-restore-config.php:53
+msgid "Reading config file."
+msgstr "Lezen van het configuratiebestand."
+
+#: inc/modules/restore/class-restore-config.php:72
+msgid "Config file is either empty or does not exist."
+msgstr "Het configuratiebestand is leeg of bestaat niet."
+
+#. translators: %1$s is total filesize and %2$s is server available free disk
+#. space.
+#: inc/modules/migration-clone/class-cloner.php:195
+msgid "Required disk space: %1$s. Available disk space: %2$s."
+msgstr "Vereiste schijfruimte: %1$s. Beschikbare schijfruimte: %2$s."
+
+#: inc/modules/migration-clone/class-cloner.php:172
+msgid "Cannot clone to live website from localhost."
+msgstr "Kan niet klonen naar live site vanaf localhost."
+
+#: inc/modules/migration-clone/class-cloner.php:163
+msgid "Unable to extract information from migration key."
+msgstr "Kan geen informatie uit de migratiesleutel halen."
+
+#: inc/modules/migration-clone/class-cloner.php:157
+msgid "Cannot clone because migration key is not set."
+msgstr "Kan niet klonen omdat de migratiesleutel niet is ingesteld."
+
+#: inc/classes/class-ajax.php:250
+msgid "File downloaded successfully."
+msgstr "Bestand succesvol gedownload."
+
+#: inc/classes/class-ajax.php:245
+msgid "Failed to download the file from the host site."
+msgstr "Het is niet gelukt om het bestand van de host site te downloaden."
+
+#: inc/classes/class-ajax.php:239
+msgid "Downloading the file from the host site."
+msgstr "Het downloaden van het bestand van de host site."
+
+#: inc/modules/logs/class-logs-table.php:100
+msgid "Type"
+msgstr "Type"
+
+#. translators: %s is the human time difference result.
+#: inc/modules/history/class-history-table.php:522
+msgid "%s ago"
+msgstr "%s geleden"
+
+#: inc/modules/history/class-history-table.php:406
+msgid "Download"
+msgstr "Downloaden"
+
+#: inc/modules/history/class-history-table.php:227
+#: inc/views/addons/listings.php:42
+msgid "Filter"
+msgstr "Filter"
+
+#: inc/modules/history/class-history-table.php:160
+#: inc/modules/history/class-history-table.php:410
+#: inc/modules/logs/class-logs-table.php:129
+msgid "Remove"
+msgstr "Verwijder"
+
+#: inc/modules/history/class-history-table.php:121
+#: inc/views/migration-clone/clone.php:91 inc/views/restore.php:138
+msgid "Created On"
+msgstr "Gemaakt op"
+
+#: inc/modules/history/class-history-table.php:118
+#: inc/views/migration-clone/clone.php:92 inc/views/restore.php:139
+msgid "Size"
+msgstr "Grootte"
+
+#: inc/modules/history/class-history-table.php:117
+msgid "Name"
+msgstr "Naam"
+
+#: inc/modules/email/class-send-test-email.php:65
+msgid "There was some issue sending email. Please try again later."
+msgstr "Er was een probleem met het verzenden van de e-mail. Probeer het later nog eens."
+
+#: inc/modules/email/class-send-test-email.php:63
+msgid "Test email has been sent to your provided email address."
+msgstr "Test e-mail is verzonden naar het door je opgegeven e-mailadres."
+
+#: inc/modules/email/class-send-test-email.php:53
+msgid "Hi there, the email functionality is working successfully."
+msgstr "De e-mail functionaliteit werkt succesvol."
+
+#: inc/modules/email/class-send-test-email.php:51
+msgid "Everest Backup: Test Email"
+msgstr "Everest Back-up: test e-mail"
+
+#: inc/modules/email/class-email-logs.php:119
+msgid "All Logs"
+msgstr "Alle logs"
+
+#: inc/modules/email/class-email-logs.php:116
+msgid "Please find the process log below."
+msgstr "Hieronder vindt je de verwerking log."
+
+#: inc/modules/email/class-email-logs.php:115
+msgid "Hi, the schedule backup has been completed."
+msgstr "De geplande back-up is afgerond."
+
+#: inc/modules/email/class-email-logs.php:91
+msgid "Schedule Backup Logs"
+msgstr "Plan back-up logs"
+
+#. translators: Here, %s is the schedule type or cron cycle.
+#: inc/modules/cron/class-cron-actions.php:156
+msgid "Schedule type: %s"
+msgstr "Planning type: %s"
+
+#: inc/modules/backup/class-backup-uploads.php:65
+msgid "Media files added successfully."
+msgstr "Mediabestanden succesvol toegevoegd."
+
+#: inc/modules/backup/class-backup-themes.php:67
+msgid "Unable to add themes files."
+msgstr "Kan geen thema bestanden toevoegen."
+
+#: inc/modules/backup/class-backup-themes.php:65
+msgid "Themes files added successfully."
+msgstr "Themabestanden succesvol toegevoegd."
+
+#: inc/modules/backup/class-backup-themes.php:45
+msgid "Adding themes files."
+msgstr "Thema bestanden aan het toevoegen."
+
+#: inc/modules/backup/class-backup-plugins.php:105
+msgid "Plugins files added successfully."
+msgstr "Plugins bestanden succesvol toegevoegd."
+
+#: inc/modules/backup/class-backup-plugins.php:66
+msgid "Adding plugins files."
+msgstr "Plugins bestanden aan het toevoegen."
+
+#: inc/modules/backup/class-backup-database.php:101
+msgid "Unable to create Database file."
+msgstr "Kan geen database bestand maken."
+
+#: inc/modules/backup/class-backup-database.php:99
+msgid "Database file created successfully."
+msgstr "Database bestand succesvol aangemaakt."
+
+#: inc/modules/backup/class-backup-database.php:45
+msgid "Exporting database."
+msgstr "Database aan het exporteren."
+
+#: inc/modules/backup/class-backup-content.php:65
+msgid "Sorting some remaining files from wp-content folders."
+msgstr "Sorteren van enkele resterende bestanden van wp-inhoud mappen."
+
+#: inc/modules/backup/class-backup-config.php:164
+msgid "Unable to create config file."
+msgstr "Kan geen configuratiebestand maken."
+
+#: inc/modules/backup/class-backup-config.php:162
+msgid "Config file created successfully."
+msgstr "Config bestand succesvol aangemaakt."
+
+#: inc/modules/backup/class-backup-config.php:115
+msgid "Creating config file."
+msgstr "Aanmaken configuratiebestand."
+
+#: inc/functions.php:1861
+msgid "Disable"
+msgstr "Uitschakelen"
+
+#: inc/functions.php:1860 inc/views/backup/schedule-backup.php:51
+msgid "Enable"
+msgstr "Inschakelen"
+
+#: inc/functions.php:1750
+msgid "--- Select ---"
+msgstr "-- Selecteren --"
+
+#. translators: %1$s is the error message, %2$s is the file path and %3$s is
+#. the file line number.
+#: inc/functions.php:1369 inc/functions.php:1407
+msgid "%1$s in %2$s on line %3$s"
+msgstr "%1$s in %2$s op regel %3$s"
+
+#: inc/functions.php:1293
+msgid "Invalid action provided."
+msgstr "Ongeldige actie aangeboden."
+
+#: inc/functions.php:1006 inc/modules/tabs/class-backup-tab.php:64
+msgid "Schedule Backup"
+msgstr "Plan back-up"
+
+#: inc/functions.php:1005 inc/modules/tabs/class-migration-clone-tab.php:63
+#: inc/views/migration-clone/clone.php:101
+msgid "Clone"
+msgstr "Kloon"
+
+#: inc/functions.php:1003 inc/modules/history/class-history-table.php:409
+#: inc/views/restore.php:159
+msgid "Rollback"
+msgstr "Terugdraaien"
+
+#: inc/functions.php:1001 inc/views/backup.php:49
+msgid "Abort"
+msgstr "Afbreken"
+
+#: inc/functions.php:964
+msgid "Ignore database"
+msgstr "Negeer database"
+
+#: inc/functions.php:963
+msgid "Database (Sql)"
+msgstr "Database (Sql)"
+
+#: inc/functions.php:979
+msgid "Ignore media"
+msgstr "Negeer media"
+
+#: inc/functions.php:978
+msgid "Media (Files)"
+msgstr "Media (bestanden)"
+
+#: inc/functions.php:974
+msgid "Ignore themes"
+msgstr "Thema's negeren"
+
+#: inc/functions.php:973
+msgid "Themes (Files)"
+msgstr "Thema's (bestanden)"
+
+#: inc/functions.php:969
+msgid "Ignore plugins"
+msgstr "Plugins negeren"
+
+#: inc/functions.php:968
+msgid "Plugins (Files)"
+msgstr "Plugins (bestanden)"
+
+#: inc/functions.php:889
+msgid "Save the backup package locally on your host server."
+msgstr "Sla het back-up pakket lokaal op je host server op."
+
+#: inc/functions.php:888
+msgid "Local Web Server"
+msgstr "Lokale webserver"
+
+#: inc/functions.php:871
+msgid "Monthly"
+msgstr "Maandelijks"
+
+#: inc/functions.php:867
+msgid "Weekly"
+msgstr "Wekelijks"
+
+#: inc/functions.php:863
+msgid "Daily"
+msgstr "Dagelijks"
+
+#: inc/classes/class-server-information.php:219
+msgid "EBWP Paused Addons"
+msgstr "EBWP gepauzeerde add-ons"
+
+#: inc/classes/class-server-information.php:214
+msgid "EBWP Active Addons"
+msgstr "EBWP actieve add-ons"
+
+#: inc/classes/class-server-information.php:209
+msgid "EBWP Addons"
+msgstr "EBWP add-ons"
+
+#: inc/classes/class-server-information.php:204
+msgid "EBWP Archiver"
+msgstr "EBWP archiver"
+
+#: inc/classes/class-server-information.php:199
+msgid "EBWP Version"
+msgstr "EBWP versie"
+
+#: inc/classes/class-server-information.php:184
+msgid "Backup Directory Writable"
+msgstr "Back-up folder schrijfbaar"
+
+#: inc/classes/class-server-information.php:179
+msgid "Backup Directory Path"
+msgstr "Back-up folder pad"
+
+#: inc/classes/class-server-information.php:162
+msgid "Multisite"
+msgstr "Multisite"
+
+#: inc/classes/class-server-information.php:157
+msgid "Database Version"
+msgstr "Database versie"
+
+#: inc/classes/class-server-information.php:152
+msgid "WordPress Version"
+msgstr "WordPress versie"
+
+#: inc/classes/class-server-information.php:137
+msgid "Operating System"
+msgstr "Besturingssysteem"
+
+#: inc/classes/class-server-information.php:132 inc/views/restore.php:145
+msgid "Maximum Upload Size"
+msgstr "Maximale uploadgrootte"
+
+#: inc/classes/class-server-information.php:127
+msgid "Memory Limit"
+msgstr "Geheugenlimiet"
+
+#: inc/classes/class-server-information.php:122
+msgid "Available Space"
+msgstr "Beschikbare ruimte"
+
+#: inc/classes/class-server-information.php:117
+msgid "Total Space"
+msgstr "Totale ruimte"
+
+#: inc/classes/class-server-information.php:112
+msgid "Server Engine"
+msgstr "Server engine"
+
+#: inc/classes/class-server-information.php:107
+msgid "PHP Version"
+msgstr "PHP versie"
+
+#: inc/classes/class-server-information.php:102
+msgid "Writable"
+msgstr "Schrijfbaar"
+
+#: inc/classes/class-server-information.php:89
+msgid "Site Url"
+msgstr "Site URL"
+
+#: inc/classes/class-server-information.php:84
+msgid "Home Url"
+msgstr "Home URL"
+
+#: inc/classes/class-server-information.php:68
+#: inc/views/backup/manual-backup.php:115
+#: inc/views/backup/schedule-backup.php:131
+msgid "No"
+msgstr "Nee"
+
+#: inc/classes/class-server-information.php:68
+#: inc/views/backup/manual-backup.php:114
+#: inc/views/backup/schedule-backup.php:130
+msgid "Yes"
+msgstr "Ja"
+
+#: inc/classes/class-server-information.php:79
+msgid "SSL"
+msgstr "SSL"
+
+#: inc/classes/class-extract.php:306
+msgid "Package extracted."
+msgstr "Pakket uitgepakt."
+
+#: inc/classes/class-extract.php:288
+msgid "Extracting package to the storage directory."
+msgstr "Pakket aan het uitpakken naar de opslag folder."
+
+#: inc/classes/class-extract.php:248
+msgid "Storage directory created."
+msgstr "Opslag folder aangemaakt."
+
+#: inc/classes/class-extract.php:243
+msgid "Unable to create storage folder."
+msgstr "Kan geen opslag folder maken."
+
+#: inc/classes/class-extract.php:237
+msgid "Creating storage directory."
+msgstr "Aanmaken opslag folder."
+
+#: inc/classes/class-extract.php:224
+msgid "Package verified."
+msgstr "Pakket geverifieerd."
+
+#: inc/classes/class-extract.php:202
+msgid "Invalid file provided. Please provide a valid file."
+msgstr "Ongeldig bestand verstrekt. Geef een geldig bestand."
+
+#: inc/classes/class-extract.php:195
+msgid "Verifying package."
+msgstr "Pakket aan het controleren."
+
+#: inc/classes/class-extract.php:126
+msgid "Setting up package."
+msgstr "Pakket aan het opzetten."
+
+#: inc/classes/class-everest-backup.php:738
+msgid "Are you sure you want to stop this backup process?"
+msgstr "Weet je zeker dat je dit back-upproces wil stoppen?"
+
+#: inc/classes/class-everest-backup.php:735
+msgid "Restoration is in progress, please do not close this tab or window."
+msgstr "Terugzetten is aan de gang, sluit deze tab of venster niet."
+
+#: inc/classes/class-everest-backup.php:734
+msgid "Please wait while we are doing the backup. You will get a detailed log after the backup is completed."
+msgstr "Wacht even terwijl we de back-up maken. Je krijgt een gedetailleerde log nadat de back-up is afgerond."
+
+#: inc/classes/class-everest-backup.php:731
+msgid "Download File"
+msgstr "Download bestand"
+
+#. translators: Here, %s is the size limit set by the server.
+#: inc/classes/class-extract.php:215
+msgid "The file size is larger than %s"
+msgstr "De bestandsgrootte is groter dan %s"
+
+#: inc/classes/class-everest-backup.php:700
+msgid "EBWP File"
+msgstr "EBWP bestand"
+
+#: inc/classes/class-everest-backup.php:587
+msgid "Unable to remove file"
+msgstr "Kan bestand niet verwijderen"
+
+#: inc/classes/class-everest-backup.php:574
+msgid "successfully removed from the server."
+msgstr "met succes van de server verwijderd."
+
+#: inc/classes/class-everest-backup.php:560
+msgid "does not exists."
+msgstr "bestaat niet."
+
+#: inc/classes/class-everest-backup.php:412
+msgid "Settings saved."
+msgstr "Instellingen opgeslagen."
+
+#: inc/classes/class-everest-backup.php:396
+#: inc/classes/class-everest-backup.php:462 inc/functions.php:1272
+msgid "Nonce verification failed."
+msgstr "Nonce verificatie mislukt."
+
+#: inc/classes/class-compress.php:253
+msgid "Wrapping things up."
+msgstr "Tot slot."
+
+#: inc/classes/class-compress.php:226 inc/classes/class-extract.php:271
+msgid "Disk space available."
+msgstr "Beschikbare schijfruimte."
+
+#. translators: %1$s is total filesize and %2$s is server available free disk
+#. space.
+#: inc/classes/class-compress.php:223 inc/classes/class-extract.php:268
+msgid "Required disk space: %1$s. Available disk space: %2$s"
+msgstr "Vereiste schijfruimte: %1$s. Beschikbare schijfruimte: %2$s"
+
+#: inc/classes/class-compress.php:217 inc/classes/class-extract.php:262
+msgid "Checking disk available space."
+msgstr "Controleren van beschikbare ruimte."
+
+#: inc/classes/class-compress.php:82
+msgid "Initializing new archive."
+msgstr "Initialiseren nieuw archief."
+
+#: inc/classes/class-cloud.php:185 inc/classes/class-cloud.php:212
+msgid "This method is supposed to be overridden by subclasses."
+msgstr "Deze methode wordt verondersteld te worden overschreven door subklassen."
+
+#: inc/classes/class-ajax.php:443
+msgid "Restore completed."
+msgstr "Terugzetten afgerond."
+
+#. translators: %s is the restore completed time.
+#: inc/classes/class-ajax.php:438
+msgid "Restore completed at: %s"
+msgstr "Terugzetten afgerond om: %s"
+
+#: inc/classes/class-ajax.php:433
+msgid "Flushing unnecessary cache."
+msgstr "Onnodige cache opschonen."
+
+#. translators: %s is the restore start time.
+#: inc/classes/class-ajax.php:402
+msgid "Restore started at: %s"
+msgstr "Terugzetten gestart om: %s"
+
+#: inc/classes/class-ajax.php:310 inc/classes/class-ajax.php:340
+#: inc/classes/class-ajax.php:378
+msgid "Current user does not have permission to upload files."
+msgstr "De huidige gebruiker heeft geen toestemming om bestanden te uploaden."
+
+#: inc/functions.php:150
+msgid "Backup completed"
+msgstr "Back-up afgerond"
+
+#: inc/functions.php:124
+msgid "Backup size:"
+msgstr "Back-up grootte:"
+
+#: inc/functions.php:122
+msgid "Total time:"
+msgstr "Totale tijd:"
+
+#: inc/functions.php:119
+msgid "Backup completed at:"
+msgstr "Back-up afgerond om:"
+
+#: inc/functions.php:111
+msgid "Unable to create backup file."
+msgstr "Kan geen back-up bestand maken."
+
+#. translators: %s is the time when backup started.
+#: inc/functions.php:71
+msgid "Backup started at: %s"
+msgstr "Back-up is gestart om: %s"
+
+#: inc/classes/class-everest-backup.php:733
+msgid "Initializing backup"
+msgstr "Back-up aan het initialiseren"
+
+#: inc/classes/class-admin-menu.php:228 inc/classes/class-admin-menu.php:229
+msgid "Settings"
+msgstr "Instellingen"
+
+#: inc/classes/class-admin-menu.php:220 inc/classes/class-admin-menu.php:221
+#: inc/modules/logs/class-logs-table.php:99
+msgid "Logs"
+msgstr "Logs"
+
+#: inc/classes/class-admin-menu.php:213
+msgid "History"
+msgstr "Geschiedenis"
+
+#: inc/classes/class-admin-menu.php:212
+#: inc/modules/email/class-email-logs.php:118
+msgid "Backup History"
+msgstr "Back-up geschiedenis"
+
+#: inc/classes/class-admin-menu.php:204 inc/classes/class-admin-menu.php:205
+msgid "Migration / Clone"
+msgstr "Migreer / kloon"
+
+#: inc/classes/class-admin-menu.php:196 inc/classes/class-admin-menu.php:197
+#: inc/functions.php:1004 inc/views/restore.php:91
+msgid "Restore"
+msgstr "Terugzetten"
+
+#: inc/classes/class-admin-menu.php:166 inc/classes/class-admin-menu.php:188
+#: inc/classes/class-admin-menu.php:189 inc/functions.php:1002
+#: inc/views/backup/schedule-backup.php:72
+msgid "Backup"
+msgstr "Back-up"
+
+#. Author URI of the plugin
+msgid "https://everestthemes.com/"
+msgstr "https://everestthemes.com/"
+
+#. Author of the plugin
+msgid "everestthemes"
+msgstr "everestthemes"
+
+#. Description of the plugin
+msgid "Everest Backup is a modern tool that will take care of your website's backups, restoration, migration and cloning."
+msgstr "Everest Back-up is een modern hulpmiddel dat zorgt voor back-ups, herstel, migratie en klonen van je site."
+
+#. Plugin URI of the plugin
+msgid "https://wpeverestbackup.com/"
+msgstr "https://wpeverestbackup.com/"
+
+#. Plugin Name of the plugin
+#: inc/classes/class-admin-menu.php:167
+msgid "Everest Backup"
+msgstr "Everest Backup"

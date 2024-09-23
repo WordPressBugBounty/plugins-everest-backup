@@ -1,0 +1,217 @@
+== Changelog ==
+
+= v2.2.12 =
+* Update: Backup process improved to more supported format.
+* Improvement: Automatic backup restore no longer shows issues.
+* Other Bug fixes and improvements.
+* Fixed: Fatal for manual upload to cloud when cloud setting missing.
+* Update: FTP still showing without setting saved in manual upload to cloud.
+
+= v2.2.11 =
+* Update: Save default WordPress and WooCommerce permalinks after restore.
+* Update: Use ajax for updating backup/restore status.
+* Fixed: Major issue fixed in restoring backups from auto-backup.
+
+= v2.2.10 =
+* Update: Database backup optimization on auto-update.
+* Update: Express backup option added in cli.
+
+= v2.2.9 =
+* Added: Added WP-CLI and 2FA for premium users.
+* Update: Fixed mu plugins issue while restore.
+
+= v2.2.8 =
+* Fixes: Issue recovering older backup version.
+* Fixes: File Handler is bool issue.
+* Update: Ajax re-request on failure(for some ploblematic servers). SSE no longer useful, backup progress showing slower.
+
+= v2.2.7 =
+* Fixes: Tags repeating first tag in history page.
+* Update: Manual upload to Amazon S3 from history page.
+* Update: Folder Access related Security Patch.
+
+= v2.2.6 =
+* Fixes: Dropped filter slowing down whole site with some themes.
+* Fixes: Removed unnecesary modals and popups.
+* Fixes: Minor fixes related to Cloud addons.
+* Added: Message about next google cloud addon breaking update.
+
+= v2.2.5 =
+* Fixes: Scheduled backup freeze due to Litespeed REST API caching.
+* Fixes: Compatibility with certain shared hosting environments when restoring database files.
+* Added: Added progress tracking with a percentage display for pCloud and Google Drive backups, both in manual and scheduled runs.
+* Added: New Auto-delete backup file setting for pCLoud.
+* Added: Manual Upload Backup file to pCloud from histroy page.
+* Enhancement: Increased stability during download from/upload to pCLoud.
+* Enhancement: Increased stability during the migration and cloning process for files of significant size.
+* Security Update: Implemented recommended security improvements as advised by WP_Scan.
+
+= v2.2.4 =
+* Update: Security Patch.
+* New: New archiver for more flexible, stable and faster backup.
+
+= v2.2.3 =
+* Fixes: Fixed few security issues.
+* Fixes: Fixed memory exhausted issue with few websites during restore.
+
+= v2.2.2 =
+* Fixes: Fixed local fonts and icons issue after migration/restoration.
+
+= v2.2.1 =
+* Fixes: Fixed major security issue mentioned by pluginvulnerabilities-dot-com.
+* Fixes: Fixed minor compatibility issue with WordPress 6.4.
+
+= v2.2.0 =
+* Enhancement: Added support for the cloud backup location.
+* Fixes: Fixed minor security issue related to Everest Backup activity log file.
+
+= v2.1.9 =
+* Fixes: Fixed fatal errors and other minor bug fixes.
+
+= v2.1.8 =
+* Fixes: False Disk Space Not Available issue with Migration and Clone.
+
+= v2.1.7 =
+* Fixes: Fatal error on license activation.
+
+= v2.1.6 =
+* Fixes: Expired link issue on plugin activation in object cache enabled websites.
+
+= v2.1.5 =
+* Deprecated: Deprecated function "everest_backup_chunk_download_file". Use: "everest_backup_download_file" instead.
+* Fixes: Active session notice due to "session_start" function.
+* Fixes: Fopen wrapper disabled warning during clone, caused by "allow_url_fopen=0".
+* Enhancement: Minor performance enhancement.
+
+= v2.1.4 =
+* Fixes: Minor issues fixes.
+
+= v2.1.3 =
+* Fixes: Fixed minor issue with addon updater.
+
+= v2.1.2 =
+* Fixes: Fixed minor bugs
+* Enhancement: Added additional support for Everest Backup Pro
+
+= v2.1.1 =
+* Enhancement: Added Access Token API route.
+* Enhancement: Added Manual Backup API route.
+* Enhancement: Removed Abort Button delay for Schedule Backup.
+* Enhancement: Added Manual Backup resume mechanism after internet is back online.
+* Enhancement: Added option in Settings > General > Delete After Restore to keep or remove the restored file.
+* Fixes: Fixed undefined functions issue with some servers.
+
+= v2.1.0 =
+* Fixes: Fixed issue with Schedule Backup with some hosts like one.com
+* Enhancement: Introduced API.
+
+= v2.0.2 =
+* Fixes: Compatibility test with WordPress 6.2 and minor issues fixes.
+* Fixes: Fixed minor issues with PHP v8.2.
+
+= v2.0.1 =
+* Enhancement: Hide backup page modal footer buttons on delete from local web server.
+* Enhancement: Update readme and screenshots.
+
+= v2.0.0 =
+* Enhancement: Added some tabs links as admin bar sub menus.
+* Enhancement: Now users can view more detailed logs during run-time.
+* Enhancement: Better detail viewer for background and schedule backup process.
+* Enhancement: Replaced default archiver with our own Everest Backup archiver.
+* Enhancement: Moved Changelogs sub menu to Everest Backup header.
+* Enhancement: Added a version downloader button in Changelogs page.
+* Enhancement: Added option to change the speed of process logger. See: Settings > General tab > Logger Speed.
+* Fixes: Fixed issues Cloudways hosting servers.
+* Fixes: Fixed issues with backup abort button.
+* Fixes: Fixed memory allocation issues with large database.
+
+= v1.1.7 =
+* Enhancement: Added changelogs page.
+
+= v1.1.6 =
+* Fixes: Migration and downloads issue with multi-language enabled websites.
+* Fixes: Database table listing issue in shared hosting.
+* Enhancement: Enhanced database export and import progress status.
+
+= v1.1.5 =
+* Enhancement: Compatibility check with WordPress 6.1 and minor issues fixes.
+
+= v1.1.4 =
+* Enhancement: Extracter enhancement.
+* Enhancement: Database restore class enhancement.
+* Fixes: Fix menus and widget issues.
+* Fixes: Fix content restoration issue with Elementor and Beaver Builder.
+* Fixes: Fix minor issue with White Label CMS plugin.
+
+= v1.1.3 =
+* Enhancement: Added language packs.
+* Fixes: Minor code fixes and compatibility tested.
+
+= v1.1.2 =
+* Fixes: Minor issues fixes and added few action and filters hooks.
+
+= v1.1.1 =
+* Fixes: Check and fix compatibility issues with WordPress 6.0.
+* Enhancement: Add "Force Abort" button for false background process notice.
+
+= v1.1.0 =
+* Fixes: Fix progress bar not working issue when EDD plugin is activated.
+* Enhancement: Add option to custom name tag backup file.
+* Enhancement: Add an option to filter the Tags in the history table.
+* Enhancement: UI enhancements and minor CSS fixes.
+
+= v1.0.9 =
+* Enhancement: UI enhancements.
+* Enhancement: Add Backup package ignore modules tags in history.
+* Enhancement: Add "Delete from Local Web Server" option for cloud backups.
+* Fixes: Fix issue with "disk_free_space" compatiblilty.
+
+= v1.0.8 =
+* Fixes: Minor security issues fixes.
+* Enhancement: Enhanced temporary files handler.
+
+= v1.0.7 =
+* Fixes: Fixed uploads not found after restoration in a multisite setup.
+* Fixes: Fixed "No Matching Template" message after restore complete.
+* Fixes: Fixed UI and process freeze issue due to Javascript errors.
+* Enhancement: Improved process information and cloud upload background process.
+* Enhancement: Changed temporary directory path.
+* Enhancement: File upload progress info for Restore.
+* Enhancement: File download progress info for Clone and Cloud Rollback.
+* Enhancement: Background task improvement for Backup / Restore / Rollback / Clone.
+* Enhancement: Process is running information for other users.
+* Enhancement: Add a custom fallback archiver.
+
+= v1.0.6 =
+* Enhancement: Database import/export improvements.
+* Enhancement: Improved error handler UI for Restore, Rollback and Clone tasks.
+
+= v1.0.5 =
+* Fixes: Fix issue with PclZip fallback.
+* Fixes: Addons not being activated in multisite.
+* Enhancement: Lazy load sidebar iframes.
+
+= v1.0.4 =
+* Enhancement: Add a progress bar for the restore process.
+* Fixes: Other minor issue fixes related to restoring.
+
+= v1.0.3 =
+* Enhancement: Add a progress bar for the backup process.
+* Enhancement: Filter log details for important errors.
+* Enhancement: Add a sidebar for a brief description and video tutorials.
+* Enhancement: Enhanced file size check for rollback and clone.
+* Fixes: Fix "Download" button issues with some servers after a successful backup.
+
+= v1.0.2 =
+* Fixes: Fix issue with large database files during import and export.
+* Fixes: Fix `ulimit` issue with siteground servers.
+* Fixes: Fix customizer value being reset after restore.
+
+= v1.0.1 =
+* Enhancement: Add modal popup in Backup page.
+* Enhancement: Add "Clear All Logs" button in Logs page.
+* Enhancement: Add Addons page.
+* Fixes: Fix minor issues related to CORS.
+
+= v1.0.0 =
+* Initial release

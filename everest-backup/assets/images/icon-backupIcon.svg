@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="89.314" height="84.559" viewBox="0 0 89.314 84.559">
+  <defs>
+    <filter id="Ellipse_1" x="15.538" y="10.783" width="73.776" height="73.776" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="6.5" result="blur"/>
+      <feFlood flood-opacity="0.451"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="backupIcon" transform="translate(-1023.774 -356.464)">
+    <path id="Icon_material-storage" data-name="Icon material-storage" d="M3,60.524H62.144V46.893H3ZM8.914,50.3h5.914v6.816H8.914ZM3,6V19.631H62.144V6ZM14.829,16.223H8.914V9.408h5.914ZM3,40.078H62.144V26.447H3ZM8.914,29.854h5.914V36.67H8.914Z" transform="translate(1020.774 350.464)" fill="#fff"/>
+    <g transform="matrix(1, 0, 0, 1, 1023.77, 356.46)" filter="url(#Ellipse_1)">
+      <circle id="Ellipse_1-2" data-name="Ellipse 1" cx="17.388" cy="17.388" r="17.388" transform="translate(35.04 27.28)" fill="#0c61dd"/>
+    </g>
+    <path id="Icon_awesome-plus" data-name="Icon awesome-plus" d="M14.4,8.344H9.418V3.358A1.108,1.108,0,0,0,8.31,2.25H7.2A1.108,1.108,0,0,0,6.094,3.358V8.344H1.108A1.108,1.108,0,0,0,0,9.452V10.56a1.108,1.108,0,0,0,1.108,1.108H6.094v4.986A1.108,1.108,0,0,0,7.2,17.763H8.31a1.108,1.108,0,0,0,1.108-1.108V11.668H14.4a1.108,1.108,0,0,0,1.108-1.108V9.452A1.108,1.108,0,0,0,14.4,8.344Z" transform="translate(1068.444 391.129)" fill="#fff"/>
+  </g>
+</svg>
