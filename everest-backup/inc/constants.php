@@ -95,6 +95,14 @@ if ( ! defined( 'EVEREST_BACKUP_PROC_STAT_PATH' ) ) {
 	define( 'EVEREST_BACKUP_PROC_STAT_PATH', wp_normalize_path( EVEREST_BACKUP_BACKUP_DIR_PATH . '/PROCSTAT' ) );
 }
 
+if ( ! defined( 'EVEREST_BACKUP_TEMP_JSON_PATH' ) ) {
+
+	/**
+	 * Path to PROCSTAT file.
+	 */
+	define( 'EVEREST_BACKUP_TEMP_JSON_PATH', wp_normalize_path( EVEREST_BACKUP_TEMP_DIR_PATH . '/temp.json' ) );
+}
+
 if ( ! defined( 'EVEREST_BACKUP_LOCKFILE_PATH' ) ) {
 
 	/**

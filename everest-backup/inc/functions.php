@@ -179,13 +179,18 @@ function everest_backup_download_file( $source, $destination, $args = false ) {
 					__('Downloading failure. Please try again later.', 'everest-backup') . ' Error: ' . $error,
 				),
 				/* translators: */
-				'detail'       => sprintf(__('Download failure.', 'everest-backup'), esc_html( $retry), esc_html(everest_backup_format_size( $size))),
+				'detail'       => sprintf( __( 'Download failure.', 'everest-backup' ), esc_html( $retry ), esc_html( everest_backup_format_size( $size ) ) ),
 				'download_url' => $download_url,
 				'size'         => $size,
 				'seek'         => $downloaded,
 				'next'         => 'check', // Set next to same.
 			);
 			Logs::error(esc_html__('Download failed. Please try again later.', 'everest-backup') . ' Error with response code: ' . $http_code);
+			// Close cURL and the local file and delete local file.
+			curl_close( $ch );
+			fclose( $local_file );
+			@unlink( $destination );
+
 			everest_backup_send_error();
 			die;
 		} else {
@@ -231,8 +236,8 @@ function everest_backup_download_file( $source, $destination, $args = false ) {
 	}
 
 	// Close cURL and the local file.
-	curl_close( $ch);
-	fclose( $local_file);
+	curl_close( $ch );
+	fclose( $local_file );
 	// @phpcs:enable
 
 	if (!$complete) {
@@ -279,7 +284,6 @@ function everest_backup_is_required_functions_enabled() {
 			'ini_set',
 			'hex2bin',
 			'curl_init',
-			'set_time_limit',
 			'set_error_handler',
 			'ignore_user_abort',
 			'register_shutdown_function',
@@ -1981,6 +1985,12 @@ function everest_backup_send_error( $data = null, $status_code = null, $options 
 		delete_transient('everest_backup_wp_cli_express');
 	}
 
+	Proc_Lock::delete();
+
+	do_action('everest_backup_before_send_json');
+
+	Filesystem::init()->delete(EVEREST_BACKUP_TEMP_DIR_PATH, true);
+
 	/**
 	 * As it is possible that "everest_backup_send_success" and "everest_backup_send_error"
 	 * could both be trigger in same script run, which can cause mis-matched json error in client slide.
@@ -1993,12 +2003,6 @@ function everest_backup_send_error( $data = null, $status_code = null, $options 
 
 		return;
 	}
-
-	Proc_Lock::delete();
-
-	do_action('everest_backup_before_send_json');
-
-	Filesystem::init()->delete(EVEREST_BACKUP_TEMP_DIR_PATH, true);
 
 	if (!$disable_send_json) {
 		wp_send_json_error( $res, $status_code, $options);
@@ -2206,11 +2210,14 @@ function everest_backup_setup_environment()
 		function () {
 			$last_error = error_get_last();
 
-			if (!is_array( $last_error)) {
+			if ( ! is_array( $last_error ) ) {
 				return;
 			}
 
-			if (in_array( $last_error['type'], array(2, 8, 32, 128, 512, 1024, 8192, 16384), true)) {
+			if (
+				in_array( $last_error['type'], array(2, 8, 32, 128, 512, 1024, 8192, 16384), true )
+				&& ( false === strpos( $last_error['message'], 'Disk quota exceeded' ) )
+			) {
 				return;
 			}
 
@@ -2219,13 +2226,7 @@ function everest_backup_setup_environment()
 
 			Logs::error( $error);
 
-			if (E_ERROR === $last_error['type'] ) {
-
-				/**
-				 * Send response during fatal errors only.
-				 */
-				everest_backup_send_error();
-			}
+			everest_backup_send_error();
 		}
 	);
 }
@@ -2960,21 +2961,20 @@ if ( ! function_exists( 'everest_backup_activate_our_plugins' ) ) {
 		// Get active plugins.
 		$active_plugins = get_option( 'active_plugins' );
 
-		if ( is_array( $active_plugins ) && ! empty( $active_plugins ) ) {
-			// Filter out inactive plugins.
-			$inactive_plugins = array_keys( array_diff_key( $all_plugins, array_flip( $active_plugins ) ) );
+		// Filter out inactive plugins.
+		$inactive_plugins = array_keys( array_diff_key( $all_plugins, array_flip( $active_plugins ) ) );
 
-			$our_plugins = get_option( 'everest_backup_active_plugins' );
-			if ( is_array( $our_plugins ) && is_array( $inactive_plugins ) ) {
-				$our_inactive_plugins = array_intersect( $our_plugins, $inactive_plugins );
-			}
+		$our_plugins = everest_backup_get_temp_values_during_backup( 'our_active_plugins' );
 
-			if ( ! empty( $our_inactive_plugins ) ) {
-				activate_plugins( $our_inactive_plugins );
-			}
-
-			delete_option( 'everest_backup_active_plugins' );
+		if ( is_array( $our_plugins ) && is_array( $inactive_plugins ) ) {
+			$our_inactive_plugins = array_intersect( $our_plugins, $inactive_plugins );
 		}
+
+		if ( ! empty( $our_inactive_plugins ) ) {
+			activate_plugins( $our_inactive_plugins );
+		}
+
+		delete_option( 'everest_backup_active_plugins' );
 	}
 }
 
@@ -3014,8 +3014,47 @@ if ( ! function_exists( 'everest_backup_set_our_active_plugin_list' ) ) {
 
 		$our_active_plugins = array_intersect( $our_plugins, $active_plugins);
 
-		update_option('everest_backup_active_plugins', $our_active_plugins);
+		everest_backup_set_temp_values_during_backup( array( 'our_active_plugins' => $our_active_plugins ) );
+		return;
 	}
+}
+
+if ( ! function_exists( 'everest_backup_set_temp_values_during_backup' ) ) {
+	/**
+	 * Set temp values during WordPress Backup.
+	 */
+	function everest_backup_set_temp_values_during_backup( $values = array() ) {
+		$fs = everest_backup_create_temp_json();
+		$existing = json_decode( $fs->get_file_content( EVEREST_BACKUP_TEMP_JSON_PATH ), true );
+		return $fs->writefile( EVEREST_BACKUP_TEMP_JSON_PATH, wp_json_encode( array_merge( $existing, $values ) ) );
+	}
+}
+
+if ( ! function_exists( 'everest_backup_get_temp_values_during_backup' ) ) {
+	/**
+	 * Set temp values during WordPress Backup.
+	 */
+	function everest_backup_get_temp_values_during_backup( $key = false ) {
+		$fs = everest_backup_create_temp_json();
+		$values = json_decode( $fs->get_file_content( EVEREST_BACKUP_TEMP_JSON_PATH ), true );
+		if ( $key ) {
+			if ( isset( $values[ $key ] ) ) {
+				return $values[ $key ];
+			} else {
+				return array();
+			}
+		}
+		return $values;
+	}
+}
+
+function everest_backup_create_temp_json() {
+	$fs = Filesystem::init();
+	if ( ! $fs->is_file( EVEREST_BACKUP_TEMP_JSON_PATH ) ) {
+		$fs->mkdir_p( dirname( EVEREST_BACKUP_TEMP_JSON_PATH ) );
+		$fs->writefile( EVEREST_BACKUP_TEMP_JSON_PATH, wp_json_encode( array() ) );
+	}
+	return $fs;
 }
 
 if ( ! function_exists( 'everest_backup_unset_rest_properties' ) ) {

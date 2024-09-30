@@ -496,11 +496,11 @@ class Logs {
 
 		if ( isset( $data['type'] ) && 'error' === $data['type'] ) {
 			if ( false !== strpos( urldecode( $log ), ABSPATH ) ) {
-
-				/**
-				 * Do not log if error is thrown from core, themes, plugins or any other files..
-				 */
-				return;
+				$message = explode( ' in ', $data['message'] );
+				$data['message'] = is_array( $message ) ? $message[0] : false;
+				if ( ! $data['message'] ) {
+					return;
+				}
 			}
 		}
 

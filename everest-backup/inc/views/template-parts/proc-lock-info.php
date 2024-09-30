@@ -159,10 +159,11 @@ if ( everest_backup_is_ebwp_page() && $everest_backup_class ) {
 			let   lastDetail     = "";
 			const processDetails = el.querySelector("textarea");
 			const heading        = document.querySelector('.ebwp-proc-info h1');
+			const wrapper        = document.querySelector('.ebwp-proc-lock-wrapper');
 			const img            = document.querySelector('.ebwp-proc-lock-wrapper .logo-icon');
 			const abortBtn       = document.querySelector('.ebwp-proc-stale .button');
 
-			function handleHeadingsAndImages() {
+			function handleSuccessHeadingsAndImages() {
 				heading.innerHTML = "<?php echo esc_html( wptexturize( __( "Everest Backup's process completed", 'everest-backup' ) ) ); ?>";
 				img.setAttribute('src', '<?php echo esc_url( EVEREST_BACKUP_URL . 'assets/images/ebwp-stop.png' ); ?>');
 
@@ -181,6 +182,15 @@ if ( everest_backup_is_ebwp_page() && $everest_backup_class ) {
 
 				document.querySelector('.ebwp-proc-description').remove();
 
+			}
+
+			function handleErrorHeadingsAndImages() {
+				heading.innerHTML = "<?php echo esc_html( wptexturize( __( "Everest Backup's process Error", 'everest-backup' ) ) ); ?>";
+				heading.style.color = 'red';
+				img.setAttribute('src', '<?php echo esc_url( EVEREST_BACKUP_URL . 'assets/images/ebwp-stop.png' ); ?>');
+				wrapper.classList.add('notice-error');
+				wrapper.style.borderLeft = '4px solid #d63638';
+				document.querySelector('.ebwp-proc-description').remove();
 			}
 
 			function handleProcessDetails(details) {
@@ -232,7 +242,7 @@ if ( everest_backup_is_ebwp_page() && $everest_backup_class ) {
 							case 'done':
 								el.remove();
 								abortBtn.remove();
-								handleHeadingsAndImages();
+								handleSuccessHeadingsAndImages();
 								break;
 							case 'cloud':
 								el.remove();
@@ -241,6 +251,7 @@ if ( everest_backup_is_ebwp_page() && $everest_backup_class ) {
 							case 'error':
 								el.remove();
 								abortBtn.remove();
+								handleErrorHeadingsAndImages();
 								break;
 							default:
 								handleProgress(res.progress);

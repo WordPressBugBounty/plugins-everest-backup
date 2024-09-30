@@ -47,6 +47,9 @@ class Email_Logs extends Email {
 	 * @since 1.0.0
 	 */
 	public function init( $temp_logs ) {
+		if ( everest_backup_pro_active() ) {
+			return;
+		}
 
 		$process_types = Logs::get_process_type( $temp_logs );
 

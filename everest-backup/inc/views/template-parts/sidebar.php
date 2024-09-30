@@ -62,6 +62,9 @@ $template = 'template-parts/sidebar-card';
 	 */
 	if ( is_array( $global_contents ) && ! empty( $global_contents ) ) {
 		foreach ( $global_contents as $global_content ) {
+			if ( 'Everest Backup Pro' === $global_content['title'] && everest_backup_pro_active() ) {
+				continue;
+			}
 			everest_backup_render_view( $template, $global_content );
 		}
 	}

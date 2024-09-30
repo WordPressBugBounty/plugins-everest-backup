@@ -56,6 +56,52 @@ class Setup {
 
 		$config = array();
 
+		if ( isset( self::$params['ebwp_site_db_prefix'] ) ) {
+			$prefix = self::$params['ebwp_site_db_prefix'];
+
+			$table_name = $prefix . 'options';
+
+			// Query to get the 'siteurl'
+			$url = $wpdb->get_row(
+				$wpdb->prepare(
+					"SELECT 
+						(SELECT option_value FROM {$table_name} WHERE option_name = %s) as siteurl,
+						(SELECT option_value FROM {$table_name} WHERE option_name = %s) as home,
+						(SELECT option_value FROM {$table_name} WHERE option_name = %s) as template,
+						(SELECT option_value FROM {$table_name} WHERE option_name = %s) as stylesheet,
+						(SELECT option_value FROM {$table_name} WHERE option_name = %s) as active_plugins
+					",
+					'siteurl',
+					'home',
+					'template',
+					'stylesheet',
+					'active_plugins'
+				)
+			);
+
+			// Set site URL.
+			$config['SiteURL'] = $url->siteurl;
+	
+			// Set home URL.
+			$config['HomeURL'] = $url->home;
+
+			$config['Template']      = $url->template;
+			$config['Stylesheet']    = $url->stylesheet;
+			$config['ActivePlugins'] = maybe_unserialize( $url->active_plugins );
+		} else {
+			$prefix = $table_prefix;
+
+			// Set site URL.
+			$config['SiteURL'] = site_url();
+	
+			// Set home URL.
+			$config['HomeURL'] = home_url();
+
+			$config['Template']      = get_option( 'template' );
+			$config['Stylesheet']    = get_option( 'stylesheet' );
+			$config['ActivePlugins'] = get_option( 'active_plugins', array() );
+		}
+
 		$config['Params'] = self::$params;
 
 		$config['FileInfo'] = array(
@@ -63,12 +109,6 @@ class Setup {
 			'timestamp' => everest_backup_current_request_timestamp(),
 			'filename'  => self::get_archive_name(),
 		);
-
-		// Set site URL.
-		$config['SiteURL'] = site_url();
-
-		// Set home URL.
-		$config['HomeURL'] = home_url();
 
 		$config['NavMenus'] = get_nav_menu_locations();
 
@@ -85,7 +125,7 @@ class Setup {
 
 		// Set WordPress version and content.
 		$config['WordPress'] = array(
-			'Multisite'  => is_multisite(),
+			'Multisite'  => ( isset( self::$params['ebwp_site_db_prefix'] ) && ( $wpdb->prefix !== self::$params['ebwp_site_db_prefix'] ) ) ? false : is_multisite(),
 			'Version'    => $wp_version,
 			'Content'    => WP_CONTENT_DIR,
 			'Plugins'    => WP_PLUGIN_DIR,
@@ -98,12 +138,8 @@ class Setup {
 			'Version' => $wpdb->db_version(),
 			'Charset' => defined( 'DB_CHARSET' ) ? DB_CHARSET : '',
 			'Collate' => defined( 'DB_COLLATE' ) ? DB_COLLATE : '',
-			'Prefix'  => $table_prefix,
+			'Prefix'  => $prefix,
 		);
-
-		$config['Template']      = get_option( 'template' );
-		$config['Stylesheet']    = get_option( 'stylesheet' );
-		$config['ActivePlugins'] = get_option( 'active_plugins', array() );
 
 		$config['PHP'] = array(
 			'Version' => PHP_VERSION,

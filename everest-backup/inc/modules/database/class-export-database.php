@@ -216,9 +216,9 @@ class Export_Database extends Database {
 		return $created;
 	}
 
-	public function export_table( $table_name, $query_count_cb = null ) {
+	public function export_table( $table_name, $query_count_cb = null, $prefix = false ) {
 
-		$created = $this->write( $this->get_header() );
+		$created = $this->write( $this->get_header( $prefix ) );
 
 		Logs::save_to_activity_log( "Exporting Table: {$table_name}", false, true );
 

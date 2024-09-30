@@ -106,7 +106,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 									<?php
 								} else {
 									?>
-									<p><?php esc_html_e( 'That seems uncommon! However, please do not worry - we would be delighted to investigate the matter and resolve it for you.', 'everest-backup' ); ?></p>
+									<p class="everest-backup-error-during-backup-p"><?php esc_html_e( 'That seems uncommon! However, please do not worry - we would be delighted to investigate the matter and resolve it for you.', 'everest-backup' ); ?></p>
 									<?php
 								}
 								?>

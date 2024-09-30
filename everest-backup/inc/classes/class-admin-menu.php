@@ -31,8 +31,16 @@ class Admin_Menu {
 	 */
 	public static function init() {
 		add_action( 'admin_head', '\Everest_Backup\Admin_Menu::upsell_attr', 10 );
-
-		$hook = is_multisite() ? 'network_admin_menu' : 'admin_menu';
+		$settings = everest_backup_get_settings( 'general' );
+		if ( is_multisite() ) {
+			if ( ! is_network_admin() && isset( $settings['show_menu_in_site_admin_dashboard'] ) && 'yes' === $settings['show_menu_in_site_admin_dashboard'] ) {
+				$hook = 'admin_menu';
+			} else {
+				$hook = 'network_admin_menu';
+			}
+		} else {
+			$hook = 'admin_menu';
+		}
 		add_action( $hook, array( __CLASS__, 'register' ) );
 		add_action( 'admin_bar_menu', array( __CLASS__, 'admin_bar_item' ), 100 );
 	}
@@ -55,12 +63,7 @@ class Admin_Menu {
 	 * @return void
 	 */
 	public static function admin_bar_item( \WP_Admin_Bar $admin_bar ) {
-
 		if ( ! current_user_can( 'manage_options' ) ) {
-			return;
-		}
-
-		if ( is_multisite() && ! is_network_admin() ) {
 			return;
 		}
 

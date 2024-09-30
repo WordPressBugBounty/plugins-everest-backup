@@ -1,11 +1,20 @@
 == Changelog ==
 
+= v2.2.13 =
+* Added multisite - subsite to single support for manual backups.
+* Added multisite to multisite support for manual and schedule backup.
+* Added single to multisite as a subsite support.
+* Auto remove incomplete backup on backup process abort and clone error.
+* Show error and halt process if any occur during scheduled backup.
+* Improve compatibility with translate plugins.
+* Fixes and minor improvements.
+
 = v2.2.12 =
+* Fixed: Fatal for manual upload to cloud when cloud setting missing.
+* Update: FTP still showing without setting saved in manual upload to cloud.
 * Update: Backup process improved to more supported format.
 * Improvement: Automatic backup restore no longer shows issues.
 * Other Bug fixes and improvements.
-* Fixed: Fatal for manual upload to cloud when cloud setting missing.
-* Update: FTP still showing without setting saved in manual upload to cloud.
 
 = v2.2.11 =
 * Update: Save default WordPress and WooCommerce permalinks after restore.

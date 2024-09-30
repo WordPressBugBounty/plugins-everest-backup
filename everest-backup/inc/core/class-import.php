@@ -10,6 +10,7 @@ namespace Everest_Backup\Core;
 use Everest_Backup\Core\Import\Wrapup;
 use Everest_Backup\Core\Import\Check;
 use Everest_Backup\Core\Import\Extraction;
+use Everest_Backup\Core\Import\Multisite;
 use Everest_Backup\Logs;
 
 /**
@@ -69,6 +70,10 @@ class Import {
 
 			case 'extraction':
 				Extraction::init( $params );
+				break;
+
+			case 'multisite':
+				Multisite::init( $params );
 				break;
 
 			default:

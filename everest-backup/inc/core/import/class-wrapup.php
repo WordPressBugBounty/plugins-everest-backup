@@ -26,11 +26,10 @@ class Wrapup {
 
 	use Import;
 
-	public static function get_critical_tables() {
-		global $wpdb;
+	public static function get_critical_tables( $prefix = '' ) {
 		return array_map(
-			function ( $table ) use ( $wpdb ) {
-				return $wpdb->prefix . $table . '.sql';
+			function ( $table ) use ( $prefix ) {
+				return $prefix . $table . '.sql';
 			},
 			apply_filters(
 				'everest_backup_critical_tables_for_import',
@@ -64,7 +63,7 @@ class Wrapup {
 
 		$critical = false;
 
-		$critical_tables = self::get_critical_tables();
+		$critical_tables = self::get_critical_tables( $db_configs['Prefix'] );
 
 		if ( ! isset( $params['critical'] ) ) {
 			$database_files = array_filter( $database_files, function ( $val ) use ( $critical_tables ) {
@@ -107,14 +106,53 @@ class Wrapup {
 					'total_tables' => $total_tables,
 				);
 
-				$import_database = new Import_Database( $database_file, $db_configs['Tables'], $find_replace );
-				$import_database->import_table(
-					function ( $query_count ) use ( $proc_stat_args ) {
-						/* translators: query count. */
-						$proc_stat_args['detail'] = sprintf( __( 'Queries count: %s', 'everest-backup' ), $query_count );
-						return Logs::set_proc_stat( $proc_stat_args );
+				$blog = \everest_backup_get_temp_values_during_backup( 'blog' );
+
+				if ( ! empty( $blog ) ) {
+					foreach ( $blog as $blog_id => $blog_val ) {
+						\switch_to_blog( $blog_id );
+
+						$metadata = self::get_metadata();
+						$config_data = $metadata['config'];
+
+						$find_replace = array();
+
+						$old_site_url = str_replace( array( 'http://', 'https://' ), '', $config_data['SiteURL'] );
+						$old_home_url = str_replace( array( 'http://', 'https://' ), '', $config_data['HomeURL'] );
+
+						$new_site_url = str_replace( array( 'http://', 'https://' ), '', $blog_val['SubsiteURL'] );
+						$new_home_url = str_replace( array( 'http://', 'https://' ), '', $blog_val['SubsiteURL'] );
+
+						$old_upload_dir = $config_data['WordPress']['UploadsDIR'];
+						$new_upload_dir = everest_backup_get_uploads_dir();
+
+						$old_upload_url = str_replace( array( 'http://', 'https://' ), '', $config_data['WordPress']['UploadsURL'] );
+						$new_upload_url = str_replace( array( 'http://', 'https://' ), '', everest_backup_get_uploads_url() );
+
+						$find_replace[ $old_site_url ]   = $new_site_url;
+						$find_replace[ $old_home_url ]   = $new_home_url;
+						$find_replace[ $old_upload_dir ] = $new_upload_dir;
+						$find_replace[ $old_upload_url ] = $new_upload_url;
+						$import_database = new Import_Database( $database_file, $db_configs['Tables'], $find_replace );
+						$import_database->import_table(
+							function ( $query_count ) use ( $proc_stat_args ) {
+								/* translators: query count. */
+								$proc_stat_args['detail'] = __( 'Queries count: ', 'everest-backup' ) . $query_count;
+								return Logs::set_proc_stat( $proc_stat_args );
+							}
+						);
+						\restore_current_blog();
 					}
-				);
+				} else {
+					$import_database = new Import_Database( $database_file, $db_configs['Tables'], $find_replace );
+					$import_database->import_table(
+						function ( $query_count ) use ( $proc_stat_args ) {
+							/* translators: query count. */
+							$proc_stat_args['detail'] = __( 'Queries count: ', 'everest-backup' ) . $query_count;
+							return Logs::set_proc_stat( $proc_stat_args );
+						}
+					);
+				}
 
 				/**
 				 * Remove the imported database files.

@@ -161,12 +161,14 @@ class Database {
 	/**
 	 * Returns header for dump file.
 	 *
+	 * @param  string $prefix DB Prefix.
 	 * @return string
 	 */
-	public function get_header() {
+	public function get_header( $prefix = false ) {
 		$wpdb = $this->wpdb;
-
-		$prefix = $wpdb->prefix;
+		if ( ! $prefix ) {
+			$prefix = $wpdb->prefix;
+		}
 		$dbhost = $wpdb->dbhost;
 		$dbname = $wpdb->dbname;
 

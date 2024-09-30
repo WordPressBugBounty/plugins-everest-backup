@@ -109,6 +109,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         var modalDismissWrapper = document.getElementById("btn-modal-dismiss-wrapper");
         var backupForm = ebwpContainer.querySelector("#backup-form");
         var btnBackup = ebwpContainer.querySelector("#btn-backup");
+        var backupErrorP = modalBody.querySelector('.after-process-error .everest-backup-error-during-backup-p');
         if (!backupForm) {
             return;
         }
@@ -224,10 +225,24 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                 BackupCompleteModalFooter.appendChild(btnGenerateMigrationKey(args.migration_url));
             }, 1000);
         };
-        var onBackupProcessError = function () {
+        var onBackupProcessError = function (lastError) {
             displayModalUI(false);
             AfterProcessError.classList.remove('hidden');
+            maybeShowLastError(lastError);
         };
+        function maybeShowLastError(lastError) {
+            if (lastError && lastError !== '') {
+                if (lastError.includes('Download failed.')) {
+                    backupErrorP.innerHTML = lastError;
+                }
+                if (lastError.includes('Too many retries.')) {
+                    backupErrorP.innerHTML = lastError;
+                }
+                if (lastError.includes('Disk quota exceeded')) {
+                    backupErrorP.innerHTML = 'Disk Quota Exceeded. Please check your server storage.';
+                }
+            }
+        }
         var handleProgressInfo = function (message, progress) {
             processBar.style.width = "".concat(progress, "%");
             if ('undefined' !== typeof message) {
@@ -303,8 +318,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                                         onBackupProcessSuccess(res.data, res.message);
                                         break;
                                     case 'error':
+                                        var lastError = getLastError(res.data);
                                         removeProcStatFile();
-                                        onBackupProcessError();
+                                        onBackupProcessError(lastError);
                                         break;
                                     default:
                                         handleProcessDetails(res.detail);
@@ -343,6 +359,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
             var onBeaconFailed = function () {
                 removeProcStatFile();
             };
+            function getLastError(data) {
+                if (data.logs) {
+                    if (data.logs.length > 0) {
+                        var last_log = data.logs[data.logs.length - 1];
+                        return (last_log.type === 'error') ? last_log.message : '';
+                    }
+                }
+                return '';
+            }
             function onNetworkStatusChange(e) {
                 if ('offline' === e.type) {
                     handleProcessDetails('=== No internet ===\n\n', true);

@@ -340,6 +340,11 @@ class Extraction {
 		$general_settings     = everest_backup_get_settings( 'general' );
 		$delete_after_restore = ! empty( $general_settings['delete_after_restore'] ) ? $general_settings['delete_after_restore'] : 'yes';
 
+		$next = 'wrapup';
+		if ( \is_multisite() && ! $metadata['config']['WordPress']['Multisite'] ) {
+			$next = 'multisite';
+		}
+
 		Logs::set_proc_stat(
 			array(
 				'log'      => 'info',
@@ -352,7 +357,7 @@ class Extraction {
 					esc_html( human_time_diff( $timer_start ) )
 				),
 				'detail'   => ( 'yes' === $delete_after_restore ) ? __( 'Removing uploaded archive file', 'everest-backup' ) : __( 'Keeping uploaded archive file.', 'everest-backup' ),
-				'next'     => 'wrapup', // Set next.
+				'next'     => $next, // Set next.
 			)
 		);
 

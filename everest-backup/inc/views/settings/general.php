@@ -14,9 +14,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $everest_backup_settings = ! empty( $args['settings'] ) ? $args['settings'] : array();
 
-$tags_display_type    = ! empty( $everest_backup_settings['general']['tags_display_type'] ) ? $everest_backup_settings['general']['tags_display_type'] : 'included';
-$delete_after_restore = ! empty( $everest_backup_settings['general']['delete_after_restore'] ) ? $everest_backup_settings['general']['delete_after_restore'] : 'yes';
-$logger_speed         = ! empty( $everest_backup_settings['general']['logger_speed'] ) ? absint( $everest_backup_settings['general']['logger_speed'] ) : 200;
+$tags_display_type                 = ! empty( $everest_backup_settings['general']['tags_display_type'] ) ? $everest_backup_settings['general']['tags_display_type'] : 'included';
+$delete_after_restore              = ! empty( $everest_backup_settings['general']['delete_after_restore'] ) ? $everest_backup_settings['general']['delete_after_restore'] : 'yes';
+$logger_speed                      = ! empty( $everest_backup_settings['general']['logger_speed'] ) ? absint( $everest_backup_settings['general']['logger_speed'] ) : 200;
+$show_menu_in_site_admin_dashboard = ! empty( $everest_backup_settings['general']['show_menu_in_site_admin_dashboard'] ) ? $everest_backup_settings['general']['show_menu_in_site_admin_dashboard'] : 'no';
 
 ?>
 <form method="post">
@@ -105,6 +106,25 @@ $logger_speed         = ! empty( $everest_backup_settings['general']['logger_spe
 					</label>
 				</td>
 			</tr>
+			<?php
+			if ( everest_backup_pro_active() && is_multisite() && is_network_admin() ) {
+				?>
+				<tr>
+					<th scope="row">
+						<?php esc_html_e( 'Show menu in Site Admin Dashboard', 'everest-backup' ); ?>
+					</th>
+					<td>
+						<label>
+							<select name="everest_backup_settings[general][show_menu_in_site_admin_dashboard]">
+								<option <?php selected( $show_menu_in_site_admin_dashboard, 'yes' ); ?> value="yes"><?php esc_html_e( 'Yes', 'everest-backup' ); ?></option>
+								<option <?php selected( $show_menu_in_site_admin_dashboard, 'no' ); ?> value="no"><?php esc_html_e( 'No', 'everest-backup' ); ?></option>
+							</select>
+						</label>
+					</td>
+				</tr>
+				<?php
+			}
+			?>
 
 			<tr>
 				<th scope="row">

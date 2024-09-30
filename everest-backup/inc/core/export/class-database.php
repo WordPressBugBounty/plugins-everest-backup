@@ -32,11 +32,19 @@ class Database {
 	 * @param string $sql_file Sql file path.
 	 */
 	private static function export_database( $sql_file = '' ) {
-		global $wpdb;
+
+		$params = self::read_config( 'Params' );
+
+		if ( isset( $params['ebwp_site_db_prefix'] ) ) {
+			$prefix = $params['ebwp_site_db_prefix'];
+		} else {
+			global $wpdb;
+			$prefix = $wpdb->prefix;
+		}
 
 		$export_database = new Export_Database( $sql_file );
 
-		$export_database->add_table_prefix_filter( $wpdb->prefix );
+		$export_database->add_table_prefix_filter( $prefix );
 
 		$additional_table_prefixes = apply_filters(
 			'everest_backup_filter_additional_table_prefixes',
@@ -175,14 +183,25 @@ class Database {
 			$sql_file = wp_normalize_path( $dirpath . DIRECTORY_SEPARATOR . "{$table_name}.sql" );
 
 			$export_database = self::export_database( $sql_file );
+
+			$params = self::read_config( 'Params' );
+	
+			if ( isset( $params['ebwp_site_db_prefix'] ) ) {
+				$prefix = $params['ebwp_site_db_prefix'];
+			} else {
+				global $wpdb;
+				$prefix = $wpdb->prefix;
+			}
+
 			$export_database->export_table(
 				$table_name,
 				function ( $query_count ) use ( &$proc_stat_args ) {
 					/* translators: number of queries */
-					$proc_stat_args['detail'] = sprintf( __( 'Queries count: %s', 'everest-backup' ), $query_count );
+					$proc_stat_args['detail'] = sprintf( 'Queries count: %s', $query_count );
 
 					return Logs::set_proc_stat( $proc_stat_args );
-				}
+				},
+				$prefix
 			);
 
 			self::addtolist( $sql_file );

@@ -140,10 +140,29 @@ everest_backup_render_view( 'template-parts/message-box' );
 	</div>
 
 	<div class="everest-backup-btn-wrapper" id="backup-wrapper">
+		<?php
+		if ( everest_backup_pro_active() && is_multisite() && is_network_admin() ) {
+			$sites = get_sites( array( 'deleted' => 0 ) );
+			?>
+			<label for="ebwp_site_db_prefix">Select site to backup: </label>
+			<select name="ebwp_site_db_prefix" id="ebwp_site_db_prefix">
+			<?php foreach ( $sites as $site ) {
+				$site_name = trim( $site->path, '/' );
+				if ( '' === $site_name ) {
+					$site_name = 'All';
+				}
+				$prefix = ( 1 === $site->blog_id ) ? $wpdb->base_prefix : $wpdb->get_blog_prefix($site->blog_id);
+				?>
+				<option value="<?php echo esc_attr( $prefix )?>"><?php echo esc_attr( $site_name )?></option>
+			<?php }	?>
+			</select>
+			<?php
+		}
+		?>
 		<button class="button button-primary button-hero" id="btn-backup">
-		<svg width="65.049" height="43.366" viewBox="0 0 65.049 43.366">
-			<path d="M52.446,22.371A20.308,20.308,0,0,0,14.5,16.95a16.256,16.256,0,0,0,1.762,32.416H51.5a13.513,13.513,0,0,0,.949-27Zm-14.5,8.023V41.235H27.1V30.394H18.973L32.525,16.842,46.077,30.394Z" transform="translate(0 -6)" fill="#fff"/>
-		</svg>
+			<svg width="65.049" height="43.366" viewBox="0 0 65.049 43.366">
+				<path d="M52.446,22.371A20.308,20.308,0,0,0,14.5,16.95a16.256,16.256,0,0,0,1.762,32.416H51.5a13.513,13.513,0,0,0,.949-27Zm-14.5,8.023V41.235H27.1V30.394H18.973L32.525,16.842,46.077,30.394Z" transform="translate(0 -6)" fill="#fff"/>
+			</svg>
 			<span><?php esc_html_e( 'Backup Now!', 'everest-backup' ); ?></span>
 		</button>
 

@@ -50,6 +50,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     var processDetails = document.querySelector('#process-info .process-details textarea');
     var processBar = document.querySelector('#import-on-process #process-info .progress .progress-bar');
     var processMsg = document.querySelector('#import-on-process #process-info .process-message');
+    var backupErrorP = AfterRestoreError.querySelector('.everest-backup-error-during-backup-p');
     var sseURL = function () {
         var url = new URL(_everest_backup.sseURL);
         url.searchParams.append('t', "".concat(+new Date()));
@@ -141,6 +142,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                                     removeProcStatFile();
                                     break;
                                 case 'error':
+                                    var lastError = getLastError(res.data);
+                                    maybeShowLastError(lastError);
                                     removeProcStatFile();
                                     handleProcessSuccessError(false);
                                     break;
@@ -178,6 +181,28 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                 }
             });
         }); };
+        function getLastError(data) {
+            if (data.logs) {
+                if (data.logs.length > 0) {
+                    var last_log = data.logs[data.logs.length - 1];
+                    return (last_log.type === 'error') ? last_log.message : '';
+                }
+            }
+            return '';
+        }
+        function maybeShowLastError(lastError) {
+            if (lastError && lastError !== '') {
+                if (lastError.includes('Download failed.')) {
+                    backupErrorP.innerHTML = lastError;
+                }
+                if (lastError.includes('Too many retries.')) {
+                    backupErrorP.innerHTML = lastError;
+                }
+                if (lastError.includes('Disk quota exceeded')) {
+                    backupErrorP.innerHTML = 'Disk Quota Exceeded. Please check your server storage.';
+                }
+            }
+        }
         var onBeaconFailed = function () {
             removeProcStatFile();
         };

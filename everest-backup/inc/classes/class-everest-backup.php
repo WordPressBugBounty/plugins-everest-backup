@@ -57,10 +57,12 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 		private function init_hooks() {
 			add_action( 'init', array( $this, 'handle_usage_stats' ) );
 			add_action( 'admin_init', array( $this, 'on_admin_init' ), 5 );
-			add_action( 'admin_notices', array( $this, 'print_admin_notices' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 
 			add_action( 'plugins_loaded', array( $this, 'on_plugins_loaded' ) );
+
+			add_action( 'admin_notices', array( $this, 'print_admin_notices' ) );
+			add_action( 'admin_notices', array( $this, 'print_addons_license_notices' ), 10000 );
 		}
 
 		/**
@@ -482,6 +484,24 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 
 			if ( ! empty( $proc_lock['uid'] ) ) {
 				/**
+				 * Delete incomplete backup file if exists.
+				 */
+				$content = @file_get_contents( everest_backup_current_request_storage_path( 'ebwp-config.json' ) );
+				if ( ! empty( $content ) ) {
+					$config  = $content ? json_decode( $content, true ) : array();
+			
+					$fileinfo =  isset( $config[ 'FileInfo' ] ) ? $config[ 'FileInfo' ] : false;
+	
+					if ( $fileinfo && ! empty( $fileinfo['filename'] ) ) {
+						$backup_file_path = wp_normalize_path( EVEREST_BACKUP_BACKUP_DIR_PATH . DIRECTORY_SEPARATOR . $fileinfo['filename'] );
+						if ( file_exists( $backup_file_path ) ) {
+							@unlink( $backup_file_path );
+						}
+					}
+				}
+
+
+				/**
 				 * Send email notification to user who initiated the process.
 				 */
 
@@ -602,89 +622,6 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 			do_action( 'everest_backup_after_settings_save', $settings, $has_changes );
 
 			everest_backup_set_notice( __( 'Settings saved.', 'everest-backup' ), 'notice-success' );
-		}
-
-		/**
-		 * Force download backup file as zip if EBWP debug mode is on.
-		 *
-		 * @return void
-		 * @since 1.1.2
-		 */
-		private function download_as_zip() {
-
-			if ( ! everest_backup_is_debug_on() ) {
-				return;
-			}
-
-			$get = everest_backup_get_submitted_data( 'get' );
-
-			if ( empty( $get['page'] ) ) {
-				return;
-			}
-
-			if ( empty( $get['action'] ) ) {
-				return;
-			}
-
-			if ( empty( $get['file'] ) ) {
-				return;
-			}
-
-			if ( empty( $get['_nonce'] ) ) {
-				return;
-			}
-
-			if ( 'everest-backup-history' !== $get['page'] ) {
-				return;
-			}
-
-			if ( 'download-as-zip' !== $get['action'] ) {
-				return;
-			}
-
-			if ( ! is_user_logged_in() ) {
-				return;
-			}
-
-			if ( ! current_user_can( 'manage_options' ) ) {
-				return;
-			}
-
-			if ( ! wp_verify_nonce( $get['_nonce'], $get['file'] ) ) {
-				everest_backup_set_notice( __( 'Nonce verification failed.', 'everest-backup' ), 'notice-error' );
-				return;
-			}
-
-			$file_path = everest_backup_get_backup_full_path( $get['file'] );
-
-			if ( ! $file_path ) {
-				everest_backup_set_notice( __( 'File does not exists.', 'everest-backup' ), 'notice-error' );
-				return;
-			}
-
-			$zipname = pathinfo( $file_path, PATHINFO_FILENAME ) . '.zip';
-
-			// @phpcs:disable
-
-			// Start force download backup file as zip file.
-
-			set_time_limit( 0 );
-			ini_set( 'memory_limit', '-1' );
-
-			header( 'Content-Description: File Transfer' );
-			header( 'Content-Type: application/octet-stream' );
-			header( 'Content-Disposition: attachment; filename="' . $zipname . '"' );
-			header( 'Content-Transfer-Encoding: binary' );
-			header( 'Expires: 0' );
-			header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0' );
-			header( 'Pragma: public' );
-			header( 'Content-Length: ' . filesize( $file_path ) );
-			ob_clean();
-			ob_end_flush();
-			readfile( $file_path );
-			exit;
-
-			// @phpcs:enable
 		}
 
 		/**
@@ -1089,6 +1026,24 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 			wp_localize_script( $handle, '_everest_backup', $localized_data );
 
 			wp_enqueue_script( $handle );
+		}
+
+		/**
+		 * Print addons license notices.
+		 */
+		public function print_addons_license_notices() {
+			$plugins = apply_filters( 'everest_backup_inactive_license_addons', array() );
+			if ( ! empty( $plugins ) ) {
+				?>
+				<div class="notice notice-error">
+					<p class=""><?php printf( 'Your %s license key is inactive. Please click the link below to activate your license.', implode( ', ', $plugins ) ); ?></p>
+		
+					<p>
+						<a href="<?php echo esc_url( admin_url( 'admin.php?page=everest-backup-license' ) ); ?>">Activate Your License</a>
+					</p>
+				</div>
+				<?php
+			}
 		}
 	}
 }
