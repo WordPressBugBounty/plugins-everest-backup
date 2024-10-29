@@ -232,6 +232,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         };
         function maybeShowLastError(lastError) {
             if (lastError && lastError !== '') {
+                if (lastError.includes('aborting backup')) {
+                    backupErrorP.innerHTML = lastError;
+                }
                 if (lastError.includes('Download failed.')) {
                     backupErrorP.innerHTML = lastError;
                 }

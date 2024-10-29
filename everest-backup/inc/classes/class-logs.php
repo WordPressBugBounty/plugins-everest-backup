@@ -367,8 +367,6 @@ class Logs {
 				unlink( $activity_log_file );
 			}
 
-			$sse_status_code = wp_remote_retrieve_response_code( wp_remote_head( set_url_scheme( EVEREST_BACKUP_BACKUP_DIR_URL . '/sse.php', 'admin' ) ) );
-
 			$content .= '============================================';
 			$content .= PHP_EOL;
 			$content .= 'Server Engine: ' . ( ! empty( $_SERVER['SERVER_SOFTWARE'] ) ? sanitize_text_field( wp_unslash( $_SERVER['SERVER_SOFTWARE'] ) ) : 'N/A' );
@@ -398,8 +396,6 @@ class Logs {
 			$content .= 'Timezone: ' . wp_date( 'e' );
 			$content .= PHP_EOL;
 			$content .= 'Active Addons: ' . wp_json_encode( everest_backup_installed_addons( 'active' ) );
-			$content .= PHP_EOL;
-			$content .= "SSE STATUS: {$sse_status_code} " . get_status_header_desc( $sse_status_code );
 			$content .= PHP_EOL;
 			$content .= '============================================';
 			$content .= PHP_EOL;

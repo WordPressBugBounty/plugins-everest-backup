@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-09-26 04:49+0000\n"
+"POT-Creation-Date: 2024-10-25 02:25+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -131,7 +131,7 @@ msgstr ""
 msgid "Backup"
 msgstr ""
 
-#: ../inc/functions.php:1758, ../inc/views/restore.php:187, ../inc/modules/history/class-history-table.php:426
+#: ../inc/functions.php:1758, ../inc/views/restore.php:206, ../inc/modules/history/class-history-table.php:426
 msgid "Rollback"
 msgstr ""
 
@@ -181,7 +181,7 @@ msgstr ""
 msgid "Disable"
 msgstr ""
 
-#: ../inc/functions.php:3205, ../inc/core/export/class-database.php:121
+#: ../inc/functions.php:3205
 msgid "Could not write tables to config file."
 msgstr ""
 
@@ -209,7 +209,7 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: ../inc/classes/class-admin-menu.php:246, ../inc/classes/class-admin-menu.php:247, ../inc/classes/class-everest-backup.php:875
+#: ../inc/classes/class-admin-menu.php:246, ../inc/classes/class-admin-menu.php:247, ../inc/classes/class-everest-backup.php:891
 msgid "Addons"
 msgstr ""
 
@@ -257,54 +257,54 @@ msgstr ""
 msgid "UPGRADE TO PRO"
 msgstr ""
 
-#: ../inc/classes/class-ajax.php:274
+#: ../inc/classes/class-ajax.php:277
 msgid "Clone failed because package download url is missing."
 msgstr ""
 
-#: ../inc/classes/class-ajax.php:279
+#: ../inc/classes/class-ajax.php:282
 msgid "Downloading the file from the host site."
 msgstr ""
 
-#: ../inc/classes/class-ajax.php:285
+#: ../inc/classes/class-ajax.php:288
 msgid "Failed to download the file from the host site."
 msgstr ""
 
-#: ../inc/classes/class-ajax.php:290
+#: ../inc/classes/class-ajax.php:293
 msgid "File downloaded successfully."
 msgstr ""
 
-#: ../inc/classes/class-ajax.php:302, ../inc/classes/class-ajax.php:339, ../inc/classes/class-ajax.php:373, ../inc/classes/class-ajax.php:411
+#: ../inc/classes/class-ajax.php:305, ../inc/classes/class-ajax.php:342, ../inc/classes/class-ajax.php:376, ../inc/classes/class-ajax.php:414
 msgid "Current user does not have permission to upload files."
 msgstr ""
 
-#: ../inc/classes/class-ajax.php:316, ../inc/classes/class-ajax.php:311
+#: ../inc/classes/class-ajax.php:319, ../inc/classes/class-ajax.php:314
 msgid "The current uploaded file seems to be tampered with."
 msgstr ""
 
 #. translators: %s is the restore start time.
-#: ../inc/classes/class-ajax.php:433
+#: ../inc/classes/class-ajax.php:436
 msgid "Restore started at: %s"
 msgstr ""
 
-#: ../inc/classes/class-ajax.php:439
+#: ../inc/classes/class-ajax.php:442
 msgid "Extracting package"
 msgstr ""
 
-#: ../inc/classes/class-ajax.php:458
+#: ../inc/classes/class-ajax.php:461
 msgid "Cleaning remaining extracted files"
 msgstr ""
 
 #. translators: %s is the restore completed time.
-#: ../inc/classes/class-ajax.php:465
+#: ../inc/classes/class-ajax.php:468
 msgid "Restore completed at: %s"
 msgstr ""
 
 #. translators: %s is the total restore time.
-#: ../inc/classes/class-ajax.php:468
+#: ../inc/classes/class-ajax.php:471
 msgid "Total time: %s"
 msgstr ""
 
-#: ../inc/classes/class-ajax.php:470, ../inc/core/import/class-wrapup.php:302
+#: ../inc/classes/class-ajax.php:473, ../inc/core/import/class-wrapup.php:302
 msgid "Restore completed."
 msgstr ""
 
@@ -350,7 +350,7 @@ msgstr ""
 msgid "%s Backup Location"
 msgstr ""
 
-#: ../inc/classes/class-cloud.php:188, ../inc/views/restore.php:180
+#: ../inc/classes/class-cloud.php:188, ../inc/views/restore.php:199
 msgid "Cancel"
 msgstr ""
 
@@ -438,97 +438,97 @@ msgid "Deleting the backup file from the server."
 msgstr ""
 
 #. translators: %1$s is Addon name, %2$s is Everest Backup required version and %3$s is Everest Backup plugin name.
-#: ../inc/classes/class-everest-backup.php:384
+#: ../inc/classes/class-everest-backup.php:400
 msgid "%1$s plugin requires %2$s or later. Please update your existing %3$s plugin to the latest version."
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:512
+#: ../inc/classes/class-everest-backup.php:528
 msgid "Everest Backup: Force Abort"
 msgstr ""
 
 #. translators: %1$s is Human time difference and %2$s is username.
-#: ../inc/classes/class-everest-backup.php:515
+#: ../inc/classes/class-everest-backup.php:531
 msgid "Everest Backup process that was running since %1$s has been forcefully aborted by: %2$s"
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:577
+#: ../inc/classes/class-everest-backup.php:593
 msgid "Plugin slug empty."
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:584
+#: ../inc/classes/class-everest-backup.php:600
 msgid "Addon activated."
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:608
+#: ../inc/classes/class-everest-backup.php:624
 msgid "Nonce verification failed."
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:624
+#: ../inc/classes/class-everest-backup.php:640
 msgid "Settings saved."
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:696
+#: ../inc/classes/class-everest-backup.php:712
 msgid "does not exists."
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:712
+#: ../inc/classes/class-everest-backup.php:728
 msgid "successfully removed from the server."
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:725
+#: ../inc/classes/class-everest-backup.php:741
 msgid "Unable to remove file"
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:858
+#: ../inc/classes/class-everest-backup.php:874
 msgid "EBWP File"
 msgstr ""
 
 #. translators: Here, %1$s is the size limit set by the server and %2$s is link to addons page.
-#: ../inc/classes/class-everest-backup.php:888
+#: ../inc/classes/class-everest-backup.php:904
 msgid "The file size is larger than %1$s. View %2$s to bypass server upload limit."
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:889
+#: ../inc/classes/class-everest-backup.php:905
 msgid "Download File"
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:890, ../inc/views/migration-clone/migration.php:34
+#: ../inc/classes/class-everest-backup.php:906, ../inc/views/migration-clone/migration.php:34
 msgid "Generate Migration Key"
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:891
+#: ../inc/classes/class-everest-backup.php:907
 msgid "Initializing backup"
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:892
+#: ../inc/classes/class-everest-backup.php:908
 msgid "Please wait while we are doing the backup. You will get a detailed log after the backup is completed."
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:893
+#: ../inc/classes/class-everest-backup.php:909
 msgid "Restoration is in progress, please do not close this tab or window."
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:894, ../inc/views/restore.php:57
+#: ../inc/classes/class-everest-backup.php:910, ../inc/views/restore.php:58
 msgid "Uploading package..."
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:895
+#: ../inc/classes/class-everest-backup.php:911
 msgid "Package uploaded. Click \"Restore\" to start the restore."
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:896
+#: ../inc/classes/class-everest-backup.php:912
 msgid "Are you sure you want to stop this backup process?"
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:897
+#: ../inc/classes/class-everest-backup.php:913
 msgid "View Logs"
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:938
+#: ../inc/classes/class-everest-backup.php:954
 msgid "Warning!"
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:939, ../inc/views/template-parts/modal.php:103
+#: ../inc/classes/class-everest-backup.php:955, ../inc/views/template-parts/modal.php:103
 msgid "Everest Backup requires these functions to work: %s <br>Please contact your host to enable the mentioned functions."
 msgstr ""
 
@@ -649,7 +649,7 @@ msgstr ""
 msgid "Memory Limit"
 msgstr ""
 
-#: ../inc/classes/class-server-information.php:141, ../inc/views/restore.php:171
+#: ../inc/classes/class-server-information.php:141, ../inc/views/restore.php:172
 msgid "Maximum Upload Size"
 msgstr ""
 
@@ -726,7 +726,7 @@ msgstr ""
 msgid "Process aborted."
 msgstr ""
 
-#: ../inc/views/backup.php:32, ../inc/views/migration-clone.php:53, ../inc/views/restore.php:64, ../inc/views/template-parts/proc-lock-info.php:105
+#: ../inc/views/backup.php:32, ../inc/views/migration-clone.php:53, ../inc/views/restore.php:65, ../inc/views/template-parts/proc-lock-info.php:105
 msgid "Click to view details"
 msgstr ""
 
@@ -754,11 +754,11 @@ msgstr ""
 msgid "Website Cloned"
 msgstr ""
 
-#: ../inc/views/migration-clone.php:26, ../inc/views/restore.php:24
+#: ../inc/views/migration-clone.php:26, ../inc/views/restore.php:25
 msgid "Please do not forget to save the permalink from sites settings."
 msgstr ""
 
-#: ../inc/views/migration-clone.php:27, ../inc/views/migration-clone.php:37, ../inc/views/restore.php:25, ../inc/views/restore.php:34
+#: ../inc/views/migration-clone.php:27, ../inc/views/migration-clone.php:37, ../inc/views/restore.php:26, ../inc/views/restore.php:35
 msgid "Go To Dashboard"
 msgstr ""
 
@@ -774,83 +774,83 @@ msgstr ""
 msgid "The cloning is in progress. Please do not close this window or tab."
 msgstr ""
 
-#: ../inc/views/restore.php:21
+#: ../inc/views/restore.php:22
 msgid "Rollback Completed"
 msgstr ""
 
-#: ../inc/views/restore.php:21
+#: ../inc/views/restore.php:22
 msgid "Restoration Completed"
 msgstr ""
 
-#: ../inc/views/restore.php:30
+#: ../inc/views/restore.php:31
 msgid "Rollback Aborted"
 msgstr ""
 
-#: ../inc/views/restore.php:30
+#: ../inc/views/restore.php:31
 msgid "Restoration Aborted"
 msgstr ""
 
-#: ../inc/views/restore.php:54
+#: ../inc/views/restore.php:55
 msgid "Initializing rollback..."
 msgstr ""
 
-#: ../inc/views/restore.php:52
+#: ../inc/views/restore.php:53
 msgid "Downloading file from %s"
 msgstr ""
 
-#: ../inc/views/restore.php:75
+#: ../inc/views/restore.php:76
 msgid "Restoration/Rollback is in progress. Please do not close this window or tab."
 msgstr ""
 
-#: ../inc/views/restore.php:82
+#: ../inc/views/restore.php:83
 msgid "Cancel restore process and delete uploaded file from the server"
 msgstr ""
 
-#: ../inc/views/restore.php:98
+#: ../inc/views/restore.php:99
 msgid "Start restore process of uploaded file"
 msgstr ""
 
-#: ../inc/views/restore.php:114
+#: ../inc/views/restore.php:115
 msgid "Save uploaded file but do not start the restore"
 msgstr ""
 
-#: ../inc/views/restore.php:156
+#: ../inc/views/restore.php:157
 msgid "Please wait while we are rolling back your website to the previous version."
 msgstr ""
 
-#: ../inc/views/restore.php:159
+#: ../inc/views/restore.php:160
 msgid "Package Information"
 msgstr ""
 
-#: ../inc/views/restore.php:196
+#: ../inc/views/restore.php:215
 msgid "Oops! The selected package is either broken or does not exist."
 msgstr ""
 
-#: ../inc/views/restore.php:197
+#: ../inc/views/restore.php:216
 msgid "Go to history"
 msgstr ""
 
-#: ../inc/views/restore.php:163, ../inc/views/migration-clone/clone.php:99
+#: ../inc/views/restore.php:164, ../inc/views/migration-clone/clone.php:99
 msgid "Filename"
 msgstr ""
 
-#: ../inc/views/restore.php:164, ../inc/modules/history/class-history-table.php:121, ../inc/views/migration-clone/clone.php:100
+#: ../inc/views/restore.php:165, ../inc/modules/history/class-history-table.php:121, ../inc/views/migration-clone/clone.php:100
 msgid "Created On"
 msgstr ""
 
-#: ../inc/views/restore.php:165, ../inc/modules/history/class-history-table.php:118, ../inc/views/migration-clone/clone.php:101
+#: ../inc/views/restore.php:166, ../inc/modules/history/class-history-table.php:118, ../inc/views/migration-clone/clone.php:101
 msgid "Size"
 msgstr ""
 
-#: ../inc/views/restore.php:178
+#: ../inc/views/restore.php:197
 msgid "Are you sure? It cannot be undone after rollback is started."
 msgstr ""
 
-#: ../inc/views/restore.php:172
+#: ../inc/views/restore.php:173
 msgid "Rollback denied because package size is larger than allowed maximum upload size."
 msgstr ""
 
-#: ../inc/views/restore.php:172, ../inc/views/restore/upload-file.php:45
+#: ../inc/views/restore.php:173, ../inc/views/restore/upload-file.php:45
 msgid "View Available Addons"
 msgstr ""
 
@@ -899,6 +899,10 @@ msgstr ""
 msgid "Table listed: %s"
 msgstr ""
 
+#: ../inc/core/export/class-database.php:121
+msgid "Could not write tables to config file. Write error, aborting backup."
+msgstr ""
+
 #. translators: number of tables
 #: ../inc/core/export/class-database.php:136
 msgid "Total %s database tables listed."
@@ -922,11 +926,11 @@ msgid "Database ignored."
 msgstr ""
 
 #: ../inc/core/export/class-database.php:258
-msgid "Could not read Database data from config file."
+msgid "Could not read Database data from config file, aborting backup."
 msgstr ""
 
 #: ../inc/core/export/class-database.php:262
-msgid "Could not read Database Tables data from config file."
+msgid "Could not read Database Tables data from config file, aborting backup."
 msgstr ""
 
 #: ../inc/core/export/class-media.php:35
@@ -989,7 +993,7 @@ msgstr ""
 msgid "Config file created"
 msgstr ""
 
-#: ../inc/core/export/class-setup.php:163, ../inc/core/import/class-check.php:232
+#: ../inc/core/export/class-setup.php:163, ../inc/core/import/class-check.php:247
 msgid "This error is generated manually using Everest Backup debugger."
 msgstr ""
 
@@ -1061,45 +1065,57 @@ msgstr ""
 msgid "Preparing package"
 msgstr ""
 
+#: ../inc/core/import/class-check.php:96
+msgid "Could not read backup file, aborting restore."
+msgstr ""
+
 #. translators: package name
-#: ../inc/core/import/class-check.php:102
+#: ../inc/core/import/class-check.php:110
 msgid "Restoring: %s"
 msgstr ""
 
-#: ../inc/core/import/class-check.php:121
+#: ../inc/core/import/class-check.php:129
 msgid "Uploaded backup is either corrupted or not supported. Metadata missing, aborting restore."
 msgstr ""
 
 #. translators: total files
-#: ../inc/core/import/class-check.php:130
+#: ../inc/core/import/class-check.php:138
 msgid "Total files to restore: %s. Checking available space..."
 msgstr ""
 
-#: ../inc/core/import/class-check.php:135
+#: ../inc/core/import/class-check.php:143
 msgid "Required space not available, aborting restore."
 msgstr ""
 
-#: ../inc/core/import/class-check.php:143
+#: ../inc/core/import/class-check.php:151
 msgid "Space available"
 msgstr ""
 
 #. translators: tags
-#: ../inc/core/import/class-check.php:162
+#: ../inc/core/import/class-check.php:170
 msgid "Modules excluded: %s"
 msgstr ""
 
 #. translators: date time
-#: ../inc/core/import/class-check.php:181
+#: ../inc/core/import/class-check.php:189
 msgid "Backup file created: %s ago"
 msgstr ""
 
-#: ../inc/core/import/class-check.php:196
+#: ../inc/core/import/class-check.php:204
+msgid "Restore initialized. Checking server vitals for restore."
+msgstr ""
+
+#: ../inc/core/import/class-check.php:205
 msgid "Checking PHP version"
 msgstr ""
 
 #. translators: backup php version and current server php version
-#: ../inc/core/import/class-check.php:208
+#: ../inc/core/import/class-check.php:218
 msgid "Attention: You are restoring from PHP %1$s to %2$s"
+msgstr ""
+
+#: ../inc/core/import/class-check.php:226
+msgid "Restoration might fail... Major difference found in PHP version"
 msgstr ""
 
 #: ../inc/core/import/class-extraction.php:85

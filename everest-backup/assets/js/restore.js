@@ -77,6 +77,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }; // setMessage.
     var lastDetail = '';
     var lastHash = '';
+    var restoreInitData = {};
     var handleProcessDetails = function (details) {
         if (details === lastDetail) {
             return;
@@ -114,6 +115,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
          */
         return navigator.sendBeacon("".concat(ajaxUrl, "?action=").concat(actions.import, "&everest_backup_ajax_nonce=").concat(_nonce, "&t=").concat(t), JSON.stringify(data));
     };
+    var skip_version_check = false;
     var handleProcStats = function (beaconSent) {
         var _a;
         var retry = 1;
@@ -150,6 +152,21 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                                 default:
                                     handleProcessDetails(res.detail);
                                     handleProgressInfo(res.message, res.progress);
+                                    if (!!res.version_diff_major && !skip_version_check) {
+                                        if (!confirm('This backup uses PHP v' + res.zip_php_version + ', but your site is running v' + res.current_php_version + '. Restoring could cause problems. For a smooth restore, we recommend using the same PHP version for both your backup and your website. Proceed with caution! Do you wish to continue?')) {
+                                            removeProcStatFile();
+                                            window.location.reload();
+                                            break;
+                                        }
+                                        else {
+                                            delete res["version_diff_major"];
+                                            skip_version_check = true;
+                                            res.skip_php_version_check = true;
+                                            triggerSendBecon(res);
+                                            setTimeout(function () { return onBeaconSent(); }, resInterval);
+                                            break;
+                                        }
+                                    }
                                     if (!!res.next && res.next.length) {
                                         if (res.hash !== lastHash) {
                                             triggerSendBecon(res);
@@ -192,7 +209,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         }
         function maybeShowLastError(lastError) {
             if (lastError && lastError !== '') {
+                if (lastError.includes('aborting restore') || lastError.includes('Aborting restore')) {
+                    backupErrorP.innerHTML = lastError;
+                }
                 if (lastError.includes('Download failed.')) {
+                    backupErrorP.innerHTML = lastError;
+                }
+                if (lastError.includes('Please try again later')) {
                     backupErrorP.innerHTML = lastError;
                 }
                 if (lastError.includes('Too many retries.')) {
@@ -229,6 +252,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         var btnSave = btnWrapper.querySelector('#save');
         var btnCancel = btnWrapper.querySelector('#cancel');
         var onClickRestoreBtn = function (data) {
+            restoreInitData = data;
             var beaconSent = triggerSendBecon(data);
             btnWrapper.classList.add('hidden');
             handleProgressInfo('', 0);

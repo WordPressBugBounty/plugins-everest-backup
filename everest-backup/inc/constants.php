@@ -92,7 +92,7 @@ if ( ! defined( 'EVEREST_BACKUP_PROC_STAT_PATH' ) ) {
 	/**
 	 * Path to PROCSTAT file.
 	 */
-	define( 'EVEREST_BACKUP_PROC_STAT_PATH', wp_normalize_path( EVEREST_BACKUP_BACKUP_DIR_PATH . '/PROCSTAT' ) );
+	define( 'EVEREST_BACKUP_PROC_STAT_PATH', wp_normalize_path( EVEREST_BACKUP_BACKUP_DIR_PATH . '/.PROCSTAT' ) );
 }
 
 if ( ! defined( 'EVEREST_BACKUP_TEMP_JSON_PATH' ) ) {
@@ -108,7 +108,7 @@ if ( ! defined( 'EVEREST_BACKUP_LOCKFILE_PATH' ) ) {
 	/**
 	 * Path to LOCKFILE file.
 	 */
-	define( 'EVEREST_BACKUP_LOCKFILE_PATH', wp_normalize_path( EVEREST_BACKUP_BACKUP_DIR_PATH . '/LOCKFILE' ) );
+	define( 'EVEREST_BACKUP_LOCKFILE_PATH', wp_normalize_path( EVEREST_BACKUP_BACKUP_DIR_PATH . '/.LOCKFILE' ) );
 }
 
 if ( ! defined( 'EVEREST_BACKUP_LOCKFILE_STALE_THRESHOLD' ) ) {

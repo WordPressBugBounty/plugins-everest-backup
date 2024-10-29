@@ -6,6 +6,7 @@
  */
 
 use Everest_Backup\Modules\Restore_Tab;
+use Everest_Backup\Core\Archiver_V2;
 
 /**
  * Exit if accessed directly.
@@ -172,6 +173,24 @@ $everest_backup_restore_tab = new Restore_Tab();
 									<p class="notice notice-error"><strong><?php esc_html_e( 'Rollback denied because package size is larger than allowed maximum upload size.', 'everest-backup' ); ?></strong> <a href="<?php echo esc_url( network_admin_url( 'admin.php?page=everest-backup-addons&cat=Upload+Limit' ) ); ?>"><?php esc_html_e( 'View Available Addons', 'everest-backup' ); ?></a></p>
 									<?php
 								} else {
+									if ( ! empty( $args['path'] ) ) {
+										$archiver = new Archiver_V2( $args['path'] );
+										$config = $archiver->get_metadata( 'config' );
+										$current_php_version = PHP_VERSION;
+										$zip_php_version     = ! empty( $config['PHP']['Version'] ) ? $config['PHP']['Version'] : '';
+										$is_comparable       = ( ( $current_php_version !== $zip_php_version ) && ( version_compare( $current_php_version, $zip_php_version, 'gt' ) ) );
+										$is_minor_update     = $zip_php_version && $is_comparable ? everest_backup_version_compare( $current_php_version, $zip_php_version, 'gt', true ) : true;
+								
+										if ( ! $is_minor_update ) {
+											?>
+											<p class="notice notice-error">
+												<strong>
+													<?php esc_html_e( "This backup uses PHP v$zip_php_version, but your site is running v$current_php_version. Restoring could cause problems. For a smooth restore, we recommend using the same PHP version for both your backup and your website. Proceed with caution!", 'everest-backup' ); ?>
+												</strong>
+											</p>
+											<?php
+										}
+									}
 									if ( empty( $args['rollback'] ) ) {
 										?>
 										<div class="confirmation-wrapper">

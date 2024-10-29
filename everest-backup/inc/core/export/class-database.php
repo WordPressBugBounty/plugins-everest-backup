@@ -118,7 +118,7 @@ class Database {
 		$config['Database']['Tables'] = $tables;
 
 		if ( ! self::writefile( EVEREST_BACKUP_CONFIG_FILENAME, wp_json_encode( $config ) ) ) {
-			$error = __( 'Could not write tables to config file.', 'everest-backup' );
+			$error = __( 'Could not write tables to config file. Write error, aborting backup.', 'everest-backup' );
 			Logs::error( $error );
 			everest_backup_send_error();
 			die;
@@ -255,11 +255,11 @@ class Database {
 					$error = '';
 
 					if ( empty( $config_database ) ) {
-						$error = __( 'Could not read Database data from config file.', 'everest-backup' );
+						$error = __( 'Could not read Database data from config file, aborting backup.', 'everest-backup' );
 					}
 
 					if ( empty( $config_database['Tables'] ) ) {
-						$error = __( 'Could not read Database Tables data from config file.', 'everest-backup' );
+						$error = __( 'Could not read Database Tables data from config file, aborting backup.', 'everest-backup' );
 					}
 
 					if ( ! empty( $error ) ) {

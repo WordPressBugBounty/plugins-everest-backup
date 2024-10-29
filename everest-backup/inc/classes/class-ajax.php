@@ -80,6 +80,9 @@ class Ajax {
 		if ( file_exists( EVEREST_BACKUP_PROC_STAT_PATH ) ) {
 			unlink( EVEREST_BACKUP_PROC_STAT_PATH ); // @phpcs:ignore
 		}
+		if ( file_exists( EVEREST_BACKUP_LOCKFILE_PATH ) ) {
+			unlink( EVEREST_BACKUP_LOCKFILE_PATH ); // @phpcs:ignore
+		}
 		die;
 	}
 

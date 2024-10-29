@@ -48,6 +48,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     var processBar = document.querySelector('#import-on-process #process-info .progress .progress-bar');
     var processMsg = document.querySelector('#import-on-process #process-info .process-message');
     var backupErrorP = AfterRestoreError.querySelector('.everest-backup-error-during-backup-p');
+    var restoreInitData = {};
     /**
      * Script for migration tab page.
      */
@@ -146,6 +147,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
              */
             return navigator.sendBeacon("".concat(ajaxUrl, "?action=").concat(actions.import, "&everest_backup_ajax_nonce=").concat(_nonce, "&t=").concat(t), JSON.stringify(data));
         };
+        var skip_version_check = false;
         var handleProcStats = function (beaconSent) {
             var _a;
             var retry = 1;
@@ -182,6 +184,21 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                                     default:
                                         handleProcessDetails(res.detail);
                                         handleProgressInfo(res.message, res.progress);
+                                        if (!!res.version_diff_major && !skip_version_check) {
+                                            if (!confirm('This backup uses PHP v' + res.zip_php_version + ', but your site is running v' + res.current_php_version + '. Restoring could cause problems. For a smooth restore, we recommend using the same PHP version for both your backup and your website. Proceed with caution! Do you wish to continue?')) {
+                                                removeProcStatFile();
+                                                window.location.reload();
+                                                break;
+                                            }
+                                            else {
+                                                delete res["version_diff_major"];
+                                                skip_version_check = true;
+                                                res.skip_php_version_check = true;
+                                                triggerSendBecon(res);
+                                                setTimeout(onBeaconSent, resInterval);
+                                                break;
+                                            }
+                                        }
                                         if (!!res.next && res.next.length) {
                                             if (res.hash !== lastHash) {
                                                 triggerSendBecon(res);
@@ -224,6 +241,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
             }
             function maybeShowLastError(lastError) {
                 if (lastError && lastError !== '') {
+                    if (lastError.includes('aborting restore')) {
+                        backupErrorP.innerHTML = lastError;
+                    }
                     if (lastError.includes('Download failed.')) {
                         backupErrorP.innerHTML = lastError;
                     }
@@ -255,6 +275,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                 data[key] = value;
             });
             removeProcStatFile();
+            restoreInitData = data;
             var beaconSent = triggerSendBecon(data);
             handleProcStats(beaconSent);
         });

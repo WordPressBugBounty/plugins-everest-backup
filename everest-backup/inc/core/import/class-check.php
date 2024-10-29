@@ -88,8 +88,16 @@ class Check {
 			}
 		}
 
-		if ( empty( self::$params['package'] ) ) {
+		if ( empty( self::$params['package'] ) && empty( self::$params['version_diff_major'] ) && empty( self::$params['skip_php_version_check'] ) ) {
 			self::prepare_package();
+		}
+
+		if ( ! is_readable( self::$params['package'] ) ) {
+			throw new \Exception( esc_html__( 'Could not read backup file, aborting restore.', 'everest-backup' ) );
+		}
+
+		if ( ! empty( self::$params['version_diff_major'] ) && empty( self::$params['skip_php_version_check'] ) ) {
+			die;
 		}
 
 		Logs::set_proc_stat(
@@ -181,6 +189,7 @@ class Check {
 				'detail'   => sprintf( __( 'Backup file created: %s ago', 'everest-backup' ), esc_html( human_time_diff( $config['FileInfo']['timestamp'] ) ) ),
 			)
 		);
+		sleep( 1 );
 
 		/**
 		 * -------------------
@@ -192,31 +201,37 @@ class Check {
 			array(
 				'status'   => 'in-process',
 				'progress' => 10,
-				'message'  => __( 'Restore initialized. Checking server vitals for restore.' ),
+				'message'  => __( 'Restore initialized. Checking server vitals for restore.', 'everest-backup' ),
 				'detail'   => __( 'Checking PHP version', 'everest-backup' ),
 			)
 		);
+		sleep( 1 );
 
 		$current_php_version = PHP_VERSION;
 		$zip_php_version     = ! empty( $config['PHP']['Version'] ) ? $config['PHP']['Version'] : '';
 		$is_comparable       = ( ( $current_php_version !== $zip_php_version ) && ( version_compare( $current_php_version, $zip_php_version, 'gt' ) ) );
 		$is_minor_update     = $zip_php_version && $is_comparable ? everest_backup_version_compare( $current_php_version, $zip_php_version, 'gt', true ) : true;
 
-		if ( ! $is_minor_update ) {
+		if ( ! $is_minor_update && empty( self::$params['skip_php_version_check'] ) ) {
 
 			/* translators: backup php version and current server php version */
 			$detail = sprintf( __( 'Attention: You are restoring from PHP %1$s to %2$s', 'everest-backup' ), esc_html( $zip_php_version ), esc_html( $current_php_version ) );
-
+			sleep( 1 );
 			Logs::set_proc_stat(
 				array(
-					'log'      => 'warn',
-					'status'   => 'in-process',
-					'progress' => 10,
-					'message'  => __( 'Restoration might fail... Major difference found in PHP version' ),
-					'detail'   => $detail,
+					'log'                 => 'warn',
+					'status'              => 'in-process',
+					'progress'            => 10,
+					'version_diff_major'  => true,
+					'message'             => __( 'Restoration might fail... Major difference found in PHP version', 'everest-backup' ),
+					'detail'              => $detail,
+					'package'             => self::$params['package'],
+					'zip_php_version'     => $zip_php_version,
+					'current_php_version' => $current_php_version,
 				)
 			);
 			Logs::warn( $detail );
+			die;
 		}
 
 		$metadata = $archiver->get_metadatas();
@@ -232,6 +247,7 @@ class Check {
 			throw new \Exception( esc_html__( 'This error is generated manually using Everest Backup debugger.', 'everest-backup' ) );
 		}
 
+		sleep( 5 );
 		Logs::set_proc_stat(
 			array(
 				'log'      => 'info',

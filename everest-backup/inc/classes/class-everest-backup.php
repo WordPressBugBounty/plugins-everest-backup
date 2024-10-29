@@ -63,6 +63,22 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 
 			add_action( 'admin_notices', array( $this, 'print_admin_notices' ) );
 			add_action( 'admin_notices', array( $this, 'print_addons_license_notices' ), 10000 );
+
+			add_action('template_redirect', array( $this, 'restrict_specific_directories' ) );
+		}
+
+		/**
+		 * Prevent direct access to security vulnerable files.
+		 */
+		public function restrict_specific_directories() {
+			$requested_file = $_SERVER['REQUEST_URI'];
+
+			if (preg_match('/\/wp-content\/ebwp-backups\/.PROCSTAT/', $requested_file) ) {
+				wp_die('Access Denied: You do not have permission to view this file.', 'Access Denied', ['response' => 403]);
+			}
+			if (preg_match('/\/wp-content\/ebwp-backups\/LOCKFILE/', $requested_file) ) {
+				wp_die('Access Denied: You do not have permission to view this file.', 'Access Denied', ['response' => 403]);
+			}
 		}
 
 		/**

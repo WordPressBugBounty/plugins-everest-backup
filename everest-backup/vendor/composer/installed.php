@@ -5,7 +5,7 @@
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '8ce4b3f4fd91a6cf5ac243ee8c1515e89eb9c21a',
+        'reference' => '9e0eabef41193212de1c268ba4288c3b2ee45a57',
         'name' => 'everest-backup/everest-backup',
         'dev' => false,
     ),
@@ -16,7 +16,7 @@
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '8ce4b3f4fd91a6cf5ac243ee8c1515e89eb9c21a',
+            'reference' => '9e0eabef41193212de1c268ba4288c3b2ee45a57',
             'dev_requirement' => false,
         ),
         'nelexa/zip' => array(

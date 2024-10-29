@@ -132,8 +132,8 @@ class Backup_Directory {
 		$whitelists = apply_filters(
 			'everest_backup_filter_security_files_whitelists',
 			array(
-				'PROCSTAT',
-				'LOCKFILE',
+				'.PROCSTAT',
+				'.LOCKFILE',
 			)
 		);
 
@@ -427,11 +427,10 @@ class Backup_Directory {
 	protected function get_security_files() {
 		$files_and_contents = array(
 			'.htaccess'                              => $this->htaccess_content(),
-			'sse.php'                                => $this->sse_content(),
 			'index.php'                              => '<?php',
 			'index.html'                             => '',
-			'PROCSTAT'                               => '{}',
-			'LOCKFILE'                               => '',
+			'.PROCSTAT'                               => '{}',
+			'.LOCKFILE'                               => '',
 			basename( EVEREST_BACKUP_ACTIVITY_PATH ) => '',                          // In this file, logs will be placed during the process.
 		);
 
@@ -481,6 +480,10 @@ class Backup_Directory {
 				'Order Deny,Allow',
 				'Deny from all',
 				'</FilesMatch>',
+				'<FilesMatch "^[^.]+$">',
+				'Order Deny,Allow',
+				'Deny from all',
+				'</FilesMatch>',
 				'<FilesMatch "\.(txt|php|ebwp)$">',
 				'Order Allow,Deny',
 				'Allow from all',
@@ -504,32 +507,5 @@ class Backup_Directory {
 				'}',
 			)
 		);
-	}
-
-	/**
-	 * Content for sse.php
-	 *
-	 * @return string
-	 */
-	protected function sse_content() {
-		// @phpcs:disable
-		return implode(
-			PHP_EOL,
-			array(
-				'<?php',
-				"header('Content-Type: application/json');",
-				"header('Cache-Control: no-cache');\n",
-				'$ebwp_backups_dir = dirname( __FILE__ );',
-				'$procstat_file = $ebwp_backups_dir . DIRECTORY_SEPARATOR . "PROCSTAT";',
-				'if ( ! file_exists( $procstat_file ) ) {',
-					"\techo \"{}\";",
-					"\tdie();\t",
-				'}',
-				'$content = @file_get_contents( $procstat_file );',
-				'echo $content ? $content : "{}";',
-				'die();',
-			)
-		);
-		// @phpcs:enable
 	}
 }

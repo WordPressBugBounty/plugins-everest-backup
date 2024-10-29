@@ -1,5 +1,9 @@
 == Changelog ==
 
+= v2.2.14 =
+* Last Backup file access vulnerability fixed.
+* Dialogue for cancelling restore if major php version change added.
+
 = v2.2.13 =
 * Added multisite - subsite to single support for manual backups.
 * Added multisite to multisite support for manual and schedule backup.
