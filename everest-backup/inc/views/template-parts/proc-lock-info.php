@@ -280,7 +280,6 @@ if ( everest_backup_is_ebwp_page() && $everest_backup_class ) {
 
 			onBeaconSent();
 
-
 			abortBtn.addEventListener('click', function(e) {
 				e.preventDefault();
 
@@ -296,8 +295,6 @@ if ( everest_backup_is_ebwp_page() && $everest_backup_class ) {
 					alert("<?php esc_html_e( 'Prompt did not match.', 'everest-backup' ); ?>");
 				}
 			});
-
-
 		}
 	}());
 	</script>

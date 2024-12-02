@@ -1,5 +1,8 @@
 == Changelog ==
 
+= v2.2.15 =
+* Fixed restore init issues caused by clear request sometimes completed after restore init request.
+
 = v2.2.14 =
 * Last Backup file access vulnerability fixed.
 * Dialogue for cancelling restore if major php version change added.

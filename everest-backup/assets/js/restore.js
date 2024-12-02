@@ -100,10 +100,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
             document.title = "[".concat(progress, "%] ").concat(message);
         }
     };
-    var removeProcStatFile = function () {
-        document.title = prevTitleString;
-        return navigator.sendBeacon("".concat(ajaxUrl, "?action=everest_backup_process_status_unlink&everest_backup_ajax_nonce=").concat(_nonce));
-    };
+    var removeProcStatFile = function () { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    document.title = prevTitleString;
+                    return [4 /*yield*/, fetch("".concat(ajaxUrl, "?action=everest_backup_process_status_unlink&everest_backup_ajax_nonce=").concat(_nonce))];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    }); };
     /** @since 2.0.0 */
     var triggerSendBecon = function (data) {
         if (data === void 0) { data = {}; }
@@ -251,13 +257,22 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         var btnRestore = btnWrapper.querySelector('#restore');
         var btnSave = btnWrapper.querySelector('#save');
         var btnCancel = btnWrapper.querySelector('#cancel');
-        var onClickRestoreBtn = function (data) {
-            restoreInitData = data;
-            var beaconSent = triggerSendBecon(data);
-            btnWrapper.classList.add('hidden');
-            handleProgressInfo('', 0);
-            handleProcStats(beaconSent);
-        };
+        var onClickRestoreBtn = function (data) { return __awaiter(_this, void 0, void 0, function () {
+            var beaconSent;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, removeProcStatFile()];
+                    case 1:
+                        _a.sent();
+                        restoreInitData = data;
+                        beaconSent = triggerSendBecon(data);
+                        btnWrapper.classList.add('hidden');
+                        handleProgressInfo('', 0);
+                        handleProcStats(beaconSent);
+                        return [2 /*return*/];
+                }
+            });
+        }); };
         var onClickSaveBtn = function (data) {
             FileUploadedRes = {};
             navigator.sendBeacon("".concat(ajaxUrl, "?action=").concat(actions.saveUploadedPackage, "&everest_backup_ajax_nonce=").concat(_nonce), JSON.stringify(data));
@@ -366,22 +381,31 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     var Rollback = function () {
         var confirmationWrapper = document.querySelector("#everest-backup-container .confirmation-wrapper");
         var rollbackForm = document.getElementById("rollback-form");
-        rollbackForm.addEventListener("submit", function (event) {
-            event.preventDefault();
-            removeProcStatFile();
-            document.body.classList.add(bodyClass);
-            confirmationWrapper.remove();
-            var data = {};
-            var formData = new FormData(rollbackForm);
-            formData.forEach(function (value, key) {
-                data[key] = value;
+        rollbackForm.addEventListener("submit", function (event) { return __awaiter(_this, void 0, void 0, function () {
+            var data, formData, beaconSent;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        event.preventDefault();
+                        return [4 /*yield*/, removeProcStatFile()];
+                    case 1:
+                        _a.sent();
+                        document.body.classList.add(bodyClass);
+                        confirmationWrapper.remove();
+                        data = {};
+                        formData = new FormData(rollbackForm);
+                        formData.forEach(function (value, key) {
+                            data[key] = value;
+                        });
+                        data['_action'] = 'rollback';
+                        beaconSent = triggerSendBecon(data);
+                        setTimeout(function () {
+                            handleProcStats(beaconSent);
+                        }, 500);
+                        return [2 /*return*/];
+                }
             });
-            data['_action'] = 'rollback';
-            var beaconSent = triggerSendBecon(data);
-            setTimeout(function () {
-                handleProcStats(beaconSent);
-            }, 500);
-        });
+        }); });
     };
     /**
      * After document is fully loaded.
