@@ -71,7 +71,7 @@ function everest_backup_get_cloud_backup_location( $cloud_key, $context = 'displ
  */
 function everest_backup_download_file( $source, $destination, $args = false ) {
 	if ( everest_backup_is_localhost() ) {
-		$timeout    = 300;
+		$timeout    = 30;
 		$range_size = 2 * MB_IN_BYTES;
 	} else {
 		$timeout    = 20;
@@ -248,6 +248,25 @@ function everest_backup_download_file( $source, $destination, $args = false ) {
 	delete_transient('everest_backup_migrate_clone_download');
 	delete_transient('everest_backup_migrate_clone_download_retry');
 	return file_exists( $destination) ? filesize( $destination) : 0;
+}
+
+/**
+ * Check if backup is running.
+ */
+function everest_backup_process_running_currently() {
+	if ( everest_backup_cloud_get_option( 'auth_code' ) ) {
+		return __( 'file is uploading to cloud.', 'everest-backup' );
+	}
+
+	if ( ! empty( get_transient( 'everest_backup_doing_scheduled_backup' ) ) ) {
+		return __( 'scheduled backup running.', 'everest-backup' );
+	}
+
+	if ( file_exists( EVEREST_BACKUP_PROC_STAT_PATH ) && file_exists( EVEREST_BACKUP_LOCKFILE_PATH ) ) {
+		return __( 'backup/restore process is running.', 'everest-backup' );
+	}
+
+	return false;
 }
 
 /**
@@ -1562,6 +1581,10 @@ function everest_backup_cron_cycles() {
 				'interval' => MONTH_IN_SECONDS, // 1 month.
 				'display'  => __( 'Monthly', 'everest-backup' ),
 			),
+			'everest_backup_yearly' => array(
+				'interval' => YEAR_IN_SECONDS, // 1 year.
+				'display'  => __( 'Yearly', 'everest-backup' ),
+			),
 		)
 	);
 }
@@ -1752,14 +1775,15 @@ function everest_backup_get_process_types()
 	return apply_filters(
 		'everest_backup_filter_process_types',
 		array(
-			'debug'           => __('Debug', 'everest-backup'), // @since 1.1.1
-			'abort'           => __('Abort', 'everest-backup'),
-			'backup'          => __('Backup', 'everest-backup'),
-			'rollback'        => __('Rollback', 'everest-backup'),
-			'restore'         => __('Restore', 'everest-backup'),
-			'clone'           => __('Clone', 'everest-backup'),
-			'schedule_backup' => __('Schedule Backup', 'everest-backup'),
-			'upload_to_cloud' => __('Upload to Cloud', 'everest-backup'),
+			'debug'              => __('Debug', 'everest-backup'), // @since 1.1.1
+			'abort'              => __('Abort', 'everest-backup'),
+			'backup'             => __('Backup', 'everest-backup'),
+			'rollback'           => __('Rollback', 'everest-backup'),
+			'restore'            => __('Restore', 'everest-backup'),
+			'clone'              => __('Clone', 'everest-backup'),
+			'schedule_backup'    => __('Schedule Backup', 'everest-backup'),
+			'schedule_increment' => __('Schedule Increment', 'everest-backup'),
+			'upload_to_cloud'    => __('Upload to Cloud', 'everest-backup'),
 		)
 	);
 }
@@ -1784,6 +1808,95 @@ function everest_backup_doing_clone()
 function everest_backup_doing_rollback()
 {
 	return defined('EVEREST_BACKUP_DOING_ROLLBACK') && EVEREST_BACKUP_DOING_ROLLBACK;
+}
+
+/**
+ * Returns true if doing the increment rollback.
+ *
+ * @return bool
+ * @since 1.0.0
+ */
+function everest_backup_doing_increment_rollback() {
+	return defined('EVEREST_BACKUP_DOING_INCREMENT_ROLLBACK') && EVEREST_BACKUP_DOING_INCREMENT_ROLLBACK;
+}
+
+/**
+ * Get parent and older siblings of a given backup.
+ *
+ * @param string $parent The parent backup filename (e.g., 'ebwpbuwa-localhost10003-1735110151-4f0abb701c.ebwp').
+ * @param int $increment The child backup increment number (e.g., 2).
+ * @param array $backups The array of all backup information.
+ * @return array Associative array with 'parent' and 'children' keys.
+ */
+function everest_backup_get_parent_and_older_siblings( $parent, $increment, $backups ) {
+    $result = [
+        'parent' => null,
+        'children' => [],
+    ];
+
+    // Extract the base prefix for matching (excluding ebwpbuwa or ebwpinc)
+    $base_prefix = preg_replace('/^ebwp(?:buwa|inc)-/', '', preg_replace('/\.ebwp$/', '', $parent));
+
+    foreach ( $backups as $backup ) {
+        $filename = $backup['filename'];
+
+        // Check if it's the parent backup
+        if ($filename === $parent) {
+            $result['parent'] = $backup;
+        }
+
+        // Check if it's a child backup and matches the increment criteria
+        if (preg_match('/^ebwpinc-(.+)-(\d+)\.ebwp$/', $filename, $matches)) {
+            $current_base_prefix = $matches[1];
+            $current_increment = (int) $matches[2];
+
+            // Ensure the child belongs to the same base prefix and its increment is <= given increment
+            if ($current_base_prefix === $base_prefix && $current_increment <= $increment) {
+                $result['children'][] = $backup;
+            }
+        }
+    }
+
+	usort( $result['children'], function ( $val1, $val2 ) {
+		return strcmp( $val2['filename'], $val1['filename'] );
+	} );
+
+    return $result;
+}
+
+function everest_backup_get_increment_children( $parent, $backups ) {
+    $result = [];
+
+    // Extract the base prefix for matching (excluding ebwpbuwa or ebwpinc)
+    $base_prefix = preg_replace('/^ebwpbuwa-/', '', preg_replace('/\.ebwp$/', '', $parent));
+
+    foreach ( $backups as $backup ) {
+        $filename = $backup['filename'];
+
+        // Check if it's a child backup and matches the increment criteria
+        if (preg_match('/^ebwpinc-(.+)-(\d+)\.ebwp$/', $filename, $matches)) {
+            $current_base_prefix = $matches[1];
+
+            if ( $current_base_prefix === $base_prefix ) {
+                $result[] = $backup;
+            }
+        }
+    }
+
+	usort( $result, function ( $val1, $val2 ) {
+		return strcmp( $val2['filename'], $val1['filename'] );
+	} );
+
+    return $result;
+}
+
+function everest_backup_get_backup_increment_time( $backups, $increment ) {
+	foreach ( $backups['children'] as $backup ) {
+		if ( str_ends_with( pathinfo( $backup['filename'], PATHINFO_FILENAME ), $increment ) ) {
+			return $backup;
+		}
+	}
+	return array();
 }
 
 /**
@@ -1844,8 +1957,7 @@ function everest_backup_is_extension_excluded( $file )
  * @return string
  * @since 1.0.0
  */
-function everest_backup_get_backup_full_path( $backup_filename, $check = true )
-{
+function everest_backup_get_backup_full_path( $backup_filename, $check = true ) {
 
 	if (!$backup_filename) {
 		return;
@@ -1886,8 +1998,7 @@ function everest_backup_send_json( $data = null )
  * @return void
  * @since 1.0.0
  */
-function everest_backup_send_success( $data = null, $status_code = null, $options = 0 )
-{
+function everest_backup_send_success( $data = null, $status_code = null, $options = 0 ) {
 	/**
 	 * Filter hook to disable die and send json from Everest Backup.
 	 *
@@ -2292,10 +2403,13 @@ function everest_backup_create_nonce( $action )
  * @return bool
  * @since 1.0.0
  */
-function everest_backup_verify_nonce( $action )
-{
+function everest_backup_verify_nonce( $action ) {
 
 	$nonce = ! empty( $_REQUEST[ $action] ) ? sanitize_text_field(wp_unslash( $_REQUEST[ $action] )) : '';
+
+	if ( strlen( $nonce ) === 60 ) {
+		return password_verify( get_option( 'everest_backup_ajax_manual_nonce' ), $nonce );
+	}
 
 	if ( $nonce && $action) {
 		return wp_verify_nonce( $nonce, $action);
@@ -2524,8 +2638,7 @@ function everest_backup_render_view( $template, $args = array() )
  * @return void
  * @since 1.0.0
  */
-function everest_backup_set_notice( $notice, $type )
-{ // @phpcs:ignore
+function everest_backup_set_notice( $notice, $type ) { // @phpcs:ignore
 	if (!session_id()) {
 		session_start(
 			array(
@@ -2874,11 +2987,11 @@ if ( ! function_exists( 'everest_backup_cloud_get_option' ) ) {
 	 * @return mixed Value of option. If not exists, false is return.
 	 */
 	function everest_backup_cloud_get_option( $option ) {
-		global $everest_backup_pcloud_get_option;
-		if ( ! array_key_exists( $option, (array) $everest_backup_pcloud_get_option ) ) {
-			$everest_backup_pcloud_get_option[ $option ] = get_option( EVEREST_BACKUP_CLOUD_REST_API_PREFIX . $option );
+		global $everest_backup_cloud_get_option;
+		if ( ! array_key_exists( $option, (array) $everest_backup_cloud_get_option ) ) {
+			$everest_backup_cloud_get_option[ $option ] = get_option( EVEREST_BACKUP_CLOUD_REST_API_PREFIX . $option );
 		}
-		return $everest_backup_pcloud_get_option[ $option ];
+		return $everest_backup_cloud_get_option[ $option ];
 	}
 }
 
@@ -2894,8 +3007,8 @@ if ( ! function_exists( 'everest_backup_cloud_update_option' ) ) {
 	{
 		$updated = update_option( EVEREST_BACKUP_CLOUD_REST_API_PREFIX . $option, $val, true );
 		if ( $updated ) {
-			global $everest_backup_pcloud_get_option;
-			$everest_backup_pcloud_get_option[ $option ] = $val;
+			global $everest_backup_cloud_get_option;
+			$everest_backup_cloud_get_option[ $option ] = $val;
 		}
 		return $updated;
 	}
@@ -3063,17 +3176,22 @@ if ( ! function_exists( 'everest_backup_unset_rest_properties' ) ) {
 	 */
 	function everest_backup_unset_rest_properties()
 	{
-		everest_backup_cloud_delete_option('current_folder_id');
-		everest_backup_cloud_delete_option('file_name');
-		everest_backup_cloud_delete_option('auth_code');
-		everest_backup_cloud_delete_option('wrap_up');
-		everest_backup_cloud_delete_option('current_file_seek');
-		everest_backup_cloud_delete_option('upload_id');
-		everest_backup_cloud_delete_option('iteration');
-		everest_backup_cloud_delete_option('file_upload_retrying');
-		everest_backup_cloud_delete_option('file_upload_started');
-		everest_backup_cloud_delete_option('cloud_upload_error');
-		everest_backup_cloud_delete_option('cloud_upload_error_msg');
+		everest_backup_cloud_delete_option( 'current_folder_id' );
+		everest_backup_cloud_delete_option( 'file_name' );
+		everest_backup_cloud_delete_option( 'auth_code' );
+		everest_backup_cloud_delete_option( 'wrap_up' );
+		everest_backup_cloud_delete_option( 'current_file_seek' );
+		everest_backup_cloud_delete_option( 'upload_id' );
+		everest_backup_cloud_delete_option( 'iteration' );
+		everest_backup_cloud_delete_option( 'file_upload_retrying' );
+		everest_backup_cloud_delete_option( 'file_upload_started' );
+		everest_backup_cloud_delete_option( 'cloud_upload_error' );
+		everest_backup_cloud_delete_option( 'cloud_upload_error_msg' );
+
+		/**
+		 * Was causing issue with normal backups causing every backup be marked as parent incremental backup as long as transient is set.
+		 */
+		delete_transient( 'everest_backup_doing_scheduled_backup' );
 	}
 }
 
@@ -3169,7 +3287,7 @@ if ( ! function_exists( 'everest_backup_export_wp_database' ) ) {
 		$tables = (is_array( $tables) && ! empty( $tables)) ? $tables : array();
 
 		// Ensure only authorized users can access this function.
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( 'manage_options' ) && ! get_transient( 'everest_backup_doing_scheduled_backup' ) ) {
 			return;
 		}
 
@@ -3180,24 +3298,19 @@ if ( ! function_exists( 'everest_backup_export_wp_database' ) ) {
 			return new WP_Error('Connection error: ' . $mysqli->connect_error);
 		}
 
-		// Array of all database field types which just take numbers.
-		$numtypes = array('tinyint', 'smallint', 'mediumint', 'int', 'bigint', 'float', 'double', 'decimal', 'real');
-
 		// Get all of the tables if not provided.
 		if (empty( $tables)) {
 			$result = $mysqli->query('SHOW TABLES');
 			while ( $row = $result->fetch_array(MYSQLI_NUM)) {
 				$tables[] = $row[0];
 			}
+			$result->free();
 		}
 
-		$path    = everest_backup_current_request_storage_path( EVEREST_BACKUP_CONFIG_FILENAME );
-		$content = @file_get_contents( $path );
-		$config  = $content ? json_decode( $content, true ) : array();
-
-		if ( ! $config ) {
-			$config = array();
-		}
+		$path         = everest_backup_current_request_storage_path( EVEREST_BACKUP_CONFIG_FILENAME );
+		$filelistpath = everest_backup_current_request_storage_path( 'ebwp-files.ebwplist' );
+		$content      = @file_get_contents( $path );
+		$config       = $content ? json_decode( $content, true ) : array();
 
 		$config['Database']['Tables'] = $tables;
 
@@ -3216,15 +3329,31 @@ if ( ! function_exists( 'everest_backup_export_wp_database' ) ) {
 		// Cycle through the tables.
 		foreach ( $tables as $table) {
 			// Script Variables.
-			$filename    = $backup_path . DIRECTORY_SEPARATOR . $table . '.sql';
+			$filename = $backup_path . DIRECTORY_SEPARATOR . $table . '.sql';
 	
 			// Open file for writing.
 			$handle = fopen( $filename, 'w+' );
 			if ( ! $handle ) {
 				return new WP_Error( 'Error creating database backup. Please check the directory permissions.' );
 			}
-	
+
+			global $wpdb;
+			$header = sprintf(
+				"-- Everest Backup SQL Dump\n" .
+				"--\n" .
+				"-- Prefix: %s\n" .
+				"-- Host: %s\n" .
+				"-- Database: %s\n" .
+				"-- Class: %s\n" .
+				"--\n",
+				$wpdb->prefix,
+				$wpdb->dbhost,
+				$wpdb->dbname,
+				__FUNCTION__
+			);
+
 			// Start transaction.
+			fwrite( $handle, $header . PHP_EOL );
 			fwrite( $handle, "START TRANSACTION;\n\n");
 
 			// Table structure.
@@ -3244,10 +3373,22 @@ if ( ! function_exists( 'everest_backup_export_wp_database' ) ) {
 
 			fwrite( $handle, 'INSERT INTO ' . $table . ' VALUES ');
 
+			$batch_size = 100;
 			$i = 0;
 			while ( $row = $result->fetch_assoc() ) {
 				$row_values = [];
 				foreach ( $row as $field => $value) {
+					if(
+						(stripos( $field, 'binary' ) === 0) ||
+						(stripos( $field, 'varbinary' ) === 0) ||
+						(stripos( $field, 'tinyblob' ) === 0) ||
+						(stripos( $field, 'mediumblob' ) === 0) ||
+						(stripos( $field, 'longblob' ) === 0) ||
+						(stripos( $field, 'blob' ) === 0)
+					) {
+						$row_values[] = '0x' . bin2hex( $value );
+						continue;
+					}
 					if (isset( $value)) {
 						if (is_numeric( $value)) {
 							$row_values[] = $value;
@@ -3258,8 +3399,13 @@ if ( ! function_exists( 'everest_backup_export_wp_database' ) ) {
 						$row_values[] = 'NULL';
 					}
 				}
+				if (++$i % $batch_size === 0) {
+					fseek( $handle, -2, SEEK_END); // Move the pointer back to overwrite the character.
+					fwrite( $handle, ";\n\n");
+					fwrite( $handle, 'INSERT INTO ' . $table . ' VALUES ');
+					continue;
+				}
 				fwrite( $handle, ('(' . implode(', ', $row_values) . "),\n"));
-				++$i;
 			}
 			if ( $i > 0) {
 				fseek( $handle, -2, SEEK_END); // Move the pointer back to overwrite the character
@@ -3277,8 +3423,8 @@ if ( ! function_exists( 'everest_backup_export_wp_database' ) ) {
 			fwrite( $handle, "COMMIT;\n" );
 
 			fclose( $handle);
-			$path = everest_backup_current_request_storage_path( 'ebwp-files.ebwplist' );
-			Temp_Directory::init()->add_to_temp( $path, $filename . "\n", true );
+
+			Temp_Directory::init()->add_to_temp( $filelistpath, $filename . "\n", true );
 		}
 
 		// Script Variables.

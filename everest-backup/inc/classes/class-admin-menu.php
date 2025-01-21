@@ -8,6 +8,7 @@
 namespace Everest_Backup;
 
 use function cli\err;
+use Everest_Backup\Modules\Cron_Actions;
 
 /**
  * Exit if accessed directly.
@@ -31,16 +32,7 @@ class Admin_Menu {
 	 */
 	public static function init() {
 		add_action( 'admin_head', '\Everest_Backup\Admin_Menu::upsell_attr', 10 );
-		$settings = everest_backup_get_settings( 'general' );
-		if ( is_multisite() ) {
-			if ( ! is_network_admin() && isset( $settings['show_menu_in_site_admin_dashboard'] ) && 'yes' === $settings['show_menu_in_site_admin_dashboard'] ) {
-				$hook = 'admin_menu';
-			} else {
-				$hook = 'network_admin_menu';
-			}
-		} else {
-			$hook = 'admin_menu';
-		}
+		$hook = self::get_admin_menu_hook();
 		add_action( $hook, array( __CLASS__, 'register' ) );
 		add_action( 'admin_bar_menu', array( __CLASS__, 'admin_bar_item' ), 100 );
 	}
@@ -54,6 +46,30 @@ class Admin_Menu {
 	public static function register() {
 		self::register_menus();
 		self::register_submenus();
+		self::maybe_manual_run_scheduled_backup();
+	}
+
+	private static function get_admin_menu_hook() {
+		if ( is_multisite() ) {
+			$settings = everest_backup_get_settings( 'general' );
+			if ( ! is_network_admin() && isset( $settings['show_menu_in_site_admin_dashboard'] ) && 'yes' === $settings['show_menu_in_site_admin_dashboard'] ) {
+				return 'admin_menu';
+			} else {
+				return 'network_admin_menu';
+			}
+		}
+		return 'admin_menu';
+	}
+
+	private static function maybe_manual_run_scheduled_backup() {
+		$get = everest_backup_get_submitted_data( 'get' );
+		if ( isset( $get['page'] ) && ( 'everest-backup-export' === $get['page'] ) && isset( $get['manual_scheduled_backup'] ) && ( 'run' === $get['manual_scheduled_backup'] ) ) {
+			include_once EVEREST_BACKUP_PATH . 'inc/modules/cron/class-cron-actions.php';
+			$cron_actions = new Cron_Actions();
+			$cron_actions->schedule_backup( true );
+			unset( $get['manual_scheduled_backup'] );
+			wp_redirect( admin_url(sprintf('admin.php?%s', http_build_query( $get ) ) ) );exit();
+		}
 	}
 
 	/**

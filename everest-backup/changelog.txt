@@ -1,5 +1,13 @@
 == Changelog ==
 
+= v2.3.0 =
+* Encryption: Added setting to encrypt contents of backup.(PRO)
+* Incremental: Added Incremental backup options.(PRO)
+* New: List backup contents and download individual files from backup.
+* Update: Added retry mechanism for restore tab uploads and error display for failures.
+* Fixed: Scheduled task conflicting with running backup/restore.
+* Other Bug Fixes and minor improvements.
+
 = v2.2.15 =
 * Fixed restore init issues caused by clear request sometimes completed after restore init request.
 

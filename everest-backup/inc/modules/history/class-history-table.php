@@ -9,6 +9,7 @@ namespace Everest_Backup\Modules;
 
 use Everest_Backup\Backup_Directory;
 use Everest_Backup\Tags;
+use Everest_Backup\Transient;
 
 /**
  * Exit if accessed directly.
@@ -28,6 +29,7 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
  * @since 1.0.0
  */
 class History_Table extends \WP_List_Table {
+	private array $table_items;
 
 	/**
 	 * Gets a list of CSS classes for the WP_List_Table table tag.
@@ -223,8 +225,6 @@ class History_Table extends \WP_List_Table {
 						'package_locations' => $package_locations,
 					)
 				);
-
-				submit_button( __( 'Filter', 'everest-backup' ), '', 'filter_action', false );
 			}
 
 			do_action( 'everest_backup_history_after_filters', $cloud );
@@ -246,9 +246,22 @@ class History_Table extends \WP_List_Table {
 			<div class="alignleft actions bulkactions">
 				<?php $this->bulk_actions( $which ); ?>
 			</div>
-				<?php
+			<?php
 			endif;
-			$this->extra_tablenav( $which );
+
+			if ( 'top' === $which ) {
+				$get = everest_backup_get_submitted_data( 'get' );
+				$backup_type = $get['backup_type'] ?? 'regular';
+				?>
+				<select name="backup_type" id="everest_backup_backup_type">
+					<option value="regular" <?php selected( $backup_type, 'regular' ); ?>>Regular</option>
+					<option value="incremental" <?php selected( $backup_type, 'incremental' ); ?>>Incremental</option>
+				</select>
+				<?php
+				$this->extra_tablenav( $which );
+				submit_button( __( 'Filter', 'everest-backup' ), '', 'filter_action', false );
+			}
+
 			$this->pagination( $which );
 
 			if ( 'bottom' === $which ) {
@@ -327,13 +340,82 @@ class History_Table extends \WP_List_Table {
 		 * Helps to shortcircuit table data listing.
 		 * Useful in a case such as listing the cloud files.
 		 */
+		$transient = new Transient( $this->get_selected_cloud() . '_folder_contents' );
+		$transient->delete();
 		$backups = apply_filters( 'everest_backup_history_table_data', null, $this->get_selected_cloud() );
 
-		if ( is_array( $backups ) ) {
-			return $backups;
+		if ( ! is_array( $backups ) ) {
+			$backups = Backup_Directory::init()->get_backups();
+		}
+		$get = everest_backup_get_submitted_data( 'get' );
+		$backup_type = $get['backup_type'] ?? 'regular';
+		if ( 'regular' === $backup_type ) {
+			$backup_values = array_filter(
+				$backups,
+				function ( $val ) {
+					return ( 0 === strpos( $val['filename'], 'ebwp-' ) );
+				}
+			);
+		} else {
+			$backup_values = array_filter(
+				$backups,
+				function ( $val ) {
+					return ( 0 === strpos( $val['filename'], 'ebwpbuwa-' ) );
+				}
+			);
+			$childrens = array_filter(
+				$backups,
+				function ( $val ) {
+					return ( 0 === strpos( $val['filename'], 'ebwpinc-' ) );
+				}
+			);
+			$backup_values = array_map(
+				function ( $val ) use ( &$childrens ) {
+					preg_match(
+						'/^ebwpbuwa-(.+)-(\d+)-([a-f0-9]+)\.ebwp$/',
+						$val['filename'],
+						$matches
+					);
+					$val['hostname']   = $matches[1];
+					$val['time']       = $matches[2];
+					$val['random']     = $matches[3];
+					$val['children']   = $this->file_inc_children( $val, $childrens );
+					return $val;
+				},
+				$backup_values
+			);
+		}
+		$this->table_items = array_values( $backup_values );
+		return $this->table_items;
+	}
+
+	/**
+	 * Filter out the childrens of the given backup.
+	 *
+	 * @param array $current The given backup.
+	 * @param array $childrens The list of all incremental backups.
+	 * @return array The childrens of the given backup.
+	 */
+	private function file_inc_children( $current, &$childrens ) {
+		$child_init_name = 'ebwpinc-' . $current['hostname'] . '-' . $current['time'] . '-' . $current['random'];
+
+		$i = 0; $current_childrens = array(); $n_childrens = array();
+		foreach ( $childrens as $child ) {
+			$child['parent'] = 'ebwpbuwa-' . $current['hostname'] . '-' . $current['time'] . '-' . $current['random'] . EVEREST_BACKUP_BACKUP_FILE_EXTENSION;
+			$n_childrens[ $child['filename'] ] = $child;
 		}
 
-		return Backup_Directory::init()->get_backups();
+		while ( $i < ( count( $childrens ) + 1 ) ) {
+			$child_name = $child_init_name . '-' . $i . EVEREST_BACKUP_BACKUP_FILE_EXTENSION;
+			if ( array_key_exists( $child_name, $n_childrens ) ) {
+				$n_childrens[ $child_name ]['increment'] = $i;
+				$current_childrens[ $child_name ] = $n_childrens[ $child_name ];
+				$i++;
+				continue;
+			}
+			break;
+		}
+		return $current_childrens;
 	}
 
 	/**
@@ -391,19 +473,21 @@ class History_Table extends \WP_List_Table {
 	 *
 	 * @param array $item Row item array.
 	 * @return string
-	 * @since 1.1.2
+	 * @since 1.0.0
 	 */
-	private function get_download_zip_link( $item ) {
+	private function get_inc_restore_link( $item ) {
 
 		$file = ! empty( $item['file_id'] ) ? $item['file_id'] : $item['filename'];
 
 		$admin_url = network_admin_url( '/admin.php' );
 		$url       = add_query_arg(
 			array(
-				'page'   => 'everest-backup-history',
-				'action' => 'download-as-zip',
-				'file'   => rawurlencode( $file ),
-				'_nonce' => everest_backup_create_nonce( $file ),
+				'page'      => 'everest-backup-import',
+				'action'    => 'increment-rollback',
+				'cloud'     => $this->get_selected_cloud(),
+				'file'      => rawurlencode( $file ),
+				'parent'    => $item['parent'],
+				'increment' => $item['increment'] ?? 1,
 			),
 			$admin_url
 		);
@@ -419,23 +503,41 @@ class History_Table extends \WP_List_Table {
 	 * @since 1.0.0
 	 */
 	protected function package_row_actions( $item ) {
-		$row_actions = array(
-			'ebwp-download'     => sprintf( '<a href="%1$s" class="button button-success" target="_blank">%2$s</a>', esc_url( $item['url'] ), esc_html__( 'Download', 'everest-backup' ) ),
-			'ebwp-download-zip' => null,
-			'ebwp-migrate'      => null,
-			'ebwp-rollback'     => sprintf( '<a href="%1$s" class="button-secondary">%2$s</a>', esc_url( $this->get_restore_link( $item ) ), esc_html__( 'Rollback', 'everest-backup' ) ),
-			'ebwp-remove trash' => sprintf( '<a href="%1$s" class="submitdelete">%2$s</a>', esc_url( $this->get_remove_link( $item ) ), esc_html__( 'Remove', 'everest-backup' ) ),
-		);
+		if ( isset( $item['children'] ) ) {
+			if ( ! empty( $item['children'] ) ) {
+				$html = ''; $sn = 0;
+				foreach ( $item['children'] as $child ) {
+					$button = sprintf( '<a href="%1$s" class="button-secondary">%2$s</a>', esc_url( $this->get_inc_restore_link( $child ) ), esc_html__( 'Rollback', 'everest-backup' ) );
+					$html .= '<li class="logs-list-item item-key-' . $sn . ' notice notice-info">Restore Point ' . $sn++ . ' : &nbsp; ' . wp_date( 'h:i:s A [F j, Y]', $child['time'] ) . '&nbsp;&nbsp;' . $button . '</li>';
+				}
+				$row_actions = array(
+					'rollbacks' => '<ul class="everest-backup-logs-list">' . $html . '</ul>',
+				);
+			} else {
+				$row_actions = array(
+					'ebwp-rollback' => sprintf( '<a href="%1$s" class="button-secondary">%2$s</a>', esc_url( $this->get_restore_link( $item ) ), esc_html__( 'Rollback', 'everest-backup' ) ),
+				);
+			}
+		} else {
+			$row_actions = array(
+				'ebwp-download'     => sprintf( '<a href="%1$s" class="button button-success" target="_blank">%2$s</a>', esc_url( $item['url'] ), esc_html__( 'Download', 'everest-backup' ) ),
+				'ebwp-download-zip' => null,
+				'ebwp-migrate'      => null,
+				'ebwp-rollback'     => sprintf( '<a href="%1$s" class="button-secondary">%2$s</a>', esc_url( $this->get_restore_link( $item ) ), esc_html__( 'Rollback', 'everest-backup' ) ),
+				'ebwp-remove trash' => sprintf( '<a href="%1$s" class="submitdelete">%2$s</a>', esc_url( $this->get_remove_link( $item ) ), esc_html__( 'Remove', 'everest-backup' ) ),
+			);
+		}
 
 		$selected_cloud = $this->get_selected_cloud();
 
-		if ( 'server' === $selected_cloud ) {
+		if ( $this->is_history_page() && ( 'server' === $selected_cloud ) ) {
 			$available_clouds = apply_filters( 'everest_backup_available_clouds', array() );
 			if ( ! empty( $available_clouds ) ) {
 				$file = ! empty( $item['file_id'] ) ? $item['file_id'] : $item['filename'];
 
 				$row_actions['ebwp-upload-to-cloud'] = '<button type="button" class="button button-success everest-backup-upload-to-cloud-btn" data-file="' . $file . '" data-active-plugins="' . implode( ',', $available_clouds ) . '" data-file_size="' . $item['size'] . '">Upload to Cloud</button>';
 			}
+			$row_actions['ebwp-list-backup-contents'] = '<button type="button" class="button button-secondary everest-backup-list-files-btn" data-file="' . $item['filename'] . '">List Backup Contents</button>';
 		}
 
 		// @since 1.1.2
@@ -539,7 +641,17 @@ class History_Table extends \WP_List_Table {
 	public function column_default( $item, $column_name ) {
 		switch ( $column_name ) {
 			case 'filename':
-				return '<strong>' . $item[ $column_name ] . '</strong>' . $this->row_actions( $this->package_row_actions( $item ) );
+				$items = $this->package_row_actions( $item );
+				if ( ! empty( $item['children'] ) ) {
+					$html = '<details>';
+					$html .= '<summary><strong>' . $item[ $column_name ] . '</strong></summary>';
+					$html .= '<p>';
+					$html .= $items['rollbacks'] ? $items['rollbacks'] : $this->row_actions( $items, true );
+					$html .= '</p>';
+					$html .= '</details>';
+					return $html;
+				}
+				return '<strong>' . $item[ $column_name ] . '</strong>' . $this->row_actions( $items );
 			case 'size':
 				return everest_backup_format_size( $item[ $column_name ] );
 			case 'tags':

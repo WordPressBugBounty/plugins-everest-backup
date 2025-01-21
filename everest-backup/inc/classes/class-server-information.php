@@ -215,9 +215,9 @@ class Server_Information {
 			'value' => EVEREST_BACKUP_VERSION,
 		);
 
-		$this->infos['ebwp_archiver'] = array(
-			'label' => __( 'EBWP Archiver', 'everest-backup' ),
-			'value' => ( ! everest_backup_use_fallback_archiver() ) ? 'ZipArchive' : 'PhpZip\ZipFile', // Class names.
+		$this->infos['ebwp_encrypt'] = array(
+			'label' => __( 'EBWP Encrypt', 'everest-backup' ),
+			'value' => extension_loaded( 'openssl' ) ? 'openssl' : 'N/A',
 		);
 
 		$this->infos['ebwp_addons'] = array(

@@ -29,8 +29,9 @@ class Contents {
 	 * Run.
 	 */
 	private static function run() {
+		$params = self::read_config( 'Params' );
 
-		if ( self::is_ignored( 'content' ) ) {
+		if ( ( isset( $params['incremental'] ) && $params['incremental'] ) || ( self::is_ignored( 'content' ) && ! isset( $params['parent_incremental'] ) ) ) {
 
 			Logs::set_proc_stat(
 				array(
@@ -41,7 +42,7 @@ class Contents {
 				)
 			);
 
-			return self::set_next( 'wrapup' );
+			return self::set_next( 'incremental' );
 		}
 
 		Logs::set_proc_stat(
@@ -54,6 +55,8 @@ class Contents {
 		);
 
 		$files = Filesystem::init()->list_files( WP_CONTENT_DIR, everest_backup_get_excluded_folders() );
+
+		self::put_current_backup_file_info( $files );
 
 		$total_files = count( $files );
 		$total_size  = 0;

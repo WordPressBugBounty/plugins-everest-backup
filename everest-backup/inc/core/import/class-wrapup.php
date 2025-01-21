@@ -170,10 +170,9 @@ class Wrapup {
 				if ( isset( $procstat['log'] ) ) {
 					unset( $procstat['log'] );
 				}
-				$procstat['next']    = 'wrapup';
+				$procstat['next']     = 'wrapup';
 				$procstat['critical'] = true;
 				return Logs::set_proc_stat( $procstat );
-				return true;
 			}
 		}
 
@@ -194,19 +193,37 @@ class Wrapup {
 			return;
 		}
 
-		if ( ! empty( $metadata['config']['Database'] ) ) {
-			if ( self::import_databases( $metadata['config']['Database'], $params ) ) {
-				return;
-			}
+		if ( isset( $params['incremental'] ) && isset( $params['skip_database'] ) ) {
+			$msg = __( 'Next step...', 'everest-backup' );
 			Logs::set_proc_stat(
 				array(
 					'log'      => 'info',
 					'status'   => 'in-process',
 					'progress' => 65,
-					'message'  => __( 'Database Imported...', 'everest-backup' ),
-					'detail'   =>  __( 'Database imported.', 'everest-backup' ),
+					'message'  => $msg,
+					'detail'   =>  __( 'Database skipped.', 'everest-backup' ),
 				)
 			);
+			Logs::info( $msg );
+
+			everest_backup_send_success();
+	
+			die();
+		} else {
+			if ( ! empty( $metadata['config']['Database'] ) ) {
+				if ( self::import_databases( $metadata['config']['Database'], $params ) ) {
+					return;
+				}
+				Logs::set_proc_stat(
+					array(
+						'log'      => 'info',
+						'status'   => 'in-process',
+						'progress' => 65,
+						'message'  => __( 'Database Imported...', 'everest-backup' ),
+						'detail'   =>  __( 'Database imported.', 'everest-backup' ),
+					)
+				);
+			}
 		}
 
 		$general_settings     = everest_backup_get_settings( 'general' );
@@ -288,14 +305,15 @@ class Wrapup {
 
 		everest_backup_activate_our_plugins();
 
-		Logs::info( 'Flushing cache and clearing temporary files', 'everest-backup' );
+		Logs::info( __( 'Flushing cache and clearing temporary files', 'everest-backup' ) );
 
 		self::set_permalinks();
 
 		flush_rewrite_rules();
 		everest_backup_elementor_cache_flush();
 
-		if ( empty( $metadata['config']['Database'] ) ) {
+		if ( empty( $metadata['config']['Database'] ) || ! ( isset( $params['skip_database'] ) && isset( $params['incremental'] ) ) ) {
+			Logs::info( __( 'Auth cleared.', 'everest-backup' ) );
 			wp_clear_auth_cookie();
 		}
 

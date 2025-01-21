@@ -24,8 +24,9 @@ class Media {
 	use Export;
 
 	private static function run() {
+		$params = self::read_config( 'Params' );
 
-		if ( self::is_ignored( 'media' ) ) {
+		if ( ( isset( $params['incremental'] ) && $params['incremental'] ) || ( self::is_ignored( 'media' ) && ! isset( $params['parent_incremental'] ) ) ) {
 
 			Logs::set_proc_stat(
 				array(
@@ -49,6 +50,8 @@ class Media {
 		);
 
 		$files = Filesystem::init()->list_files( everest_backup_get_uploads_dir() );
+
+		self::put_current_backup_file_info( $files );
 
 		$total_files = count( $files );
 		$total_size  = 0;

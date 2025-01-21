@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -37,8 +48,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 (function () {
     var _this = this;
-    var doingRollback = _everest_backup.doingRollback, maxUploadSize = _everest_backup.maxUploadSize, pluploadArgs = _everest_backup.pluploadArgs, locale = _everest_backup.locale, ajaxUrl = _everest_backup.ajaxUrl, _nonce = _everest_backup._nonce, actions = _everest_backup.actions, resInterval = _everest_backup.resInterval;
+    var doingRollback = _everest_backup.doingRollback, doingIncrementRollback = _everest_backup.doingIncrementRollback, maxUploadSize = _everest_backup.maxUploadSize, pluploadArgs = _everest_backup.pluploadArgs, locale = _everest_backup.locale, ajaxUrl = _everest_backup.ajaxUrl, _nonce = _everest_backup._nonce, actions = _everest_backup.actions, resInterval = _everest_backup.resInterval;
     var bodyClass = 'ebwp-is-active';
+    var incrementFileData = new Array();
     var prevTitleString = document.title;
     var messageBox = document.querySelector("#everest-backup-container #message-box");
     var uploaderUI = document.querySelector("#everest-backup-container #restore-wrapper #plupload-upload-ui");
@@ -77,7 +89,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }; // setMessage.
     var lastDetail = '';
     var lastHash = '';
-    var restoreInitData = {};
     var handleProcessDetails = function (details) {
         if (details === lastDetail) {
             return;
@@ -110,6 +121,19 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
             }
         });
     }); };
+    /** @since 2.3.0 */
+    var processInitCheck = function () { return __awaiter(_this, void 0, void 0, function () {
+        var t, response;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    t = +new Date();
+                    response = fetch("".concat(ajaxUrl, "?action=").concat(actions.processRunning, "&everest_backup_ajax_nonce=").concat(_nonce, "&t=").concat(t));
+                    return [4 /*yield*/, response];
+                case 1: return [2 /*return*/, (_a.sent()).json()];
+            }
+        });
+    }); };
     /** @since 2.0.0 */
     var triggerSendBecon = function (data) {
         if (data === void 0) { data = {}; }
@@ -128,6 +152,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         var timeoutNumber = 0;
         var onBeaconSent = function () { return __awaiter(_this, void 0, void 0, function () {
             var response, result;
+            var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, fetch(sseURL(), {
@@ -139,50 +164,73 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                     case 1:
                         response = _a.sent();
                         result = response.json();
-                        result.then(function (res) {
-                            retry = 1;
-                            switch (res.status) {
-                                case 'done':
-                                    removeProcStatFile();
-                                    handleProcessSuccessError(true);
-                                    break;
-                                case 'cloud':
-                                    removeProcStatFile();
-                                    break;
-                                case 'error':
-                                    var lastError = getLastError(res.data);
-                                    maybeShowLastError(lastError);
-                                    removeProcStatFile();
-                                    handleProcessSuccessError(false);
-                                    break;
-                                default:
-                                    handleProcessDetails(res.detail);
-                                    handleProgressInfo(res.message, res.progress);
-                                    if (!!res.version_diff_major && !skip_version_check) {
-                                        if (!confirm('This backup uses PHP v' + res.zip_php_version + ', but your site is running v' + res.current_php_version + '. Restoring could cause problems. For a smooth restore, we recommend using the same PHP version for both your backup and your website. Proceed with caution! Do you wish to continue?')) {
-                                            removeProcStatFile();
-                                            window.location.reload();
-                                            break;
+                        result.then(function (res) { return __awaiter(_this, void 0, void 0, function () {
+                            var _a, nextFileRestore, beaconSent_1, lastError;
+                            return __generator(this, function (_b) {
+                                switch (_b.label) {
+                                    case 0:
+                                        retry = 1;
+                                        _a = res.status;
+                                        switch (_a) {
+                                            case 'done': return [3 /*break*/, 1];
+                                            case 'cloud': return [3 /*break*/, 3];
+                                            case 'error': return [3 /*break*/, 4];
                                         }
-                                        else {
-                                            delete res["version_diff_major"];
-                                            skip_version_check = true;
-                                            res.skip_php_version_check = true;
-                                            triggerSendBecon(res);
-                                            setTimeout(function () { return onBeaconSent(); }, resInterval);
-                                            break;
+                                        return [3 /*break*/, 5];
+                                    case 1: return [4 /*yield*/, removeProcStatFile()];
+                                    case 2:
+                                        _b.sent();
+                                        if (incrementFileData.length > 0) {
+                                            nextFileRestore = incrementFileData.pop();
+                                            beaconSent_1 = triggerSendBecon(nextFileRestore);
+                                            handleProcStats(beaconSent_1);
+                                            return [2 /*return*/];
                                         }
-                                    }
-                                    if (!!res.next && res.next.length) {
-                                        if (res.hash !== lastHash) {
-                                            triggerSendBecon(res);
+                                        handleProcessSuccessError(true);
+                                        return [3 /*break*/, 6];
+                                    case 3:
+                                        removeProcStatFile();
+                                        return [3 /*break*/, 6];
+                                    case 4:
+                                        lastError = getLastError(res.data);
+                                        maybeShowLastError(lastError);
+                                        removeProcStatFile();
+                                        handleProcessSuccessError(false);
+                                        return [3 /*break*/, 6];
+                                    case 5:
+                                        handleProcessDetails(res.detail);
+                                        handleProgressInfo(res.message, res.progress);
+                                        if ((incrementFileData.length > 0) && doingIncrementRollback) {
+                                            res.skip_database = 1;
+                                            res.incremental = 1;
                                         }
-                                        lastHash = res.hash;
-                                    }
-                                    setTimeout(function () { return onBeaconSent(); }, resInterval);
-                                    break;
-                            }
-                        }).catch(function (err) {
+                                        if (!!res.version_diff_major && !skip_version_check) {
+                                            if (!confirm('This backup uses PHP v' + res.zip_php_version + ', but your site is running v' + res.current_php_version + '. Restoring could cause problems. For a smooth restore, we recommend using the same PHP version for both your backup and your website. Proceed with caution! Do you wish to continue?')) {
+                                                removeProcStatFile();
+                                                window.location.reload();
+                                                return [3 /*break*/, 6];
+                                            }
+                                            else {
+                                                delete res["version_diff_major"];
+                                                skip_version_check = true;
+                                                res.skip_php_version_check = true;
+                                                triggerSendBecon(res);
+                                                setTimeout(function () { return onBeaconSent(); }, resInterval);
+                                                return [3 /*break*/, 6];
+                                            }
+                                        }
+                                        if (!!res.next && res.next.length) {
+                                            if (res.hash !== lastHash) {
+                                                triggerSendBecon(res);
+                                            }
+                                            lastHash = res.hash;
+                                        }
+                                        setTimeout(function () { return onBeaconSent(); }, resInterval);
+                                        return [3 /*break*/, 6];
+                                    case 6: return [2 /*return*/];
+                                }
+                            });
+                        }); }).catch(function (err) {
                             console.warn(err);
                             if (timeoutNumber)
                                 clearInterval(timeoutNumber);
@@ -264,7 +312,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                     case 0: return [4 /*yield*/, removeProcStatFile()];
                     case 1:
                         _a.sent();
-                        restoreInitData = data;
                         beaconSent = triggerSendBecon(data);
                         btnWrapper.classList.add('hidden');
                         handleProgressInfo('', 0);
@@ -339,6 +386,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
          */
         uploader.bind('UploadProgress', function (upload, file) {
             var uploadedPercent = file.percent;
+            retryCount = 0;
             handleProgressInfo(locale.uploadingPackage, uploadedPercent);
         }); // Uploader: UploadProgress
         /**
@@ -371,6 +419,29 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                 console.error(error);
             }
         }); // Uploader: FileUploaded
+        var retryCount = 0;
+        var maxRetries = 3;
+        uploader.bind('error', function (upload, err) {
+            if (retryCount < maxRetries) {
+                retryCount++;
+                console.warn("Retrying upload... Attempt ".concat(retryCount, " of ").concat(maxRetries));
+                setTimeout(function () {
+                    if (err.file) {
+                        console.warn("Retrying file:", err.file.name);
+                        err.file.status = plupload.QUEUED; // Set the file status back to queued
+                        upload.start(); // Resume the upload process
+                    }
+                }, 5000);
+            }
+            else {
+                upload.stop();
+                handleProgressInfo('', 0);
+                document.body.classList.remove(bodyClass);
+                btnWrapper.classList.add('hidden');
+                retryCount = 0; // Reset retry count for the next upload.
+                setMessage(err.message);
+            }
+        });
         btnSave.addEventListener('click', function () {
             onClickSaveBtn(FileUploadedRes);
         });
@@ -382,13 +453,20 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         var confirmationWrapper = document.querySelector("#everest-backup-container .confirmation-wrapper");
         var rollbackForm = document.getElementById("rollback-form");
         rollbackForm.addEventListener("submit", function (event) { return __awaiter(_this, void 0, void 0, function () {
-            var data, formData, beaconSent;
+            var check, data, formData, beaconSent;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         event.preventDefault();
-                        return [4 /*yield*/, removeProcStatFile()];
+                        return [4 /*yield*/, processInitCheck()];
                     case 1:
+                        check = _a.sent();
+                        if (check.process_already_running) {
+                            alert(check.process_already_running);
+                            return [2 /*return*/];
+                        }
+                        return [4 /*yield*/, removeProcStatFile()];
+                    case 2:
                         _a.sent();
                         document.body.classList.add(bodyClass);
                         confirmationWrapper.remove();
@@ -407,6 +485,68 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
             });
         }); });
     };
+    var IncrementalRollBack = function () {
+        var confirmationWrapper = document.querySelector("#everest-backup-container .confirmation-wrapper");
+        var rollbackForm = document.getElementById("rollback-form");
+        rollbackForm.addEventListener("submit", function (event) { return __awaiter(_this, void 0, void 0, function () {
+            var check, data, childData, formData, filesBase64Encoded, filesJsonEncoded, files, i, beaconSent_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        event.preventDefault();
+                        return [4 /*yield*/, processInitCheck()];
+                    case 1:
+                        check = _a.sent();
+                        if (check.process_already_running) {
+                            alert(check.process_already_running);
+                            return [2 /*return*/];
+                        }
+                        return [4 /*yield*/, removeProcStatFile()];
+                    case 2:
+                        _a.sent();
+                        document.body.classList.add(bodyClass);
+                        confirmationWrapper.remove();
+                        data = {};
+                        childData = {};
+                        formData = new FormData(rollbackForm);
+                        filesBase64Encoded = formData.get('files');
+                        formData.delete('files');
+                        filesJsonEncoded = filesBase64Encoded ? atob(filesBase64Encoded.toString()) : false;
+                        if (filesJsonEncoded) {
+                            files = JSON.parse(filesJsonEncoded);
+                            if (files.children) {
+                                formData.forEach(function (value, key) {
+                                    childData[key] = value;
+                                });
+                                for (i = 0; i < files.children.length; i++) {
+                                    childData['_action'] = 'rollback';
+                                    childData['file'] = files.children[i].file_id;
+                                    childData['filename'] = files.children[i].filename;
+                                    childData['download_url'] = files.children[i].url;
+                                    childData['size'] = files.children[i].size;
+                                    incrementFileData.push(__assign({}, childData));
+                                }
+                            }
+                            if (files.parent) {
+                                data['file'] = files.parent.file_id;
+                                data['filename'] = files.parent.filename;
+                                data['download_url'] = files.parent.url;
+                                data['size'] = files.parent.size;
+                                formData.forEach(function (value, key) {
+                                    data[key] = value;
+                                });
+                                data['_action'] = 'rollback';
+                                beaconSent_2 = triggerSendBecon(data);
+                                setTimeout(function () {
+                                    handleProcStats(beaconSent_2);
+                                }, 500);
+                            }
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+    };
     /**
      * After document is fully loaded.
      */
@@ -414,6 +554,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         document.body.classList.remove(bodyClass);
         if (doingRollback) {
             Rollback();
+        }
+        else if (doingIncrementRollback) {
+            IncrementalRollBack();
         }
         else {
             Restore();

@@ -367,6 +367,17 @@ class Logs {
 				unlink( $activity_log_file );
 			}
 
+			$ebwp_addons = everest_backup_installed_addons( 'active' );
+			if ( is_array( $ebwp_addons ) && ! empty( $ebwp_addons ) ) {
+				foreach ( $ebwp_addons as $ebwp_addon ) {
+					$plugin_file = WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . $ebwp_addon;
+					$data        = get_plugin_data( $plugin_file, false, false );
+
+					$addons[] = "{$data['Name']} [{$data['Version']}]";
+				}
+				$data = '';
+			}
+
 			$content .= '============================================';
 			$content .= PHP_EOL;
 			$content .= 'Server Engine: ' . ( ! empty( $_SERVER['SERVER_SOFTWARE'] ) ? sanitize_text_field( wp_unslash( $_SERVER['SERVER_SOFTWARE'] ) ) : 'N/A' );
@@ -395,7 +406,7 @@ class Logs {
 			$content .= PHP_EOL;
 			$content .= 'Timezone: ' . wp_date( 'e' );
 			$content .= PHP_EOL;
-			$content .= 'Active Addons: ' . wp_json_encode( everest_backup_installed_addons( 'active' ) );
+			$content .= 'Active Addons: ' . wp_json_encode( $addons );
 			$content .= PHP_EOL;
 			$content .= '============================================';
 			$content .= PHP_EOL;
@@ -403,7 +414,7 @@ class Logs {
 
 		$content .= '[' . wp_date( 'd-M-Y h:i:s' ) . '] ';
 		$content .= $debug_mode ? ' ::DEBUG:: ' : '';
-		$content .= is_array( $data ) ? wp_json_encode( $data ) : $data;
+		$content .= isset( $data ) && is_array( $data ) ? wp_json_encode( $data ) : $data;
 		$content .= PHP_EOL;
 
 		if ( self::$is_sensitive ) {

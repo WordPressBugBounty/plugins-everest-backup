@@ -317,6 +317,51 @@ class Filesystem {
 	}
 
 	/**
+	 * Wrapper for `Everest_Backup\Filesystem::list_files_all` function.
+	 *
+	 * @param string   $folder Full path to folder. Default empty.
+	 * @param string[] (optional) $exclusion_folders Optional. Array of folder names in $folder directory.
+	 * @param string[] (optional) $exclude_files Optional. Array of file names in $folder directory.
+	 *
+	 * @return string[]|false Array of files on success, false on failure.
+	 * @since 1.0.0
+	 */
+	public function list_files_with_mtime( $folder, $exclusion_folders = array(), &$exclude_files = array() ) {
+
+		$folder = trailingslashit( $folder );
+
+		$all_files = $this->list_files_all( $folder, 100, $exclusion_folders );
+
+		$debug = everest_backup_get_settings( 'debug' );
+
+		/**
+		 * Filter out the node_modules and normalize path.
+		 */
+		$files = array_filter(
+			$all_files,
+			function( $file ) use ( $debug, $exclude_files ) {
+				if ( ( false === strpos( $file, 'node_modules' ) ) && ! array_key_exists( $file, $exclude_files ) ) {
+
+					if ( empty( $debug['exclude_languages_folder'] ) ) {
+						return wp_normalize_path( $file );
+					}
+
+					if ( false === strpos( $file, WP_LANG_DIR ) ) {
+						return wp_normalize_path( $file );
+					}
+				}
+			}
+		);
+
+		$file_with_size = array();
+		foreach ( $files as $file ) {
+			$file_with_size[ $file ] = filemtime( $file );
+		}
+
+		return $file_with_size;
+	}
+
+	/**
 	 * Custom function to check disk space if disk_free_space function disabled by the server.
 	 *
 	 * @param string $directory A directory of the filesystem or disk partition.

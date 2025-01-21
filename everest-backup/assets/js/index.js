@@ -39,7 +39,9 @@
             });
             var locale = _everest_backup.locale;
             if (locale.UploadProcessComplete) {
-                after_uplaod_to_cloud_process_modal_1.style.display = 'block';
+                if (after_uplaod_to_cloud_process_modal_1) {
+                    after_uplaod_to_cloud_process_modal_1.style.display = 'block';
+                }
             }
         }
     };

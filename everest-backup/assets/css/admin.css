@@ -1555,7 +1555,9 @@ body.everest-backup_page_everest-backup-history #everest-backup-container .table
   padding: 10px 0;
   margin: 0 0 10px;
 }
-body.everest-backup_page_everest-backup-history #everest-backup-container .tablenav select, body.everest-backup_page_everest-backup-history #everest-backup-container .tablenav input, body.everest-backup_page_everest-backup-history #everest-backup-container .tablenav input[type=submit] {
+body.everest-backup_page_everest-backup-history #everest-backup-container .tablenav select,
+body.everest-backup_page_everest-backup-history #everest-backup-container .tablenav input,
+body.everest-backup_page_everest-backup-history #everest-backup-container .tablenav input[type=submit] {
   height: 32px;
 }
 body.everest-backup_page_everest-backup-history #everest-backup-container .tablenav input[type=submit] {
@@ -1579,6 +1581,166 @@ body.everest-backup_page_everest-backup-history .tablenav.top .actions {
     display: block;
     margin: 0 auto;
   }
+}
+body.everest-backup_page_everest-backup-history .everest-backup-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  text-align: center;
+}
+body.everest-backup_page_everest-backup-history .everest-backup-modal-content {
+  background-color: white;
+  border-radius: 5px;
+  padding: 20px;
+  min-width: 300px;
+  max-width: 50vw;
+  max-height: 90%;
+  min-height: fit-content;
+  overflow: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+@media (max-width: 1024px) {
+  body.everest-backup_page_everest-backup-history .everest-backup-modal-content {
+    max-width: 100%;
+  }
+}
+body.everest-backup_page_everest-backup-history .everest-backup-modal-close {
+  cursor: pointer;
+  float: right;
+  font-size: 20px;
+  font-weight: bold;
+}
+body.everest-backup_page_everest-backup-history .float-right {
+  float: right;
+}
+body.everest-backup_page_everest-backup-history .float-left {
+  float: left;
+}
+body.everest-backup_page_everest-backup-history .w-25 {
+  width: 25%;
+}
+body.everest-backup_page_everest-backup-history .w-75 {
+  width: 75%;
+}
+body.everest-backup_page_everest-backup-history .everest-backup-loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent white background */
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Ensure it's above other content */
+}
+body.everest-backup_page_everest-backup-history .everest-backup-loader {
+  border: 8px solid #f3f3f3; /* Light grey */
+  border-top: 8px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+body.everest-backup_page_everest-backup-history .everest-backup-file-list {
+  text-align: left;
+  line-height: 1.5;
+  font-size: larger;
+}
+body.everest-backup_page_everest-backup-history .everest-backup-file-list .tree {
+  --spacing: 1.5rem;
+  --radius: 10px;
+}
+body.everest-backup_page_everest-backup-history .everest-backup-file-list .tree li {
+  display: block;
+  position: relative;
+  padding-left: calc(2 * var(--spacing) - var(--radius) - 2px);
+}
+body.everest-backup_page_everest-backup-history .everest-backup-file-list .tree ul {
+  margin-left: calc(var(--radius) - var(--spacing));
+  padding-left: 0;
+}
+body.everest-backup_page_everest-backup-history .everest-backup-file-list .tree ul li {
+  border-left: 2px solid #ddd;
+}
+body.everest-backup_page_everest-backup-history .everest-backup-file-list .tree ul li:last-child {
+  border-color: transparent;
+}
+body.everest-backup_page_everest-backup-history .everest-backup-file-list .tree ul li::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: calc(var(--spacing) / -2);
+  left: -2px;
+  width: calc(var(--spacing) + 2px);
+  height: calc(var(--spacing) + 1px);
+  border: solid #ddd;
+  border-width: 0 0 2px 2px;
+}
+body.everest-backup_page_everest-backup-history .everest-backup-file-list .tree summary {
+  display: block;
+  cursor: pointer;
+}
+body.everest-backup_page_everest-backup-history .everest-backup-file-list .tree summary::marker,
+body.everest-backup_page_everest-backup-history .everest-backup-file-list .tree summary::-webkit-details-marker {
+  display: none;
+}
+body.everest-backup_page_everest-backup-history .everest-backup-file-list .tree summary:focus {
+  outline: none;
+}
+body.everest-backup_page_everest-backup-history .everest-backup-file-list .tree summary:focus-visible {
+  outline: 1px dotted #000;
+}
+body.everest-backup_page_everest-backup-history .everest-backup-file-list .tree li::after,
+body.everest-backup_page_everest-backup-history .everest-backup-file-list .tree summary::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: calc(var(--spacing) / 2 - var(--radius));
+  left: calc(var(--spacing) - var(--radius) - 1px);
+  width: calc(2 * var(--radius));
+  height: calc(2 * var(--radius));
+  border-radius: 50%;
+  background: #ddd;
+}
+body.everest-backup_page_everest-backup-history .everest-backup-file-list .tree summary::before {
+  content: "";
+  text-align: center;
+  vertical-align: middle;
+  color: white;
+  font-size: large;
+  z-index: 1;
+  background: #696 url("/wp-content/plugins/everest-backup/assets/images/expand-collapse.svg") 0 0;
+}
+body.everest-backup_page_everest-backup-history .everest-backup-file-list .tree details[open] > summary::before {
+  background-position: calc(-2 * var(--radius)) 0;
+}
+body.everest-backup_page_everest-backup-history .everest-backup-file-in-backup:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+body.everest-backup_page_everest-backup-history .everest-backup-file-in-backup-download::after {
+  font-family: "dashicons";
+  content: "\f316";
+  font-size: large;
+  vertical-align: middle;
+  padding-left: 5px;
 }
 
 body.everest-backup_page_everest-backup-logs #everest-backup-container {

@@ -16,6 +16,7 @@ $everest_backup_settings = ! empty( $args['settings'] ) ? $args['settings'] : ar
 
 $tags_display_type                 = ! empty( $everest_backup_settings['general']['tags_display_type'] ) ? $everest_backup_settings['general']['tags_display_type'] : 'included';
 $delete_after_restore              = ! empty( $everest_backup_settings['general']['delete_after_restore'] ) ? $everest_backup_settings['general']['delete_after_restore'] : 'yes';
+$encrypt_backup                    = ! empty( $everest_backup_settings['general']['encrypt_backup'] ) ? $everest_backup_settings['general']['encrypt_backup'] : 'no';
 $logger_speed                      = ! empty( $everest_backup_settings['general']['logger_speed'] ) ? absint( $everest_backup_settings['general']['logger_speed'] ) : 200;
 $show_menu_in_site_admin_dashboard = ! empty( $everest_backup_settings['general']['show_menu_in_site_admin_dashboard'] ) ? $everest_backup_settings['general']['show_menu_in_site_admin_dashboard'] : 'no';
 
@@ -91,6 +92,60 @@ $show_menu_in_site_admin_dashboard = ! empty( $everest_backup_settings['general'
 			</tr>
 
 			<!-- From v2.0.0 -->
+
+			<tr>
+				<th scope="row">
+					<?php esc_html_e( 'Backup Encrypt', 'everest-backup' ); ?>
+					<?php everest_backup_tooltip( __( 'Encrypt Backup File Content', 'everest-backup' ) ); ?>
+				</th>
+				<td>
+					<label>
+						<?php
+						if ( everest_backup_pro_active() ) {
+							if ( ! extension_loaded( 'openssl' ) ) {
+								echo '<input type="hidden" name="everest_backup_settings[general][encrypt_backup]" value="no">';
+								echo __( 'OpenSSL extension required for file content encryption is missing. Please refer to <a target="_blank" href="https://www.php.net/manual/en/openssl.installation.php">PHP documentation</a> for info on how to install OpenSSL library.', 'everest-backup' );
+							} else { ?>
+								<select name="everest_backup_settings[general][encrypt_backup]" id="everest_backup_settings_general_encrypt_backup">
+									<option <?php selected( $encrypt_backup, 'yes' ); ?> value="yes"><?php esc_html_e( 'Yes', 'everest-backup' ); ?></option>
+									<option <?php selected( $encrypt_backup, 'no' ); ?> value="no"><?php esc_html_e( 'No', 'everest-backup' ); ?></option>
+								</select>
+								<!-- <div
+									id="everest_backup_settings_general_encrypt_backup_password_div"
+									style="<?php //echo ( $encrypt_backup === 'yes' ) ? '': 'display:none'; ?>"
+								>
+									Password?
+									<input
+										type="text"
+										name="everest_backup_settings[general][encrypt_backup_password]"
+										id="everest_backup_settings_general_encrypt_backup_password"
+										value="<?php //echo ! empty( $everest_backup_settings['general']['encrypt_backup_password'] ) ? esc_attr( $everest_backup_settings['general']['encrypt_backup_password'] ) : ''; ?>"
+									/>
+								</div>
+								<script>
+									window.addEventListener('DOMContentLoaded', function () {
+										document.getElementById('everest_backup_settings_general_encrypt_backup').addEventListener('change', function () {
+											if ( this.value === 'yes' ) {
+												document.getElementById('everest_backup_settings_general_encrypt_backup_password_div').style.display = 'block';
+											} else {
+												document.getElementById('everest_backup_settings_general_encrypt_backup_password_div').style.display = 'none';
+											}
+										})
+									})
+								</script> -->
+							<?php }
+						} else {
+							?>
+							<select name="" disabled>
+								<option value="no"><?php esc_html_e( 'No', 'everest-backup' ); ?></option>
+							</select>
+							<span>Premium Feature only available with <a target="_blank" href="https://wpeverestbackup.com/bundle-comparison/">Everest Backup Pro</a> Addon </span>
+							<?php
+						}
+						?>
+					</label>
+				</td>
+			</tr>
 
 			<tr>
 				<th scope="row">

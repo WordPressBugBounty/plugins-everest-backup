@@ -230,8 +230,9 @@ class Database {
 	 * Function to run database export related tasks.
 	 */
 	private static function run() {
+		$params = self::read_config( 'Params' );
 
-		if ( self::is_ignored( 'database' ) ) {
+		if ( ( isset( $params['incremental'] ) && $params['incremental'] ) || ( self::is_ignored( 'database' ) && ! isset( $params['parent_incremental'] ) ) ) {
 
 			Logs::set_proc_stat(
 				array(

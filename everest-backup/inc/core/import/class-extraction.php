@@ -80,6 +80,11 @@ class Extraction {
 	private static function run( $params ) {
 
 		$metadata = self::get_metadata();
+		$file_info = $metadata['config']['FileInfo'];
+		$encrypted = false;
+		if ( isset( $file_info ) && $file_info['encrypt'] ) {
+			$encrypted = true;
+		}
 
 		if ( empty( $metadata['FilePath'] ) ) {
 			throw new \Exception( esc_html__( 'Archive file path missing from metadata. Aborting restore.', 'everest-backup' ) );
@@ -139,7 +144,32 @@ class Extraction {
 			}
 
 			while ( ! feof( $archiver->get_ziphandle() ) ) {
+				$previous_line_seek = ftell( $archiver->get_ziphandle() );
 				$line = fgets( $archiver->get_ziphandle() );
+
+				/**
+				 * Implementation for deleting files.
+				 * ==============================================
+				 * Commented out for now.
+				 * Reason being, folder deletion is not optimal(folders getting left, only files are deleted).
+				 * Cannot delete every empty folders just cause they are empty.
+				 * Better check is necessary for recognising the correct folders to delete.
+				 */
+				/**
+				 *if ( 0 === strpos( $line, 'EBWPFILE_DELETE:' ) ) {
+				 *	$path = trim( str_replace( 'EBWPFILE_DELETE:', '', $line ) );
+				 *	$path = str_replace( chr( 0 ), '', $path ); // Fix for null byte issue.
+				 *	if ( false !== strpos( $path, 'ebwp-files' ) ) {
+				 *		$path = everest_backup_current_request_storage_path( $path );
+				 *	} else {
+				 *		$path = wp_normalize_path( WP_CONTENT_DIR . '/' . $path );
+				 *	}
+				 *	if ( file_exists( $path ) ) {
+				 *		@unlink( $path );
+				 *	}
+				 *	continue;
+				 *}
+				*/
 
 				/**
 				 * First step for extraction.
@@ -213,7 +243,7 @@ class Extraction {
 				 */
 				if ( 0 === strpos( $line, 'EBWPFILE_END:' ) ) {
 					if ( empty( $params['current_file_name'] ) || $path !== $params['current_file_name'] ) {
-						if ( is_resource( $handle ) ) {
+						if ( is_resource( $handle ) && ! $encrypted ) {
 
 							/**
 							 * Lets truncate the extra line that is being added at the end of the restored file.
@@ -296,10 +326,18 @@ class Extraction {
 				 * ===============================
 				 */
 				if ( $handle ) {
-					fwrite( $handle, $line ); //phpcs:ignore
+					if ( $encrypted ) {
+						$encrypted = $archiver->get_next_encrypted_chunk( $previous_line_seek );
+						if ( $encrypted ) {
+							$decrypted = $archiver->decrypt( $encrypted, '' );
+							fwrite( $handle, $decrypted ); //phpcs:ignore
+						}
+					} else {
+						fwrite( $handle, $line ); //phpcs:ignore
+					}
 
 					if ( ! ( get_transient( 'everest_backup_wp_cli_express' ) ) ) {
-						if ( ( time() - $time ) > 10 ) {
+						if ( ( time() - $time ) > EVEREST_BACKUP_PHP_EXECUTION_PARKHINE ) {
 							$calc     = ( $count / $stats['total'] ) * 100;
 							$progress = $calc > 100 ? 100 : $calc;
 

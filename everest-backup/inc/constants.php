@@ -111,6 +111,38 @@ if ( ! defined( 'EVEREST_BACKUP_LOCKFILE_PATH' ) ) {
 	define( 'EVEREST_BACKUP_LOCKFILE_PATH', wp_normalize_path( EVEREST_BACKUP_BACKUP_DIR_PATH . '/.LOCKFILE' ) );
 }
 
+if ( ! defined( 'EVEREST_BACKUP_CURRENT_BACKUP_FILE_INFO_PATH' ) ) {
+
+	/**
+	 * Path to CURRENTBACKUPFILEINFO file.
+	 */
+	define( 'EVEREST_BACKUP_CURRENT_BACKUP_FILE_INFO_PATH', wp_normalize_path( EVEREST_BACKUP_BACKUP_DIR_PATH . '/.CURRENTBACKUPFILEINFO' ) );
+}
+
+if ( ! defined( 'EVEREST_BACKUP_LAST_BACKUP_FILE_INFO_PATH' ) ) {
+
+	/**
+	 * Path to LASTBACKUPFILEINFO file.
+	 */
+	define( 'EVEREST_BACKUP_LAST_BACKUP_FILE_INFO_PATH', wp_normalize_path( EVEREST_BACKUP_BACKUP_DIR_PATH . '/.DO_NOT_DELETE_THIS_FILE' ) );
+}
+
+if ( ! defined( 'EVEREST_BACKUP_LAST_INCREMENT_FILE_INFO_PATH' ) ) {
+
+	/**
+	 * Path to LASTINCREMENTFILEINFO file.
+	 */
+	define( 'EVEREST_BACKUP_LAST_INCREMENT_FILE_INFO_PATH', wp_normalize_path( EVEREST_BACKUP_BACKUP_DIR_PATH . '/.LASTINCREMENTFILEINFO' ) );
+}
+
+if ( ! defined( 'EVEREST_BACKUP_CURRENT_INCREMENT_FILE_INFO_PATH' ) ) {
+
+	/**
+	 * Path to CURRENTINCREMENTFILEINFO file.
+	 */
+	define( 'EVEREST_BACKUP_CURRENT_INCREMENT_FILE_INFO_PATH', wp_normalize_path( EVEREST_BACKUP_BACKUP_DIR_PATH . '/.CURRENTINCREMENTFILEINFO' ) );
+}
+
 if ( ! defined( 'EVEREST_BACKUP_LOCKFILE_STALE_THRESHOLD' ) ) {
 
 	/**
@@ -211,6 +243,15 @@ if ( ! defined( 'EVEREST_BACKUP_IMPORT_ACTION' ) ) {
 	define( 'EVEREST_BACKUP_IMPORT_ACTION', 'everest_backup_import_core' );
 }
 
+if ( ! defined( 'EVEREST_BACKUP_PROCESS_RUNNING' ) ) {
+	/**
+	 * Everest Backup import action.
+	 *
+	 * @since 2.3.0
+	 */
+	define( 'EVEREST_BACKUP_PROCESS_RUNNING', 'everest_backup_process_running' );
+}
+
 if ( ! defined( 'EVEREST_BACKUP_CLONE_ACTION' ) ) {
 
 	/**
@@ -296,4 +337,31 @@ if ( ! defined( 'EVEREST_BACKUP_CLOUD_REST_API_PREFIX' ) ) {
 	 * REST API prefix.
 	 */
 	define( 'EVEREST_BACKUP_CLOUD_REST_API_PREFIX', 'everest_backup_upload_cloud_backup_' );
+}
+
+
+if ( ! defined( 'EVEREST_BACKUP_BACKUP_LIST_TEMP_DIR_PATH' ) ) {
+
+	/**
+	 * Directory path to backups folder.
+	 */
+	define( 'EVEREST_BACKUP_BACKUP_LIST_TEMP_DIR_PATH', wp_normalize_path( WP_CONTENT_DIR . '/ebwp-list' ) );
+}
+
+
+if ( ! defined( 'EVEREST_BACKUP_BACKUP_LIST_TEMP_URL_PATH' ) ) {
+
+	/**
+	 * Directory path to backups folder.
+	 */
+	define( 'EVEREST_BACKUP_BACKUP_LIST_TEMP_URL_PATH', wp_normalize_path( WP_CONTENT_URL . '/ebwp-list' ) );
+}
+
+
+if ( ! defined( 'EVEREST_BACKUP_PHP_EXECUTION_PARKHINE' ) ) {
+
+	/**
+	 * Directory path to backups folder.
+	 */
+	define( 'EVEREST_BACKUP_PHP_EXECUTION_PARKHINE', 20 );
 }

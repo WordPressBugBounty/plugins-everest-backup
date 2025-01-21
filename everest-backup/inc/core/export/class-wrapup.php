@@ -138,7 +138,8 @@ class Wrapup {
 			);
 		}
 
-		$listpath = everest_backup_current_request_storage_path( self::$LISTFILENAME ); // phpcs:ignore
+		$listpath       = everest_backup_current_request_storage_path( self::$LISTFILENAME ); // phpcs:ignore
+		$removelistpath = everest_backup_current_request_storage_path( self::$REMOVELISTFILENAME ); // phpcs:ignore
 
 		if ( ! file_exists( $listpath ) ) {
 			Logs::error( esc_html__( 'Files list not found, aborting backup.', 'everest-backup' ) );
@@ -193,9 +194,15 @@ class Wrapup {
 				);
 			}
 
+			$encode = false;
+			$FileInfo = self::read_config( 'FileInfo' );
+			if ( isset( $FileInfo['encrypt'] ) && $FileInfo['encrypt'] ) {
+				$encode = true;
+			}
+
 			$handle = fopen( $listpath, 'r' ); // phpcs:ignore
 
-			if ( is_resource( $handle ) ) {
+			if ( is_resource( $handle ) && ! isset( $subtask['remove_'] ) ) {
 
 				$count = ! empty( $subtask['count'] ) ? absint( $subtask['count'] ) : 1;
 
@@ -223,7 +230,7 @@ class Wrapup {
 						$filepath = $subtask['c_f'];
 					}
 
-					$file_write_return = $archiver->add_file( $filepath, $subtask );
+					$file_write_return = $archiver->add_file( $filepath, $subtask, $encode );
 					if ( $file_write_return ) {
 						$subtask['c_f']     = '';
 						$subtask['c_ftell'] = '';
@@ -245,7 +252,6 @@ class Wrapup {
 						);
 
 						++$count;
-
 					}
 
 					if ( is_array( $file_write_return ) ) {
@@ -263,7 +269,7 @@ class Wrapup {
 						);
 					}
 
-					if ( ( time() - $timestart ) > 10 ) {
+					if ( ( time() - $timestart ) > (EVEREST_BACKUP_PHP_EXECUTION_PARKHINE/2) ) {
 						return self::set_next(
 							'wrapup',
 							wp_json_encode(
@@ -284,8 +290,76 @@ class Wrapup {
 				$handle = false;
 			}
 
+			$handle = false;
+			if ( file_exists( $removelistpath ) ) {
+				$handle = fopen( $removelistpath, 'r' ); // phpcs:ignore
+			}
+
+			if ( is_resource( $handle ) ) {
+				$count = ! empty( $subtask['count'] ) ? absint( $subtask['count'] ) : 1;
+
+				if ( ! empty( $subtask['ftell'] ) ) {
+					fseek( $handle, absint( $subtask['ftell'] ) );
+				}
+				while ( ! feof( $handle ) ) {
+					if ( empty( $subtask['c_f'] ) && empty( $subtask['c_ftell'] ) ) {
+						$line = fgets( $handle );
+
+						if ( ! $line ) {
+							continue;
+						}
+
+						$filepath = trim( $line );
+
+						if ( 'ebwp' === pathinfo( $line, PATHINFO_EXTENSION ) ) {
+							continue;
+						}
+					}
+
+					$file_write_return = $archiver->add_remove_file( $filepath, $subtask, $encode );
+
+					if ( is_array( $file_write_return ) ) {
+						return self::set_next(
+							'wrapup',
+							wp_json_encode(
+								array(
+									'count'   => $count,
+									'ftell'   => ftell( $handle ),
+									'stats'   => $stats,
+									'remove_' => 1,  
+								)
+							)
+						);
+					}
+
+					if ( ( time() - $timestart ) > 10 ) {
+						return self::set_next(
+							'wrapup',
+							wp_json_encode(
+								array(
+									'count' => $count,
+									'ftell' => ftell( $handle ),
+									'stats' => $stats,
+									'remove_' => 1,  
+								)
+							)
+						);
+					}
+
+					$line = '';
+				}
+
+				fclose( $handle ); // phpcs:ignore
+
+				$handle = false;
+			}
+
 			$archiver->close();
 
+		}
+
+		if ( get_transient( 'everest_backup_doing_scheduled_backup' ) ) {
+			rename( EVEREST_BACKUP_CURRENT_BACKUP_FILE_INFO_PATH, EVEREST_BACKUP_LAST_BACKUP_FILE_INFO_PATH );
 		}
 
 		$migration = new Migration(

@@ -125,6 +125,8 @@ function everest_backup_require_files() {
 		 */
 		'inc/core/class-init.php',
 
+		'inc/core/class-list-backup.php',
+
 		'inc/classes/class-everest-backup.php',
 	);
 

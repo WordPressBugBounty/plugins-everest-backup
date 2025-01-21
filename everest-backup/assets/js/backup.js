@@ -278,6 +278,19 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
             return fetch("".concat(ajaxUrl, "?action=everest_backup_process_status_unlink&everest_backup_ajax_nonce=").concat(_nonce));
         };
         var lastHash = 0;
+        /** @since 2.3.0 */
+        var processInitCheck = function () { return __awaiter(_this, void 0, void 0, function () {
+            var t, response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        t = +new Date();
+                        response = fetch("".concat(ajaxUrl, "?action=").concat(actions.processRunning, "&everest_backup_ajax_nonce=").concat(_nonce, "&t=").concat(t));
+                        return [4 /*yield*/, response];
+                    case 1: return [2 /*return*/, (_a.sent()).json()];
+                }
+            });
+        }); };
         /** @since 2.0.0 */
         var triggerSendBecon = function (data) {
             if (data === void 0) { data = {}; }
@@ -400,16 +413,23 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
          */
         backupForm &&
             backupForm.addEventListener("submit", function (event) { return __awaiter(_this, void 0, void 0, function () {
-                var data, formData, beaconSent;
+                var check, data, formData, beaconSent;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
                             event.preventDefault();
+                            return [4 /*yield*/, processInitCheck()];
+                        case 1:
+                            check = _a.sent();
+                            if (check.process_already_running) {
+                                alert(check.process_already_running);
+                                return [2 /*return*/];
+                            }
                             processDetails.value = '';
                             handleProgressInfo(locale.initializingBackup, 0); // Reset progress.
                             resetLogContainer(logsContainer); // Reset Logs.
                             return [4 /*yield*/, removeProcStatFile()];
-                        case 1:
+                        case 2:
                             _a.sent(); // Remove old PROCSTAT file before starting backup.
                             data = {};
                             formData = new FormData(backupForm);

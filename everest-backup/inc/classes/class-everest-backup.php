@@ -76,7 +76,7 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 			if (preg_match('/\/wp-content\/ebwp-backups\/.PROCSTAT/', $requested_file) ) {
 				wp_die('Access Denied: You do not have permission to view this file.', 'Access Denied', ['response' => 403]);
 			}
-			if (preg_match('/\/wp-content\/ebwp-backups\/LOCKFILE/', $requested_file) ) {
+			if (preg_match('/\/wp-content\/ebwp-backups\/.LOCKFILE/', $requested_file) ) {
 				wp_die('Access Denied: You do not have permission to view this file.', 'Access Denied', ['response' => 403]);
 			}
 		}
@@ -108,7 +108,38 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 		 * Function executes on plugins loaded action hook.
 		 */
 		public function on_plugins_loaded() {
+			$this->on_cloud_logout();
 			do_action( 'everest_backup_loaded', $this );
+		}
+
+		private function on_cloud_logout() {
+			$data = everest_backup_get_submitted_data( 'get' );
+
+			if (
+				! empty( $data )
+				&& isset( $data['page'] )
+				&& ( 'everest-backup-settings' === $data['page'] )
+				&& isset( $data['tab'] )
+				&& ( 'cloud' === $data['tab'] )
+				&& isset( $data['logout'] )
+			) {
+				$settings = everest_backup_get_settings();
+				$schedule_backup = $settings['schedule_backup'];
+
+				if ( empty( $schedule_backup['enable'] ) ) {
+					return;
+				}
+
+				$save_to = $schedule_backup['save_to'];
+
+				if ( empty( $save_to ) ) {
+					return;
+				}
+				if ( $data['logout'] === $save_to ) {
+					$settings['schedule_backup']['save_to'] = 'server';
+					everest_backup_update_settings( $settings );
+				}
+			}
 		}
 
 		/**
@@ -534,10 +565,11 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 				);
 
 				wp_mail( $to, $subject, $message );
-
 			}
 
 			Proc_Lock::delete();
+			
+			everest_backup_unset_rest_properties();
 
 			if ( wp_safe_redirect( network_admin_url( '/admin.php?page=everest-backup-export' ) ) ) {
 				exit;
@@ -671,7 +703,9 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 				return;
 			}
 
-			$history_page_url = network_admin_url( "/admin.php?page={$page}" );
+			$backup_type = isset( $get['backup_type'] ) ? $get['backup_type'] : 'regular';
+
+			$history_page_url = network_admin_url( "/admin.php?page={$page}&backup_type={$backup_type}" );
 
 			if ( $bulk_action ) {
 				/**
@@ -682,6 +716,22 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 
 				if ( is_array( $files ) && ! empty( $files ) ) {
 					foreach ( $files as $file ) {
+						if ( 0 === strpos( $file, 'ebwpbuwa-' ) ) {
+							$backups = Backup_Directory::init()->get_backups();
+
+							$children = everest_backup_get_increment_children( $file, $backups );
+							error_log( print_r( $children, true ) );
+
+							if ( ! empty( $children ) ) {
+								foreach ( $children as $child ) {
+									if ( ! is_file( $child['path'] ) ) {
+										continue;
+									}
+
+									unlink( $child['path'] );// @phpcs:ignore
+								}
+							}
+						}
 						$file_path = everest_backup_get_backup_full_path( basename( $file ), true );
 
 						if ( ! $file_path ) {
@@ -789,11 +839,13 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 				return;
 			}
 
-			if ( ( 'rollback' !== $action ) && ( 'rollback' !== $_action ) ) {
-				return;
+			if ( ( 'rollback' === $action ) || ( 'rollback' === $_action ) ) {
+				define( 'EVEREST_BACKUP_DOING_ROLLBACK', true );
 			}
 
-			define( 'EVEREST_BACKUP_DOING_ROLLBACK', true );
+			if ( ( 'increment-rollback' === $action ) || ( 'increment-rollback' === $_action ) ) {
+				define( 'EVEREST_BACKUP_DOING_INCREMENT_ROLLBACK', true );
+			}
 		}
 
 		/**
@@ -891,15 +943,16 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 			$addons_page_link = '<a href="' . esc_url( network_admin_url( '/admin.php?page=everest-backup-addons&cat=Upload+Limit' ) ) . '">' . esc_html__( 'Addons', 'everest-backup' ) . '</a>';
 
 			$data = array(
-				'_nonce'        => everest_backup_create_nonce( 'everest_backup_ajax_nonce' ),
-				'ajaxUrl'       => admin_url( '/admin-ajax.php' ),
-				'sseURL'        => everest_backup_get_sse_url(),
-				'doingRollback' => everest_backup_doing_rollback(),
-				'maxUploadSize' => $max_upload_size,
-				'resInterval'   => everest_backup_get_logger_speed(), // In milliseconds, the interval between each ajax responses for restore/backup/clone.
-				'fileExtension' => ltrim( EVEREST_BACKUP_BACKUP_FILE_EXTENSION, '.' ),
-				'pluploadArgs'  => $this->plupload_args(),
-				'locale'        => array(
+				'_nonce'                 => everest_backup_create_nonce( 'everest_backup_ajax_nonce' ),
+				'ajaxUrl'                => admin_url( '/admin-ajax.php' ),
+				'sseURL'                 => everest_backup_get_sse_url(),
+				'doingRollback'          => everest_backup_doing_rollback(),
+				'doingIncrementRollback' => everest_backup_doing_increment_rollback(),
+				'maxUploadSize'          => $max_upload_size,
+				'resInterval'            => everest_backup_get_logger_speed(), // In milliseconds, the interval between each ajax responses for restore/backup/clone.
+				'fileExtension'          => ltrim( EVEREST_BACKUP_BACKUP_FILE_EXTENSION, '.' ),
+				'pluploadArgs'           => $this->plupload_args(),
+				'locale'                 => array(
 					/* translators: Here, %1$s is the size limit set by the server and %2$s is link to addons page. */
 					'fileSizeExceedMessage' => sprintf( __( 'The file size is larger than %1$s. View %2$s to bypass server upload limit.', 'everest-backup' ), everest_backup_format_size( $max_upload_size ), $addons_page_link ),
 					'zipDownloadBtn'        => __( 'Download File', 'everest-backup' ),
@@ -916,8 +969,11 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 					'UploadProcessComplete' => ( ! everest_backup_cloud_get_option( 'manual_backup_continued' ) ) && ( everest_backup_cloud_get_option( 'cloud_upload_error' ) || everest_backup_cloud_get_option( 'finished' ) ),
 					'loadingGifURL'         => everest_backup_get_ebwp_loading_gif(),
 					'ajaxGetCloudStorage'   => 'everest_backup_cloud_available_storage',
+					'listBackupFileContent' => 'everest_backup_list_backup_content',
+					'generateBackupListFile' => 'everest_backup_generate_backup_list_file',
+					'backupListFileTempURL' => EVEREST_BACKUP_BACKUP_LIST_TEMP_URL_PATH . DIRECTORY_SEPARATOR,
 				),
-				'adminPages'    => array(
+				'adminPages'             => array(
 					'dashboard' => network_admin_url(),
 					'backup'    => network_admin_url( 'admin.php?page=everest-backup-export' ),
 					'import'    => network_admin_url( '/admin.php?page=everest-backup-import' ),
@@ -925,7 +981,7 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 					'logs'      => network_admin_url( '/admin.php?page=everest-backup-logs' ),
 					'settings'  => network_admin_url( '/admin.php?page=everest-backup-settings' ),
 				),
-				'actions'       => array(
+				'actions'                => array(
 					'export'                => EVEREST_BACKUP_EXPORT_ACTION,
 					'clone'                 => EVEREST_BACKUP_CLONE_ACTION,
 					'import'                => EVEREST_BACKUP_IMPORT_ACTION,
@@ -933,6 +989,7 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 					'removeUploadedPackage' => EVEREST_BACKUP_REMOVE_UPLOADED_PACKAGE_ACTION,
 					'saveUploadedPackage'   => EVEREST_BACKUP_SAVE_UPLOADED_PACKAGE_ACTION,
 					'processStatusAction'   => EVEREST_BACKUP_PROCESS_STATUS_ACTION,
+					'processRunning'        => EVEREST_BACKUP_PROCESS_RUNNING,
 				),
 			);
 
@@ -1010,7 +1067,7 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 					break;
 
 				case 'everest-backup_page_everest-backup-history':
-					$filetype = 'upload-to-cloud';
+					$filetype = 'history';
 					break;
 
 				default:

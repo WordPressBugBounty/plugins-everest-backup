@@ -47,7 +47,7 @@ class Setup {
 				'status'   => 'in-process',
 				'progress' => 7,
 				'message'  => __( 'Backup started. Creating config file.', 'everest-backup' ),
-			),
+			)
 		);
 
 		Logs::info( __( 'Creating config file', 'everest-backup' ) );
@@ -104,11 +104,20 @@ class Setup {
 
 		$config['Params'] = self::$params;
 
+		$general_setting = everest_backup_get_settings( 'general' );
+		if ( ! isset( self::$params['incremental'] ) ) {
+			$filename = self::get_archive_name();
+		} else {
+			$parent_name = substr_replace( pathinfo( self::$params['parent_backup'], PATHINFO_FILENAME ), 'ebwpinc-', 0, strlen( 'ebwpbuwa-' ) );
+			$filename = $parent_name . '-' . self::$params['children_count'] . EVEREST_BACKUP_BACKUP_FILE_EXTENSION;
+		}
 		$config['FileInfo'] = array(
 			'uniqid'    => everest_backup_current_request_id(),
 			'timestamp' => everest_backup_current_request_timestamp(),
-			'filename'  => self::get_archive_name(),
+			'filename'  => $filename,
+			'encrypt'   => ( isset( $general_setting['encrypt_backup'] ) && ( $general_setting['encrypt_backup'] === 'yes' ) ),
 		);
+		self::create_current_backup_file_info( $config['FileInfo']['filename'] );
 
 		$config['NavMenus'] = get_nav_menu_locations();
 

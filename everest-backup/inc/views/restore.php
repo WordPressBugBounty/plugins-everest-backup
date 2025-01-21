@@ -7,6 +7,8 @@
 
 use Everest_Backup\Modules\Restore_Tab;
 use Everest_Backup\Core\Archiver_V2;
+use Everest_Backup\Transient;
+use Everest_Backup\Backup_Directory;
 
 /**
  * Exit if accessed directly.
@@ -131,9 +133,7 @@ $everest_backup_restore_tab = new Restore_Tab();
 <div class="wrap">
 	<hr class="wp-header-end">
 
-	<?php
-	everest_backup_render_view( 'template-parts/header' );
-	?>
+	<?php everest_backup_render_view( 'template-parts/header' ); ?>
 	<main class="everest-backup-wrapper">
 
 		<div id="everest-backup-container">
@@ -144,10 +144,7 @@ $everest_backup_restore_tab = new Restore_Tab();
 
 				<?php
 				if ( empty( $args['proc_lock'] ) ) {
-
-					if ( ! everest_backup_doing_rollback() ) {
-						$everest_backup_restore_tab->display();
-					} else {
+					if ( everest_backup_doing_rollback() ) {
 
 						$everest_backup_max_upload_size = everest_backup_max_upload_size();
 
@@ -218,6 +215,43 @@ $everest_backup_restore_tab = new Restore_Tab();
 						</div>
 
 						<?php
+					} elseif ( everest_backup_doing_increment_rollback() ) {
+						$response  = everest_backup_get_submitted_data( 'get', true );
+						$transient = new Transient( $response['cloud'] . '_folder_contents' );
+						$transient->delete();
+						if ( 'server' === $response['cloud'] ) {
+							$backups = Backup_Directory::init()->get_backups();
+						} else {
+							$backups = apply_filters( 'everest_backup_history_table_data', null, $response['cloud'] );
+						}
+						$current_backups       = everest_backup_get_parent_and_older_siblings( $response['parent'], $response['increment'], $backups );
+						$last_increment_backup = everest_backup_get_backup_increment_time( $current_backups, $response['increment'] );
+						?>
+						<div class="rollback-container card">
+							<p class="notice notice-info hidden"><strong><?php esc_html_e( 'Please wait while we are rolling back your website to the previous version.', 'everest-backup' ); ?></strong></p>
+							<span class="spinner"></span>
+
+							<h2><?php esc_html_e( 'Package Information', 'everest-backup' ); ?></h2>
+							<ul>
+								<li><?php printf( '<strong>%1$s :</strong> %2$s', esc_html__( 'Filename', 'everest-backup' ), esc_html( $current_backups['parent']['filename'] ) ); ?></li>
+								<li><?php printf( '<strong>%1$s :</strong> %2$s', esc_html__( 'Created On', 'everest-backup' ), esc_html( wp_date( 'h:i:s A [F j, Y]', $current_backups['parent']['time'] ) ) ); ?></li>
+								<li><?php printf( '<strong>%1$s :</strong> %2$s', esc_html__( 'Size', 'everest-backup' ), esc_html( everest_backup_format_size( $current_backups['parent']['size'] ) ) ); ?></li>
+								<li><?php printf( '<strong>%1$s :</strong> <strong>%2$s</strong>', esc_html__( 'Restore Point', 'everest-backup' ), esc_html( wp_date( 'h:i:s A [F j, Y]', $last_increment_backup['time'] ) ) ); ?></li>
+							</ul>
+							<div class="confirmation-wrapper">
+								<p class="notice notice-warning"><strong><?php esc_html_e( 'Are you sure? It cannot be undone after rollback is started.', 'everest-backup' ); ?></strong></p>
+								<form method="post" id="rollback-form">
+									<a href="<?php echo esc_url( network_admin_url( '/admin.php?page=everest-backup-import' ) ); ?>" class="button-primary"><?php esc_html_e( 'Cancel', 'everest-backup' ); ?></a>
+									<input type="hidden" name="files" value="<?php echo esc_attr( base64_encode( wp_json_encode( $current_backups ) ) ); ?>">
+									<input type="hidden" name="cloud" value="<?php echo esc_attr( $response['cloud'] ); ?>">
+									<input type="hidden" name="page" value="<?php echo esc_attr( $response['page'] ); ?>">
+									<button class="button-secondary" id="btn-rollback" type="submit"><?php esc_html_e( 'Rollback', 'everest-backup' ); ?></button>
+								</form>
+							</div>
+						</div>
+						<?php
+					} else {
+						$everest_backup_restore_tab->display();
 					}
 				} else {
 					everest_backup_render_view( 'template-parts/proc-lock-info', $args['proc_lock'] );

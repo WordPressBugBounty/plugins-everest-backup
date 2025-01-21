@@ -439,6 +439,41 @@ class Database {
 
 	}
 
+	protected function repair_serialized_values_in_query($query) {
+		if (empty($query)) {
+			return $query;
+		}
+
+		$tuple_regex = '/\(((((\-?\d+(\.\d+)?)*)|(\'[^\']*\')|NULL)(,\s)*)+\)/';
+		$fixed_query = preg_replace_callback(
+			$tuple_regex,
+			function ($matches) {
+				$tuple = $matches[0];
+				$parts = explode(', ', $tuple); // Split elements by comma within the tuple.
+				$fixed_parts = [];
+	
+				foreach ($parts as $part) {
+					$trimmed = trim($part, "'");
+					if ( is_serialized( $trimmed ) ) {
+						// Fix serialized value.
+						$unescaped = $this->unescape_mysql($trimmed);
+						$fixed_serialized = $this->recursively_fix_serialized_string($unescaped);
+						$escaped = $this->escape_mysql($fixed_serialized);
+						$fixed_parts[] = "'" . $escaped . "'";
+					} else {
+						// Non-serialized values remain unchanged.
+						$fixed_parts[] = $part;
+					}
+				}
+	
+				// Reconstruct the tuple with fixed parts.
+				return implode(', ', $fixed_parts);
+			},
+			$query
+		);
+		return $fixed_query;
+	}
+
 	/**
 	 * Escape MySQL special characters
 	 *

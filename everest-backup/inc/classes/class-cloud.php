@@ -252,7 +252,7 @@ class Cloud {
 	 * Set current cloud parameters that will be merged to package locations array.
 	 *
 	 * @abstract
-	 * @return void
+	 * @return void|array
 	 */
 	protected function set_cloud_param() {
 		_doing_it_wrong( __METHOD__, esc_html__( 'This method is supposed to be overridden by subclasses.', 'everest-backup' ), '' );
@@ -437,10 +437,12 @@ class Cloud {
 			return;
 		}
 
+		$get = everest_backup_get_submitted_data( 'get' );
 		$cache_reset_link = add_query_arg(
 			array(
-				'cloud'  => $this->cloud,
-				'action' => 'reset-cache',
+				'cloud'       => $this->cloud,
+				'backup_type' => $get['backup_type'] ?? 'regular',
+				'action'      => 'reset-cache',
 			),
 			network_admin_url( '/admin.php?page=everest-backup-history' )
 		);

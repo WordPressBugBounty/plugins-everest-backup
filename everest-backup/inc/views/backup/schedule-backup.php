@@ -22,8 +22,12 @@ $everest_backup_tr_rows_class           = $everest_backup_schedule_backup_enable
 $everest_backup_cron_cycle_hook    = ! empty( $everest_backup_settings['schedule_backup']['cron_cycle'] ) ? $everest_backup_settings['schedule_backup']['cron_cycle'] . '_hook' : '';
 $everest_backup_cron_next_schedule = wp_next_scheduled( $everest_backup_cron_cycle_hook );
 
+$everest_backup_increment_cron_cycle_hook    = ! empty( $everest_backup_settings['schedule_backup']['increment_cycle'] ) ? $everest_backup_settings['schedule_backup']['increment_cycle'] . '_hook' : '';
+$everest_backup_increment_cron_next_schedule = wp_next_scheduled( $everest_backup_increment_cron_cycle_hook );
+
 $everest_backup_custom_name_tag = ! empty( $everest_backup_settings['schedule_backup']['custom_name_tag'] ) ? $everest_backup_settings['schedule_backup']['custom_name_tag'] : '';
 
+$incremental_enabled = isset( $everest_backup_settings['schedule_backup']['set_incremental_backup'] ) && $everest_backup_settings['schedule_backup']['set_incremental_backup'];
 ?>
 <form method="post" class="postbox">
 	<div class="schedule-backup-wrapper">
@@ -50,6 +54,17 @@ $everest_backup_custom_name_tag = ! empty( $everest_backup_settings['schedule_ba
 						</label>
 					</td>
 				</tr>
+				<tr class="<?php echo esc_attr( $everest_backup_tr_rows_class ); ?>">
+					<td></td>
+					<td>
+					<?php
+					$get = everest_backup_get_submitted_data( 'get' );
+					$get['manual_scheduled_backup'] = 'run';
+					$current_url = admin_url(sprintf('admin.php?%s', http_build_query( $get ) ) );
+					echo '<a class="everest_bs_manual_backup" href="' . esc_url( $current_url ) . '">Create Scheduled Backup Now</a>';
+					?>
+					</td>
+				</tr>
 
 				<?php
 
@@ -71,7 +86,7 @@ $everest_backup_custom_name_tag = ! empty( $everest_backup_settings['schedule_ba
 						<label>
 							<span><?php esc_html_e( 'Backup', 'everest-backup' ); ?> </span>
 
-							<select name="everest_backup_settings[schedule_backup][cron_cycle]">
+							<select id="everest_backup_settings_schedule_backup_cron_cycle" name="everest_backup_settings[schedule_backup][cron_cycle]">
 								<?php
 								if ( is_array( $everest_backup_cron_cycles ) && ! empty( $everest_backup_cron_cycles ) ) {
 									foreach ( $everest_backup_cron_cycles as $everest_backup_cron_cycle_key => $everest_backup_cron_cycle ) {
@@ -123,6 +138,117 @@ $everest_backup_custom_name_tag = ! empty( $everest_backup_settings['schedule_ba
 					</td>
 				</tr>
 
+				<?php if ( everest_backup_pro_active() ) { ?>
+					<tr id="incremental-backup" class="<?php echo esc_attr( $everest_backup_tr_rows_class ); ?>">
+						<th scope="row">
+							<?php
+								esc_html_e( 'Set Incremental Backup', 'everest-backup' );
+								everest_backup_tooltip( __( 'Please refer to documentation for more info on incremental backups.', 'everest-backup' ) );
+							?>
+						</th>
+
+						<td>
+							<label>
+								<?php
+								everest_backup_switch(
+									array(
+										'id'              => 'everest_backup_settings_schedule_backup_set_incremental_backup',
+										'name'            => 'everest_backup_settings[schedule_backup][set_incremental_backup]',
+										'checked'         => $incremental_enabled,
+										'label_checked'   => __( 'Yes', 'everest-backup' ),
+										'label_unchecked' => __( 'No', 'everest-backup' ),
+									)
+								);
+								?>
+							</label>
+						</td>
+					</tr>
+
+					<tr id="increment_cycle" class="<?php echo esc_attr( $everest_backup_tr_rows_class ); ?>" <?php echo $incremental_enabled ? '' : 'style="display:none;"'; ?> >
+						<th scope="row"><?php esc_html_e( 'Increment Cycle', 'everest-backup' ); ?></th>
+						<td>
+							<label>
+								<span><?php esc_html_e( 'Backup', 'everest-backup' ); ?> </span>
+
+								<select id="everest_backup_settings_schedule_backup_increment_cycle" name="everest_backup_settings[schedule_backup][increment_cycle]">
+									<?php
+									if ( is_array( $everest_backup_cron_cycles ) && ! empty( $everest_backup_cron_cycles ) ) {
+										foreach ( $everest_backup_cron_cycles as $everest_backup_cron_cycle_key => $everest_backup_cron_cycle ) {
+											if ( ! $everest_backup_cron_cycle['interval'] ) {
+												?>
+												<option disabled><?php echo esc_html( $everest_backup_cron_cycle['display'] ); ?></option>
+												<?php
+											} else {
+												?>
+												<option 
+													<?php isset( $everest_backup_settings['schedule_backup']['increment_cycle'] ) && $everest_backup_settings['schedule_backup']['increment_cycle'] ? selected( $everest_backup_settings['schedule_backup']['increment_cycle'], $everest_backup_cron_cycle_key ) : ''; ?>
+													value="<?php echo esc_attr( $everest_backup_cron_cycle_key ); ?>"><?php echo esc_html( $everest_backup_cron_cycle['display'] ); ?></option>
+												<?php
+											}
+										}
+									}
+									?>
+								</select>
+
+								<span><?php esc_html_e( 'at', 'everest-backup' ); ?> </span>
+
+								<input type="time" value="<?php echo ! empty( $everest_backup_settings['schedule_backup']['increment_cycle_time'] ) ? esc_attr( $everest_backup_settings['schedule_backup']['increment_cycle_time'] ) : '00:00'; ?>" name="everest_backup_settings[schedule_backup][increment_cycle_time]">
+							</label>
+							<p><?php esc_html_e( 'Next Backup In:', 'everest-backup' ); ?> <code><?php echo $everest_backup_increment_cron_next_schedule ? esc_html( human_time_diff( $everest_backup_increment_cron_next_schedule ) ) : 'N/A'; ?></code></p>
+						</td>
+					</tr>
+					<script>
+						window.addEventListener('DOMContentLoaded', () => {
+							const cycle = JSON.parse('<?php echo is_array( $everest_backup_cron_cycles ) ? json_encode( $everest_backup_cron_cycles ) : array(); ?>');
+							const keys = Object.keys(cycle)
+							const schedule_cycle = document.getElementById('everest_backup_settings_schedule_backup_cron_cycle')
+							const tag_wrapper = document.getElementById('custom-name-tag-wrapper')
+							const exclude_wrapper = document.getElementById('everest-backup-exclude-wrapper')
+							const increment_cycle = document.getElementById('everest_backup_settings_schedule_backup_increment_cycle')
+							const increment_cycle_value = '<?php echo isset( $everest_backup_settings['schedule_backup']['increment_cycle'] ) ? $everest_backup_settings['schedule_backup']['increment_cycle'] : ''; ?>'
+							const set_incremental_backup = document.getElementById('everest_backup_settings_schedule_backup_set_incremental_backup')
+
+							set_incremental_backup.addEventListener('change', updateIncrementCycleValues)
+							set_incremental_backup.addEventListener('change', showHideCustomNameTagAndExclude)
+
+							schedule_cycle.addEventListener('change', updateIncrementCycleValues)
+
+							function updateIncrementCycleValues() {
+								if (set_incremental_backup.checked) {
+									const schedule_cycle_value = schedule_cycle.value
+									let html = ''
+									increment_cycle.innerHTML = html
+									for ( let i=0; i < keys.length; i++ ) {
+										if (schedule_cycle_value == keys[i]) {
+											break
+										}
+										html = increment_cycle.innerHTML;
+										let selected = ''
+										if (keys[i] == increment_cycle_value) {
+											selected = 'selected'
+										}
+										html += '<option value="'+keys[i]+'" '+selected+'>'+cycle[keys[i]].display+'</option>'
+										increment_cycle.innerHTML = html
+									}
+									document.getElementById('increment_cycle').style.display = 'contents'
+								} else {
+									document.getElementById('increment_cycle').style.display = 'none'
+								}
+							}
+
+							function showHideCustomNameTagAndExclude() {
+								if (this.checked) {
+									tag_wrapper.style.display = 'none'
+									exclude_wrapper.style.display = 'none'
+								} else {
+									tag_wrapper.style.display = ''
+									exclude_wrapper.style.display = ''
+								}
+							}
+						})
+					</script>
+				<?php } ?>
+
 				<tr id="delete-from-server" class="<?php echo esc_attr( $everest_backup_tr_rows_class ); ?>" style="display:none;">
 
 					<th scope="row">
@@ -148,7 +274,7 @@ $everest_backup_custom_name_tag = ! empty( $everest_backup_settings['schedule_ba
 					</td>
 				</tr>
 
-				<tr id="custom-name-tag-wrapper" class="<?php echo esc_attr( $everest_backup_tr_rows_class ); ?>">
+				<tr id="custom-name-tag-wrapper" class="<?php echo esc_attr( $everest_backup_tr_rows_class ); ?>" <?php echo $incremental_enabled ? 'style="display:none;"' : ''; ?>>
 
 					<th scope="row">
 						<?php
@@ -164,7 +290,7 @@ $everest_backup_custom_name_tag = ! empty( $everest_backup_settings['schedule_ba
 					</td>
 				</tr>
 
-				<tr class="<?php echo esc_attr( $everest_backup_tr_rows_class ); ?>">
+				<tr id="everest-backup-exclude-wrapper" class="<?php echo esc_attr( $everest_backup_tr_rows_class ); ?>" <?php echo $incremental_enabled ? 'style="display:none;"' : ''; ?>>
 					<th scope="row"><?php esc_html_e( 'Exclude', 'everest-backup' ); ?></th>
 					<td>
 						<details open>

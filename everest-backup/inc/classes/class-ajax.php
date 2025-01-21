@@ -78,11 +78,13 @@ class Ajax {
 	 */
 	public function process_status_unlink() {
 		if ( file_exists( EVEREST_BACKUP_PROC_STAT_PATH ) ) {
-			unlink( EVEREST_BACKUP_PROC_STAT_PATH ); // @phpcs:ignore
+			@unlink( EVEREST_BACKUP_PROC_STAT_PATH ); // @phpcs:ignore
 		}
 		if ( file_exists( EVEREST_BACKUP_LOCKFILE_PATH ) ) {
-			unlink( EVEREST_BACKUP_LOCKFILE_PATH ); // @phpcs:ignore
+			@unlink( EVEREST_BACKUP_LOCKFILE_PATH ); // @phpcs:ignore
 		}
+
+		everest_backup_unset_rest_properties();
 		die;
 	}
 

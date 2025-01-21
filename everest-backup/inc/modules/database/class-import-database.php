@@ -115,7 +115,10 @@ class Import_Database extends Database {
 					$query = $this->replace_table_constraints( $query );
 					$query = $this->rename_table_names( $query, $this->exported_tables );
 				} else {
-					$query = strtr( $query, $this->find_replace );
+					$query = $this->rename_table_names( $query, $this->exported_tables );
+					$query = $this->replace_users_login_related_metas( $query );
+
+					$query = $this->repair_serialized_values_in_query( strtr( $query, $this->find_replace ) );
 				}
 
 				$imported = $this->query( $query );

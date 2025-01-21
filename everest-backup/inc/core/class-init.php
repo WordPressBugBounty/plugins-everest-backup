@@ -95,6 +95,9 @@ class Init {
 	protected function hooks() {
 		add_action( 'wp_ajax_' . EVEREST_BACKUP_EXPORT_ACTION, '\Everest_Backup\Core\Export::init' );
 		add_action( 'wp_ajax_' . EVEREST_BACKUP_IMPORT_ACTION, '\Everest_Backup\Core\Import::init' );
+		add_action( 'wp_ajax_' . EVEREST_BACKUP_PROCESS_RUNNING, function () {
+			echo wp_json_encode( array( 'process_already_running' => everest_backup_process_running_currently() ) ); die;
+		} );
 		add_action( 'rest_api_init', '\Everest_Backup\Core\API::init' );
 	}
 }

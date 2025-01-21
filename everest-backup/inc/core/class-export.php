@@ -13,6 +13,7 @@ use Everest_Backup\Core\Export\Media;
 use Everest_Backup\Core\Export\Plugins;
 use Everest_Backup\Core\Export\Setup;
 use Everest_Backup\Core\Export\Themes;
+use Everest_Backup\Core\Export\Incremental;
 use Everest_Backup\Core\Export\Wrapup;
 use Everest_Backup\Logs;
 
@@ -85,6 +86,10 @@ class Export {
 
 			case 'content':
 				Contents::init( $params );
+				break;
+
+			case 'incremental':
+				Incremental::init( $params );
 				break;
 
 			case 'wrapup':
