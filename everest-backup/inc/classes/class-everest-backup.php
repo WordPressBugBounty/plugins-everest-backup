@@ -663,6 +663,10 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 
 			$has_changes = $saved_settings !== $settings; // @since 1.1.2
 
+			if ( $has_changes ) {
+				$this->maybe_email_user_about_schedule_location_change( $saved_settings, $settings );
+			}
+
 			do_action( 'everest_backup_before_settings_save', $settings, $has_changes );
 
 			everest_backup_update_settings( $settings );
@@ -670,6 +674,56 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 			do_action( 'everest_backup_after_settings_save', $settings, $has_changes );
 
 			everest_backup_set_notice( __( 'Settings saved.', 'everest-backup' ), 'notice-success' );
+		}
+
+		/**
+		 * Sends an email notification to the admin when the scheduled backup storage location is changed.
+		 *
+		 * This function checks if the backup storage location has changed between the saved settings 
+		 * and the new settings, and if so, sends an email to the site administrator notifying them of 
+		 * the change. The email includes details of the previous and new storage locations, the date 
+		 * and time of the change, and a reminder about the reset of the increment process for the new 
+		 * location.
+		 *
+		 * @param array $saved_settings The previously saved backup settings.
+		 * @param array $new_settings The newly submitted backup settings.
+		 */
+		private function maybe_email_user_about_schedule_location_change( $saved_settings, $new_settings ) {
+			if (
+				isset( $saved_settings['schedule_backup'] )
+				&& isset( $saved_settings['schedule_backup']['save_to'] )
+				&& isset( $new_settings['schedule_backup'] )
+				&& isset( $new_settings['schedule_backup']['save_to'] )
+				&& isset( $new_settings['schedule_backup']['set_incremental_backup'] )
+				&& ( 1 === absint( $new_settings['schedule_backup']['set_incremental_backup'] ) )
+			) {
+				if ( $saved_settings['schedule_backup']['save_to'] !== $new_settings['schedule_backup']['save_to'] ) {
+					$prev_location = __( 'Previous Location: ', 'everest-backup' ) . $saved_settings['schedule_backup']['save_to'];
+					$new_location  = __( 'New Location: ', 'everest-backup' ) . $new_settings['schedule_backup']['save_to'];
+					$datetime      = __( 'Date and Time: ', 'everest-backup' ) . gmdate( 'Y-m-d H:i:s' );
+
+					$support  = 'support@wpeverestbackup.com';
+					$from     = 'The Everest Backup Team';
+					$from_url = 'https://www.wpeverestbackup.com';
+
+					$to      = get_option( 'admin_email' );
+					$subject = __( 'Schedule Backup Storage location changed', 'everest-backup' );
+					$message = __( 'Hello, ', 'everest-backup' ) . "\r\n"
+						. __( 'We’re writing to inform you that the scheduled backup storage location for your Everest Backup setup has been updated.', 'everest-backup' ) . "\r\n\r\n"
+						. __( 'While normally it would not be of much concern, as you have schedule backup enabled, it is important to know that this resets the increment process for new location.', 'everest-backup' ) . "\r\n\r\n"
+						. __( 'If the change was intentional, no further action is needed. However, if this was not intentional or authorized, please review your settings immediately to ensure your backups remain consistent.' , 'everest-backup' ) . "\r\n\r\n"
+						. __( 'Change Details:', 'everest-backup' ) . "\r\n\r\n"
+						. $prev_location . "\r\n"
+						. $new_location . "\r\n"
+						. $datetime . "\r\n\r\n"
+						. __( 'If you need assistance, feel free to contact us at ' , 'everest-backup' ) . $support . "\r\n\r\n"
+						. __( 'Thank you for choosing Everest Backup! ' , 'everest-backup' ) . "\r\n\r\n"
+						. __( 'Best regards, ' , 'everest-backup' ) . "\r\n"
+						. $from . "\r\n"
+						. $from_url . "\r\n";
+					wp_mail( $to, $subject, $message );
+				}
+			}
 		}
 
 		/**
@@ -720,7 +774,6 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 							$backups = Backup_Directory::init()->get_backups();
 
 							$children = everest_backup_get_increment_children( $file, $backups );
-							error_log( print_r( $children, true ) );
 
 							if ( ! empty( $children ) ) {
 								foreach ( $children as $child ) {

@@ -581,6 +581,14 @@ class History_Table extends \WP_List_Table {
 			}
 		}
 
+		$backup_path = everest_backup_get_backup_full_path( $item['filename'] );
+		if ( 'server' === $selected_cloud && ! everest_backup_check_file_complete( $backup_path ) ) {
+			$actions = array(
+				'ebwp-file-error'   => __( 'Backup file corrupted/incomplete', 'everest-backup' ),
+				'ebwp-remove trash' => sprintf( '<a href="%1$s" class="submitdelete">%2$s</a>', esc_url( $this->get_remove_link( $item ) ), esc_html__( 'Remove', 'everest-backup' ) ),
+			);
+		}
+
 		return array_filter( $actions );
 	}
 

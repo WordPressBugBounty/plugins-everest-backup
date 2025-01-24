@@ -1,5 +1,10 @@
 == Changelog ==
 
+= v2.3.1 =
+* Fixed: Undefined variable warning on new installation.
+* Fixed: Some servers unusually responding with 301 during manual backup causing backup to start again.
+* Update: Send email to admin when schedule location is changed if increment is enabled.
+
 = v2.3.0 =
 * Encryption: Added setting to encrypt contents of backup.(PRO)
 * Incremental: Added Incremental backup options.(PRO)

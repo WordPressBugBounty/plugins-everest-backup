@@ -242,7 +242,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                     backupErrorP.innerHTML = lastError;
                 }
                 if (lastError.includes('Disk quota exceeded')) {
-                    backupErrorP.innerHTML = 'Disk Quota Exceeded. Please check your server storage.';
+                    backupErrorP.innerHTML = 'Seems there is no space left on the server. Please check your server storage.';
                 }
             }
         }

@@ -262,7 +262,7 @@ function everest_backup_process_running_currently() {
 		return __( 'scheduled backup running.', 'everest-backup' );
 	}
 
-	if ( file_exists( EVEREST_BACKUP_PROC_STAT_PATH ) && file_exists( EVEREST_BACKUP_LOCKFILE_PATH ) ) {
+	if ( file_exists( EVEREST_BACKUP_PROC_STAT_PATH ) && file_exists( EVEREST_BACKUP_LOCKFILE_PATH ) && ! empty( file_get_contents( EVEREST_BACKUP_LOCKFILE_PATH ) ) ) {
 		return __( 'backup/restore process is running.', 'everest-backup' );
 	}
 
@@ -1864,6 +1864,13 @@ function everest_backup_get_parent_and_older_siblings( $parent, $increment, $bac
     return $result;
 }
 
+/**
+ * Get all the increment children for a given backup.
+ *
+ * @param string $parent The parent backup filename (e.g., 'ebwpbuwa-localhost10003-1735110151-4f0abb701c.ebwp').
+ * @param array $backups The array of all backup information.
+ * @return array Associative array with increment backups.
+ */
 function everest_backup_get_increment_children( $parent, $backups ) {
     $result = [];
 
@@ -1980,8 +1987,7 @@ function everest_backup_get_backup_full_path( $backup_filename, $check = true ) 
  * @param any $data Data to send.
  * @return any
  */
-function everest_backup_send_json( $data = null )
-{
+function everest_backup_send_json( $data = null ) {
 	if (!apply_filters('everest_backup_disable_send_json', false)) {
 		wp_send_json( $data);
 	}
@@ -3446,5 +3452,76 @@ if ( ! function_exists( 'everest_backup_export_wp_database' ) ) {
 		fclose( $handle );
 		$mysqli->close();
 		return true;
+	}
+}
+
+if ( ! function_exists( 'everest_backup_get_last_line' ) ) {
+	/**
+	 * Gets the last line of a file.
+	 *
+	 * @param string $filePath The path to the file to get the last line from.
+	 * @return string|false The last line of the file, or false if the file couldn't be opened.
+	 */
+	function everest_backup_get_last_line($file_path) {
+		$file = fopen( $file_path, "r" );
+		if ( ! $file ) {
+			return false; // Return false if the file couldn't be opened
+		}
+
+		$position    = -1; // Start at the end of the file
+		$last_line   = '';
+		$is_line_end = false;
+	
+		// Start at the end of the file.
+		fseek( $file, $position, SEEK_END );
+		$file_size = ftell($file); // Get the file size.
+	
+		// Loop backward until the start of the file
+		while ( -$position <= $file_size ) {
+			$char = fgetc( $file );
+	
+			if ( $char === "\n" && $is_line_end ) {
+				break; // Break if a newline is found after non-newline characters(if file has multiple empty lines at EOF).
+			}
+	
+			if ( $char !== "\n" && $char !== "\r" ) {
+				$is_line_end = true;
+				$last_line   = $char . $last_line; // Prepend the character to build the line
+			}
+	
+			$position--;
+			fseek( $file, $position, SEEK_END ); // Move pointer backward
+		}
+	
+		fclose( $file );
+		return $last_line;
+	}
+}
+
+if ( ! function_exists( 'everest_backup_check_file_complete' ) ) {
+	/**
+	 * Checks if a file is complete.
+	 *
+	 * @param string $file_path The path to the file to check.
+	 * @return bool True if the file is complete, false otherwise.
+	 */
+	function everest_backup_check_file_complete( $file_path ) {
+		$f = fopen( $file_path, 'r' );
+		if ( ! $f ) {
+			return false;
+		}
+		$file_meta = json_decode( trim( str_replace( "EBWPFILE_METADATA:", '', fgets( $f ) ) ), true );
+		fclose( $f );
+
+		$last_line = everest_backup_get_last_line( $file_path );
+
+		if ( $file_meta && isset( $file_meta['config'] ) && isset( $file_meta['config']['Plugin'] ) && isset( $file_meta['config']['Plugin']['Version'] ) ) {
+			$version = $file_meta['config']['Plugin']['Version'];
+			if ( -1 === version_compare( $version, '2.3.1' ) ) {
+				return ( 0 === strpos( $last_line, 'EBWPFILE_END:' ) );
+			}
+			return ( 0 === strpos( $last_line, 'EBWPFILE_FILE_END:' ) );
+		}
+		return false;
 	}
 }

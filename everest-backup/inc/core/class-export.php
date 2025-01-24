@@ -51,11 +51,13 @@ class Export {
 	 * @return void
 	 */
 	public static function init( $params = array() ) {
+		$procstat = Logs::get_proc_stat();
 
 		$params  = $params ? $params : everest_backup_get_ajax_response( EVEREST_BACKUP_EXPORT_ACTION );
-		$current = ! empty( $params['next'] ) ? $params['next'] : 'setup';
 
-		$procstat = Logs::get_proc_stat();
+		$params = empty( $params['status'] ) && ! empty( $procstat['status'] ) ? array_merge( $params, $procstat ) : $params;
+
+		$current = ! empty( $params['next'] ) ? $params['next'] : 'setup';
 
 		if ( ( isset( $procstat['task'] ) && 'cloud' === $procstat['task'] ) || ( isset( $procstat['status'] ) && ( 'done' === $procstat['status'] ) ) ) {
 			everest_backup_send_json( $procstat );

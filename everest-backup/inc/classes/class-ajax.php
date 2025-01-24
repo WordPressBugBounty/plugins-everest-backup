@@ -60,6 +60,9 @@ class Ajax {
 
 		add_action( 'wp_ajax_nopriv_everest_backup_activate_plugin', array( $this, 'activate_plugin' ) );
 		add_action( 'wp_ajax_everest_backup_activate_plugin', array( $this, 'activate_plugin' ) );
+
+		add_action( 'wp_ajax_nopriv_everest_backup_create_new_staging', array( $this, 'create_new_staging' ) );
+		add_action( 'wp_ajax_everest_backup_create_new_staging', array( $this, 'create_new_staging' ) );
 	}
 
 	/**
@@ -242,6 +245,33 @@ class Ajax {
 			default:
 				return -1;
 		}
+	}
+
+	/**
+	 * Creates a new staging site.
+	 *
+	 * @since 2.3.1
+	 */
+	public function create_new_staging() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( 'Unauthorized', 403 );
+		}
+
+		$php_version = phpversion();
+		$wp_version  = get_bloginfo( 'version' );
+		$site_url    = site_url();
+
+		$request = array(
+			'php_version' => $php_version,
+			'wp_version'  => $wp_version,
+			'site_url'    => $site_url,
+		);
+
+		$response = wp_remote_post( EVEREST_BACKUP_STAGING_LINK, array( 'body' => $request ) );
+
+		$response_data = wp_remote_retrieve_body( $response );
+
+		wp_send_json_success( $response_data );
 	}
 
 

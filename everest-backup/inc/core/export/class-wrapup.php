@@ -202,6 +202,9 @@ class Wrapup {
 
 			$handle = fopen( $listpath, 'r' ); // phpcs:ignore
 
+			/**
+			 * Files add section.
+			 */
 			if ( is_resource( $handle ) && ! isset( $subtask['remove_'] ) ) {
 
 				$count = ! empty( $subtask['count'] ) ? absint( $subtask['count'] ) : 1;
@@ -295,6 +298,9 @@ class Wrapup {
 				$handle = fopen( $removelistpath, 'r' ); // phpcs:ignore
 			}
 
+			/**
+			 * File removed section.
+			 */
 			if ( is_resource( $handle ) ) {
 				$count = ! empty( $subtask['count'] ) ? absint( $subtask['count'] ) : 1;
 
@@ -354,8 +360,8 @@ class Wrapup {
 				$handle = false;
 			}
 
+			fwrite( $archiver->get_ziphandle(), "\nEBWPFILE_FILE_END:" . ftell( $archiver->get_ziphandle() ) );
 			$archiver->close();
-
 		}
 
 		if ( get_transient( 'everest_backup_doing_scheduled_backup' ) ) {

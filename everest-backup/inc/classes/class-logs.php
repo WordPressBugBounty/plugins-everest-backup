@@ -368,6 +368,7 @@ class Logs {
 			}
 
 			$ebwp_addons = everest_backup_installed_addons( 'active' );
+			$addons      = array();
 			if ( is_array( $ebwp_addons ) && ! empty( $ebwp_addons ) ) {
 				foreach ( $ebwp_addons as $ebwp_addon ) {
 					$plugin_file = WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . $ebwp_addon;

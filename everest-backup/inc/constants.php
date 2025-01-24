@@ -365,3 +365,13 @@ if ( ! defined( 'EVEREST_BACKUP_PHP_EXECUTION_PARKHINE' ) ) {
 	 */
 	define( 'EVEREST_BACKUP_PHP_EXECUTION_PARKHINE', 20 );
 }
+
+
+if ( ! defined( 'EVEREST_BACKUP_STAGING_LINK' ) ) {
+
+	/**
+	 * Directory path to backups folder.
+	 */
+	// define( 'EVEREST_BACKUP_STAGING_LINK', 'https://staging.wpeverestbackup.com' );
+	define( 'EVEREST_BACKUP_STAGING_LINK', 'http://localhost:8080' );
+}
