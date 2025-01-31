@@ -520,7 +520,7 @@ class History_Table extends \WP_List_Table {
 			}
 		} else {
 			$row_actions = array(
-				'ebwp-download'     => sprintf( '<a href="%1$s" class="button button-success" target="_blank">%2$s</a>', esc_url( $item['url'] ), esc_html__( 'Download', 'everest-backup' ) ),
+				'ebwp-download'     => sprintf( '<a href="%1$s" class="button button-success" target="_blank" download>%2$s</a>', esc_url( $item['url'] ), esc_html__( 'Download', 'everest-backup' ) ),
 				'ebwp-download-zip' => null,
 				'ebwp-migrate'      => null,
 				'ebwp-rollback'     => sprintf( '<a href="%1$s" class="button-secondary">%2$s</a>', esc_url( $this->get_restore_link( $item ) ), esc_html__( 'Rollback', 'everest-backup' ) ),
@@ -654,7 +654,7 @@ class History_Table extends \WP_List_Table {
 					$html = '<details>';
 					$html .= '<summary><strong>' . $item[ $column_name ] . '</strong></summary>';
 					$html .= '<p>';
-					$html .= $items['rollbacks'] ? $items['rollbacks'] : $this->row_actions( $items, true );
+					$html .= isset( $items['rollbacks'] ) ? $items['rollbacks'] : $this->row_actions( $items, true );
 					$html .= '</p>';
 					$html .= '</details>';
 					return $html;
