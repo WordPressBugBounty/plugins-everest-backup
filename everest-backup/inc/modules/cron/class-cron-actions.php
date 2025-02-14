@@ -136,7 +136,7 @@ class Cron_Actions {
 
 		add_action( $hook, array( $this, 'schedule_backup' ) );
 
-		if ( empty( $schedule_backup['increment_cycle'] ) ) {
+		if ( empty( $schedule_backup['increment_cycle'] ) || !everest_backup_pro_active() || '1' !== $schedule_backup['set_incremental_backup']  ) {
 			return;
 		}
 

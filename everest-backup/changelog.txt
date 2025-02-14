@@ -1,8 +1,7 @@
 == Changelog ==
 
-= v2.3.2 =
-* Fixed: Undefined array key error on rollback.
-* Added download attribute to download button in history for some browsers trying to open the backup instead of downloading it.
+= v2.3.3 =
+* Fixed: Resolved issue preventing incremental backups from running when disabled.
 
 = v2.3.1 =
 * Fixed: Undefined variable warning on new installation.
