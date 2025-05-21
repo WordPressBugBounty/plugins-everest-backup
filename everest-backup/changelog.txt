@@ -1,4 +1,7 @@
 == Changelog ==
+= v2.3.4 =
+* Fix: Resolved a minor bug to improve stability.
+* Compatibility: Verified compatibility with WordPress 6.8.
 
 = v2.3.3 =
 * Fixed: Resolved issue preventing incremental backups from running when disabled.

@@ -3,7 +3,7 @@
         'name' => 'everest-backup/everest-backup',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '043b7e09981b54f50a93a3514adccbcfc42c603a',
+        'reference' => 'e8003e576cd5a90db983166ea1c2a5dde619b93e',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'everest-backup/everest-backup' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '043b7e09981b54f50a93a3514adccbcfc42c603a',
+            'reference' => 'e8003e576cd5a90db983166ea1c2a5dde619b93e',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

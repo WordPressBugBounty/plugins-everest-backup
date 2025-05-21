@@ -64,7 +64,7 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 			add_action( 'admin_notices', array( $this, 'print_admin_notices' ) );
 			add_action( 'admin_notices', array( $this, 'print_addons_license_notices' ), 10000 );
 
-			add_action('template_redirect', array( $this, 'restrict_specific_directories' ) );
+			add_action( 'template_redirect', array( $this, 'restrict_specific_directories' ) );
 		}
 
 		/**
@@ -73,11 +73,11 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 		public function restrict_specific_directories() {
 			$requested_file = $_SERVER['REQUEST_URI'];
 
-			if (preg_match('/\/wp-content\/ebwp-backups\/.PROCSTAT/', $requested_file) ) {
-				wp_die('Access Denied: You do not have permission to view this file.', 'Access Denied', ['response' => 403]);
+			if ( preg_match( '/\/wp-content\/ebwp-backups\/.PROCSTAT/', $requested_file ) ) {
+				wp_die( 'Access Denied: You do not have permission to view this file.', 'Access Denied', array( 'response' => 403 ) );
 			}
-			if (preg_match('/\/wp-content\/ebwp-backups\/.LOCKFILE/', $requested_file) ) {
-				wp_die('Access Denied: You do not have permission to view this file.', 'Access Denied', ['response' => 403]);
+			if ( preg_match( '/\/wp-content\/ebwp-backups\/.LOCKFILE/', $requested_file ) ) {
+				wp_die( 'Access Denied: You do not have permission to view this file.', 'Access Denied', array( 'response' => 403 ) );
 			}
 		}
 
@@ -123,7 +123,7 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 				&& ( 'cloud' === $data['tab'] )
 				&& isset( $data['logout'] )
 			) {
-				$settings = everest_backup_get_settings();
+				$settings        = everest_backup_get_settings();
 				$schedule_backup = $settings['schedule_backup'];
 
 				if ( empty( $schedule_backup['enable'] ) ) {
@@ -535,10 +535,10 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 				 */
 				$content = @file_get_contents( everest_backup_current_request_storage_path( 'ebwp-config.json' ) );
 				if ( ! empty( $content ) ) {
-					$config  = $content ? json_decode( $content, true ) : array();
-			
-					$fileinfo =  isset( $config[ 'FileInfo' ] ) ? $config[ 'FileInfo' ] : false;
-	
+					$config = $content ? json_decode( $content, true ) : array();
+
+					$fileinfo = isset( $config['FileInfo'] ) ? $config['FileInfo'] : false;
+
 					if ( $fileinfo && ! empty( $fileinfo['filename'] ) ) {
 						$backup_file_path = wp_normalize_path( EVEREST_BACKUP_BACKUP_DIR_PATH . DIRECTORY_SEPARATOR . $fileinfo['filename'] );
 						if ( file_exists( $backup_file_path ) ) {
@@ -546,7 +546,6 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 						}
 					}
 				}
-
 
 				/**
 				 * Send email notification to user who initiated the process.
@@ -568,7 +567,7 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 			}
 
 			Proc_Lock::delete();
-			
+
 			everest_backup_unset_rest_properties();
 
 			if ( wp_safe_redirect( network_admin_url( '/admin.php?page=everest-backup-export' ) ) ) {
@@ -679,10 +678,10 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 		/**
 		 * Sends an email notification to the admin when the scheduled backup storage location is changed.
 		 *
-		 * This function checks if the backup storage location has changed between the saved settings 
-		 * and the new settings, and if so, sends an email to the site administrator notifying them of 
-		 * the change. The email includes details of the previous and new storage locations, the date 
-		 * and time of the change, and a reminder about the reset of the increment process for the new 
+		 * This function checks if the backup storage location has changed between the saved settings
+		 * and the new settings, and if so, sends an email to the site administrator notifying them of
+		 * the change. The email includes details of the previous and new storage locations, the date
+		 * and time of the change, and a reminder about the reset of the increment process for the new
 		 * location.
 		 *
 		 * @param array $saved_settings The previously saved backup settings.
@@ -711,14 +710,14 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 					$message = __( 'Hello, ', 'everest-backup' ) . "\r\n"
 						. __( 'We’re writing to inform you that the scheduled backup storage location for your Everest Backup setup has been updated.', 'everest-backup' ) . "\r\n\r\n"
 						. __( 'While normally it would not be of much concern, as you have schedule backup enabled, it is important to know that this resets the increment process for new location.', 'everest-backup' ) . "\r\n\r\n"
-						. __( 'If the change was intentional, no further action is needed. However, if this was not intentional or authorized, please review your settings immediately to ensure your backups remain consistent.' , 'everest-backup' ) . "\r\n\r\n"
+						. __( 'If the change was intentional, no further action is needed. However, if this was not intentional or authorized, please review your settings immediately to ensure your backups remain consistent.', 'everest-backup' ) . "\r\n\r\n"
 						. __( 'Change Details:', 'everest-backup' ) . "\r\n\r\n"
 						. $prev_location . "\r\n"
 						. $new_location . "\r\n"
 						. $datetime . "\r\n\r\n"
-						. __( 'If you need assistance, feel free to contact us at ' , 'everest-backup' ) . $support . "\r\n\r\n"
-						. __( 'Thank you for choosing Everest Backup! ' , 'everest-backup' ) . "\r\n\r\n"
-						. __( 'Best regards, ' , 'everest-backup' ) . "\r\n"
+						. __( 'If you need assistance, feel free to contact us at ', 'everest-backup' ) . $support . "\r\n\r\n"
+						. __( 'Thank you for choosing Everest Backup! ', 'everest-backup' ) . "\r\n\r\n"
+						. __( 'Best regards, ', 'everest-backup' ) . "\r\n"
 						. $from . "\r\n"
 						. $from_url . "\r\n";
 					wp_mail( $to, $subject, $message );
@@ -939,7 +938,7 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 				return;
 			}
 
-			if ( isset( $get['clear_all_logs'] ) ) {
+			if ( isset( $get['clear_all_logs'] ) && wp_verify_nonce( wp_unslash( $get['nonce'] ), 'ebwp_clear_logs' ) ) {
 				return Logs::delete_all_logs();
 			}
 
@@ -1007,24 +1006,24 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 				'pluploadArgs'           => $this->plupload_args(),
 				'locale'                 => array(
 					/* translators: Here, %1$s is the size limit set by the server and %2$s is link to addons page. */
-					'fileSizeExceedMessage' => sprintf( __( 'The file size is larger than %1$s. View %2$s to bypass server upload limit.', 'everest-backup' ), everest_backup_format_size( $max_upload_size ), $addons_page_link ),
-					'zipDownloadBtn'        => __( 'Download File', 'everest-backup' ),
-					'migrationPageBtn'      => __( 'Generate Migration Key', 'everest-backup' ),
-					'initializingBackup'    => __( 'Initializing backup', 'everest-backup' ),
-					'backupMessage'         => __( 'Please wait while we are doing the backup. You will get a detailed log after the backup is completed.', 'everest-backup' ),
-					'restoreMessage'        => __( 'Restoration is in progress, please do not close this tab or window.', 'everest-backup' ),
-					'uploadingPackage'      => __( 'Uploading package...', 'everest-backup' ),
-					'packageUploaded'       => __( 'Package uploaded. Click "Restore" to start the restore.', 'everest-backup' ),
-					'abortAlert'            => __( 'Are you sure you want to stop this backup process?', 'everest-backup' ),
-					'viewLogs'              => __( 'View Logs', 'everest-backup' ),
-					'cloudLogos'            => wp_json_encode( apply_filters( 'everest_backup_cloud_icon_text', array() ) ),
-					'uploadToCloudURL'      => everest_backup_upload_to_cloud_url(),
-					'UploadProcessComplete' => ( ! everest_backup_cloud_get_option( 'manual_backup_continued' ) ) && ( everest_backup_cloud_get_option( 'cloud_upload_error' ) || everest_backup_cloud_get_option( 'finished' ) ),
-					'loadingGifURL'         => everest_backup_get_ebwp_loading_gif(),
-					'ajaxGetCloudStorage'   => 'everest_backup_cloud_available_storage',
-					'listBackupFileContent' => 'everest_backup_list_backup_content',
+					'fileSizeExceedMessage'  => sprintf( __( 'The file size is larger than %1$s. View %2$s to bypass server upload limit.', 'everest-backup' ), everest_backup_format_size( $max_upload_size ), $addons_page_link ),
+					'zipDownloadBtn'         => __( 'Download File', 'everest-backup' ),
+					'migrationPageBtn'       => __( 'Generate Migration Key', 'everest-backup' ),
+					'initializingBackup'     => __( 'Initializing backup', 'everest-backup' ),
+					'backupMessage'          => __( 'Please wait while we are doing the backup. You will get a detailed log after the backup is completed.', 'everest-backup' ),
+					'restoreMessage'         => __( 'Restoration is in progress, please do not close this tab or window.', 'everest-backup' ),
+					'uploadingPackage'       => __( 'Uploading package...', 'everest-backup' ),
+					'packageUploaded'        => __( 'Package uploaded. Click "Restore" to start the restore.', 'everest-backup' ),
+					'abortAlert'             => __( 'Are you sure you want to stop this backup process?', 'everest-backup' ),
+					'viewLogs'               => __( 'View Logs', 'everest-backup' ),
+					'cloudLogos'             => wp_json_encode( apply_filters( 'everest_backup_cloud_icon_text', array() ) ),
+					'uploadToCloudURL'       => everest_backup_upload_to_cloud_url(),
+					'UploadProcessComplete'  => ( ! everest_backup_cloud_get_option( 'manual_backup_continued' ) ) && ( everest_backup_cloud_get_option( 'cloud_upload_error' ) || everest_backup_cloud_get_option( 'finished' ) ),
+					'loadingGifURL'          => everest_backup_get_ebwp_loading_gif(),
+					'ajaxGetCloudStorage'    => 'everest_backup_cloud_available_storage',
+					'listBackupFileContent'  => 'everest_backup_list_backup_content',
 					'generateBackupListFile' => 'everest_backup_generate_backup_list_file',
-					'backupListFileTempURL' => EVEREST_BACKUP_BACKUP_LIST_TEMP_URL_PATH . DIRECTORY_SEPARATOR,
+					'backupListFileTempURL'  => EVEREST_BACKUP_BACKUP_LIST_TEMP_URL_PATH . DIRECTORY_SEPARATOR,
 				),
 				'adminPages'             => array(
 					'dashboard' => network_admin_url(),
@@ -1163,7 +1162,7 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 				?>
 				<div class="notice notice-error">
 					<p class=""><?php printf( 'Your %s license key is inactive. Please click the link below to activate your license.', implode( ', ', $plugins ) ); ?></p>
-		
+
 					<p>
 						<a href="<?php echo esc_url( admin_url( 'admin.php?page=everest-backup-license' ) ); ?>">Activate Your License</a>
 					</p>

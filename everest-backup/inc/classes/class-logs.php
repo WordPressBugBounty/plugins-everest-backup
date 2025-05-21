@@ -504,7 +504,7 @@ class Logs {
 
 		if ( isset( $data['type'] ) && 'error' === $data['type'] ) {
 			if ( false !== strpos( urldecode( $log ), ABSPATH ) ) {
-				$message = explode( ' in ', $data['message'] );
+				$message         = explode( ' in ', $data['message'] );
 				$data['message'] = is_array( $message ) ? $message[0] : false;
 				if ( ! $data['message'] ) {
 					return;
@@ -513,7 +513,6 @@ class Logs {
 		}
 
 		self::fs_set( $data );
-
 	}
 
 	/**

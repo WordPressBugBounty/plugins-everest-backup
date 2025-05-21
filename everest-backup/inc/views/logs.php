@@ -29,12 +29,11 @@ $everest_backup_logs_table_obj->prepare_items();
 
 	<hr class="wp-header-end">
 
-	<?php
-		everest_backup_render_view( 'template-parts/header' );
-	?>
+	<?php everest_backup_render_view( 'template-parts/header' ); ?>
 	<main class="everest-backup-wrapper">
 		<form id="everest-backup-container">
 			<input type="hidden" name="page" value="<?php echo esc_attr( $args['page'] ); ?>">
+			<input type="hidden" name="nonce" value="<?php echo esc_attr( wp_create_nonce( 'ebwp_clear_logs' ) ); ?>">
 			<?php $everest_backup_logs_table_obj->display(); ?>
 		</form>
 

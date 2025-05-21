@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-02-14 06:26+0000\n"
+"POT-Creation-Date: 2025-04-25 04:37+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -229,7 +229,7 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: ../inc/classes/class-admin-menu.php:262, ../inc/classes/class-admin-menu.php:263, ../inc/classes/class-everest-backup.php:996
+#: ../inc/classes/class-admin-menu.php:262, ../inc/classes/class-admin-menu.php:263, ../inc/classes/class-everest-backup.php:995
 msgid "Addons"
 msgstr ""
 
@@ -462,141 +462,141 @@ msgstr ""
 msgid "%1$s plugin requires %2$s or later. Please update your existing %3$s plugin to the latest version."
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:559
+#: ../inc/classes/class-everest-backup.php:558
 msgid "Everest Backup: Force Abort"
 msgstr ""
 
 #. translators: %1$s is Human time difference and %2$s is username.
-#: ../inc/classes/class-everest-backup.php:562
+#: ../inc/classes/class-everest-backup.php:561
 msgid "Everest Backup process that was running since %1$s has been forcefully aborted by: %2$s"
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:625
+#: ../inc/classes/class-everest-backup.php:624
 msgid "Plugin slug empty."
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:632
+#: ../inc/classes/class-everest-backup.php:631
 msgid "Addon activated."
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:656
+#: ../inc/classes/class-everest-backup.php:655
 msgid "Nonce verification failed."
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:676
+#: ../inc/classes/class-everest-backup.php:675
 msgid "Settings saved."
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:701
+#: ../inc/classes/class-everest-backup.php:700
 msgid "Previous Location: "
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:702
+#: ../inc/classes/class-everest-backup.php:701
 msgid "New Location: "
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:703
+#: ../inc/classes/class-everest-backup.php:702
 msgid "Date and Time: "
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:710
+#: ../inc/classes/class-everest-backup.php:709
 msgid "Schedule Backup Storage location changed"
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:711
+#: ../inc/classes/class-everest-backup.php:710
 msgid "Hello, "
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:712
+#: ../inc/classes/class-everest-backup.php:711
 msgid "We’re writing to inform you that the scheduled backup storage location for your Everest Backup setup has been updated."
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:713
+#: ../inc/classes/class-everest-backup.php:712
 msgid "While normally it would not be of much concern, as you have schedule backup enabled, it is important to know that this resets the increment process for new location."
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:714
+#: ../inc/classes/class-everest-backup.php:713
 msgid "If the change was intentional, no further action is needed. However, if this was not intentional or authorized, please review your settings immediately to ensure your backups remain consistent."
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:715
+#: ../inc/classes/class-everest-backup.php:714
 msgid "Change Details:"
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:719
+#: ../inc/classes/class-everest-backup.php:718
 msgid "If you need assistance, feel free to contact us at "
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:720
+#: ../inc/classes/class-everest-backup.php:719
 msgid "Thank you for choosing Everest Backup! "
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:721
+#: ../inc/classes/class-everest-backup.php:720
 msgid "Best regards, "
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:815
+#: ../inc/classes/class-everest-backup.php:814
 msgid "does not exists."
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:831
+#: ../inc/classes/class-everest-backup.php:830
 msgid "successfully removed from the server."
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:844
+#: ../inc/classes/class-everest-backup.php:843
 msgid "Unable to remove file"
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:979
+#: ../inc/classes/class-everest-backup.php:978
 msgid "EBWP File"
 msgstr ""
 
 #. translators: Here, %1$s is the size limit set by the server and %2$s is link to addons page.
-#: ../inc/classes/class-everest-backup.php:1010
+#: ../inc/classes/class-everest-backup.php:1009
 msgid "The file size is larger than %1$s. View %2$s to bypass server upload limit."
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:1011
+#: ../inc/classes/class-everest-backup.php:1010
 msgid "Download File"
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:1012, ../inc/views/migration-clone/migration.php:34
+#: ../inc/classes/class-everest-backup.php:1011, ../inc/views/migration-clone/migration.php:34
 msgid "Generate Migration Key"
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:1013
+#: ../inc/classes/class-everest-backup.php:1012
 msgid "Initializing backup"
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:1014
+#: ../inc/classes/class-everest-backup.php:1013
 msgid "Please wait while we are doing the backup. You will get a detailed log after the backup is completed."
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:1015
+#: ../inc/classes/class-everest-backup.php:1014
 msgid "Restoration is in progress, please do not close this tab or window."
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:1016, ../inc/views/restore.php:60
+#: ../inc/classes/class-everest-backup.php:1015, ../inc/views/restore.php:60
 msgid "Uploading package..."
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:1017
+#: ../inc/classes/class-everest-backup.php:1016
 msgid "Package uploaded. Click \"Restore\" to start the restore."
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:1018
+#: ../inc/classes/class-everest-backup.php:1017
 msgid "Are you sure you want to stop this backup process?"
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:1019
+#: ../inc/classes/class-everest-backup.php:1018
 msgid "View Logs"
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:1064
+#: ../inc/classes/class-everest-backup.php:1063
 msgid "Warning!"
 msgstr ""
 
-#: ../inc/classes/class-everest-backup.php:1065, ../inc/views/template-parts/modal.php:103
+#: ../inc/classes/class-everest-backup.php:1064, ../inc/views/template-parts/modal.php:103
 msgid "Everest Backup requires these functions to work: %s <br>Please contact your host to enable the mentioned functions."
 msgstr ""
 
