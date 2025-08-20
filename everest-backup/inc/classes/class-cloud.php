@@ -69,7 +69,9 @@ class Cloud {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		$this->setup_cloud();
+		// we hooked setup_cloud() to fixed load_textdomain_just_in_time issue which runs before init hook.
+		add_action( 'admin_init', array( $this, 'setup_cloud' ) );
+		// $this->setup_cloud();
 		$this->set_settings_key();
 		$this->init_view_hooks();
 		$this->init_logic_hooks();
@@ -81,7 +83,7 @@ class Cloud {
 	 * @return void
 	 * @since 1.1.2
 	 */
-	protected function setup_cloud() {
+	public function setup_cloud() {
 
 		$cloud_param = $this->set_cloud_param();
 
@@ -437,7 +439,7 @@ class Cloud {
 			return;
 		}
 
-		$get = everest_backup_get_submitted_data( 'get' );
+		$get              = everest_backup_get_submitted_data( 'get' );
 		$cache_reset_link = add_query_arg(
 			array(
 				'cloud'       => $this->cloud,

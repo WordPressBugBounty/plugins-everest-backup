@@ -1,4 +1,7 @@
 == Changelog ==
+= v2.3.5 =
+* Fix: Resolved a minor bug to improve stability.
+
 = v2.3.4 =
 * Fix: Resolved a minor bug to improve stability.
 * Compatibility: Verified compatibility with WordPress 6.8.

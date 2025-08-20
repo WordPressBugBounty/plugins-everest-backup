@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-04-25 04:37+0000\n"
+"POT-Creation-Date: 2025-08-04 10:37+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -95,113 +95,113 @@ msgstr ""
 msgid "Save the backup package locally on your host server."
 msgstr ""
 
-#: ../inc/functions.php:1705
+#: ../inc/functions.php:1704
 msgid "Database (Sql)"
 msgstr ""
 
-#: ../inc/functions.php:1706
+#: ../inc/functions.php:1705
 msgid "Ignore database"
 msgstr ""
 
-#: ../inc/functions.php:1710
+#: ../inc/functions.php:1709
 msgid "Plugins (Files)"
 msgstr ""
 
-#: ../inc/functions.php:1711
+#: ../inc/functions.php:1710
 msgid "Ignore plugins"
 msgstr ""
 
-#: ../inc/functions.php:1715
+#: ../inc/functions.php:1714
 msgid "Themes (Files)"
 msgstr ""
 
-#: ../inc/functions.php:1716
+#: ../inc/functions.php:1715
 msgid "Ignore themes"
 msgstr ""
 
-#: ../inc/functions.php:1720
+#: ../inc/functions.php:1719
 msgid "Media (Files)"
 msgstr ""
 
-#: ../inc/functions.php:1721
+#: ../inc/functions.php:1720
 msgid "Ignore media"
 msgstr ""
 
-#: ../inc/functions.php:1725
+#: ../inc/functions.php:1724
 msgid "Others (Files)"
 msgstr ""
 
-#: ../inc/functions.php:1726
+#: ../inc/functions.php:1725
 msgid "Ignore other files and folders from wp-content folder"
 msgstr ""
 
-#: ../inc/functions.php:1778, ../inc/classes/class-admin-menu.php:372, ../inc/classes/class-admin-menu.php:373, ../inc/modules/tabs/class-settings-tab.php:78
+#: ../inc/functions.php:1775, ../inc/classes/class-admin-menu.php:372, ../inc/classes/class-admin-menu.php:373, ../inc/modules/tabs/class-settings-tab.php:78
 msgid "Debug"
 msgstr ""
 
-#: ../inc/functions.php:1779, ../inc/views/backup.php:53
+#: ../inc/functions.php:1776, ../inc/views/backup.php:53
 msgid "Abort"
 msgstr ""
 
-#: ../inc/functions.php:1780, ../inc/classes/class-admin-menu.php:188, ../inc/classes/class-admin-menu.php:214, ../inc/classes/class-admin-menu.php:215, ../inc/views/backup/schedule-backup.php:87, ../inc/views/backup/schedule-backup.php:171
+#: ../inc/functions.php:1777, ../inc/classes/class-admin-menu.php:188, ../inc/classes/class-admin-menu.php:214, ../inc/classes/class-admin-menu.php:215, ../inc/views/backup/schedule-backup.php:87, ../inc/views/backup/schedule-backup.php:171
 msgid "Backup"
 msgstr ""
 
-#: ../inc/functions.php:1781, ../inc/views/restore.php:248, ../inc/views/restore.php:203, ../inc/modules/history/class-history-table.php:526, ../inc/modules/history/class-history-table.php:518, ../inc/modules/history/class-history-table.php:510
+#: ../inc/functions.php:1778, ../inc/views/restore.php:248, ../inc/views/restore.php:203, ../inc/modules/history/class-history-table.php:526, ../inc/modules/history/class-history-table.php:518, ../inc/modules/history/class-history-table.php:510
 msgid "Rollback"
 msgstr ""
 
-#: ../inc/functions.php:1782, ../inc/classes/class-admin-menu.php:222, ../inc/classes/class-admin-menu.php:223
+#: ../inc/functions.php:1779, ../inc/classes/class-admin-menu.php:222, ../inc/classes/class-admin-menu.php:223
 msgid "Restore"
 msgstr ""
 
-#: ../inc/functions.php:1783, ../inc/classes/class-admin-menu.php:330, ../inc/classes/class-admin-menu.php:331, ../inc/modules/tabs/class-migration-clone-tab.php:63, ../inc/views/migration-clone/clone.php:110
+#: ../inc/functions.php:1780, ../inc/classes/class-admin-menu.php:330, ../inc/classes/class-admin-menu.php:331, ../inc/modules/tabs/class-migration-clone-tab.php:63, ../inc/views/migration-clone/clone.php:110
 msgid "Clone"
 msgstr ""
 
-#: ../inc/functions.php:1784, ../inc/classes/class-admin-menu.php:288, ../inc/classes/class-admin-menu.php:289, ../inc/modules/tabs/class-backup-tab.php:64
+#: ../inc/functions.php:1781, ../inc/classes/class-admin-menu.php:288, ../inc/classes/class-admin-menu.php:289, ../inc/modules/tabs/class-backup-tab.php:64
 msgid "Schedule Backup"
 msgstr ""
 
-#: ../inc/functions.php:1785
+#: ../inc/functions.php:1782
 msgid "Schedule Increment"
 msgstr ""
 
-#: ../inc/functions.php:1786
+#: ../inc/functions.php:1783
 msgid "Upload to Cloud"
 msgstr ""
 
 #. translators: action
-#: ../inc/functions.php:2183
+#: ../inc/functions.php:2180
 msgid "Nonce verification failed. Action: \"%s\""
 msgstr ""
 
-#: ../inc/functions.php:2189
+#: ../inc/functions.php:2186
 msgid "Permission denied."
 msgstr ""
 
-#: ../inc/functions.php:2204
+#: ../inc/functions.php:2201
 msgid "Invalid action provided."
 msgstr ""
 
 #. translators: expected action and received
-#: ../inc/functions.php:2208
+#: ../inc/functions.php:2205
 msgid "Expected action: %1$s Received: %2$s"
 msgstr ""
 
-#: ../inc/functions.php:2782
+#: ../inc/functions.php:2764
 msgid "--- Select ---"
 msgstr ""
 
-#: ../inc/functions.php:2905, ../inc/views/backup/schedule-backup.php:41
+#: ../inc/functions.php:2887, ../inc/views/backup/schedule-backup.php:41
 msgid "Enable"
 msgstr ""
 
-#: ../inc/functions.php:2906
+#: ../inc/functions.php:2888
 msgid "Disable"
 msgstr ""
 
-#: ../inc/functions.php:3324
+#: ../inc/functions.php:3296
 msgid "Could not write tables to config file."
 msgstr ""
 
@@ -358,64 +358,64 @@ msgstr ""
 msgid "Archiving %d files. This step can take some time."
 msgstr ""
 
-#: ../inc/classes/class-cloud.php:173
+#: ../inc/classes/class-cloud.php:175
 msgid "Set Backup Location"
 msgstr ""
 
-#: ../inc/classes/class-cloud.php:175
+#: ../inc/classes/class-cloud.php:177
 msgid "Backup locations are custom folders that are created in your cloud accounts. These folders serve as designated spaces for uploading and listing your backup files. If you haven't set a specific backup location, the system will default to using the Everest Backup folder."
 msgstr ""
 
-#: ../inc/classes/class-cloud.php:179
+#: ../inc/classes/class-cloud.php:181
 msgid "%s Backup Location"
 msgstr ""
 
-#: ../inc/classes/class-cloud.php:188, ../inc/views/restore.php:244, ../inc/views/restore.php:196
+#: ../inc/classes/class-cloud.php:190, ../inc/views/restore.php:244, ../inc/views/restore.php:196
 msgid "Cancel"
 msgstr ""
 
-#: ../inc/classes/class-cloud.php:189
+#: ../inc/classes/class-cloud.php:191
 msgid "Save"
 msgstr ""
 
-#: ../inc/classes/class-cloud.php:258, ../inc/classes/class-cloud.php:295
+#: ../inc/classes/class-cloud.php:260, ../inc/classes/class-cloud.php:297
 msgid "This method is supposed to be overridden by subclasses."
 msgstr ""
 
 #. translators: %s is the cloud label name.
-#: ../inc/classes/class-cloud.php:350
+#: ../inc/classes/class-cloud.php:352
 msgid "We're uploading your site's backup to %s in the background. You may close this popup."
 msgstr ""
 
-#: ../inc/classes/class-cloud.php:346
+#: ../inc/classes/class-cloud.php:348
 msgid "We're uploading your site's backup to %s."
 msgstr ""
 
 #. translators: %s is the cloud label name.
-#: ../inc/classes/class-cloud.php:366
+#: ../inc/classes/class-cloud.php:368
 msgid "Uploading zip to %s."
 msgstr ""
 
 #. translators: %s is the cloud label name.
-#: ../inc/classes/class-cloud.php:372
+#: ../inc/classes/class-cloud.php:374
 msgid "Failed to upload file to %s."
 msgstr ""
 
-#: ../inc/classes/class-cloud.php:369
+#: ../inc/classes/class-cloud.php:371
 msgid "Zip uploaded to %s."
 msgstr ""
 
 #. translators: %s is human_time_diff result.
-#: ../inc/classes/class-cloud.php:460
+#: ../inc/classes/class-cloud.php:462
 msgid "Cache resets in: %s"
 msgstr ""
 
-#: ../inc/classes/class-cloud.php:464
+#: ../inc/classes/class-cloud.php:466
 msgid "Reset Cache Now"
 msgstr ""
 
 #. translators: %s is the name of rollback args required key.
-#: ../inc/classes/class-cloud.php:550
+#: ../inc/classes/class-cloud.php:552
 msgid "%s is a required argument."
 msgstr ""
 

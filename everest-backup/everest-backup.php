@@ -5,7 +5,7 @@
  * Description: Everest Backup is a modern tool that will take care of your website's backups, restoration, migration and cloning.
  * Author: everestthemes
  * Author URI: https://everestthemes.com/
- * Version: 2.3.4
+ * Version: 2.3.5
  * Text Domain: everest-backup
  * License: GPLv3 or later
  * License URI: LICENSE
