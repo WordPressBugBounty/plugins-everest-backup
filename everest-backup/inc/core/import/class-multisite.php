@@ -54,7 +54,7 @@ class Multisite {
 
 		$new_subsite_url = self::get_new_subsite_url( $config['HomeURL'] );
 
-		$blog_id         = self::get_blog_id( $new_subsite_url );
+		$blog_id = self::get_blog_id( $new_subsite_url );
 
 		$blog[ $blog_id ]['SubsiteURL']    = $new_subsite_url;
 		$blog[ $blog_id ]['ActivePlugins'] = ! empty( $config['Multisites']['ActivePlugins'] ) ? $config['Multisites']['ActivePlugins'] : $config['ActivePlugins'];
@@ -66,7 +66,7 @@ class Multisite {
 		Logs::info( __( 'Subsite created: ' . $new_subsite_url, 'everest-backup' ) );
 
 		self::set_next( 'wrapup' );
-    }
+	}
 
 	/**
 	 * Converts the package url to subsite compatible url for current multisite.
@@ -192,7 +192,7 @@ class Multisite {
 
 		// Get blog domain.
 		$domain = wp_parse_url( $new_subsite_url, PHP_URL_HOST );
-		$post = wp_parse_url( $new_subsite_url, PHP_URL_PORT );
+		$post   = wp_parse_url( $new_subsite_url, PHP_URL_PORT );
 		if ( $post ) {
 			$domain .= ":{$post}";
 		}

@@ -141,10 +141,10 @@ trait Export {
 
 		$name_tag = ! empty( self::$params['custom_name_tag'] ) ? trim( self::$params['custom_name_tag'], '-' ) : site_url();
 
-		$filename_block   = array();
+		$filename_block = array();
 
-		$settings = everest_backup_get_settings();
-		$schedule_backup_setting = $settings[ 'schedule_backup' ] ?? array();
+		$settings                = everest_backup_get_settings();
+		$schedule_backup_setting = $settings['schedule_backup'] ?? array();
 
 		/**
 		 * checking if admin is logged in coz transient occassionally remains after backup is terminated.
@@ -196,7 +196,7 @@ trait Export {
 			return true;
 		}
 
-		return isset( $params["ignore_{$module}"] ) ? absint( $params["ignore_{$module}"] ) : 0;
+		return isset( $params[ "ignore_{$module}" ] ) ? absint( $params[ "ignore_{$module}" ] ) : 0;
 	}
 
 	/**
@@ -236,7 +236,9 @@ trait Export {
 		$files = array();
 		try {
 			$inc_f = fopen( \EVEREST_BACKUP_LAST_BACKUP_FILE_INFO_PATH, 'rb' );
-			if ( ! $inc_f ) return false;
+			if ( ! $inc_f ) {
+				return false;
+			}
 			$line = fgets( $inc_f ); // skip first line, is last backup file name.
 			while ( false !== ( $line = fgets( $inc_f ) ) ) {
 				$explode = explode( ' - ', $line, 2 );
@@ -245,7 +247,7 @@ trait Export {
 				}
 			}
 			fclose( $inc_f );
-		} catch( Exception $_ ) {
+		} catch ( Exception $_ ) {
 			return false;
 		}
 		return $files;
@@ -259,11 +261,13 @@ trait Export {
 	public static function read_last_backup_file_name() {
 		try {
 			$inc_f = fopen( \EVEREST_BACKUP_LAST_BACKUP_FILE_INFO_PATH, 'rb' );
-			if ( ! $inc_f ) return false;
+			if ( ! $inc_f ) {
+				return false;
+			}
 			$line = trim( fgets( $inc_f ) );
 			fclose( $inc_f );
 			return $line;
-		} catch( Exception $_ ) {
+		} catch ( Exception $_ ) {
 			return false;
 		}
 	}

@@ -149,8 +149,8 @@ class Temp_Directory {
 	/**
 	 * Add file to temp directory.
 	 *
-	 * @param string $file
-	 * @param string $content
+	 * @param string  $file
+	 * @param string  $content
 	 * @param boolean $append
 	 * @return boolean
 	 * @since 2.0.0
@@ -226,5 +226,4 @@ class Temp_Directory {
 
 		return wp_normalize_path( $storage_dir );
 	}
-
 }

@@ -44,7 +44,6 @@ class Archiver {
 		}
 
 		return str_replace( trailingslashit( wp_normalize_path( untrailingslashit( WP_CONTENT_DIR ) ) ), '', $file );
-
 	}
 
 	public function set_zippath( $zippath ) {
@@ -93,7 +92,7 @@ class Archiver {
 			if ( ( time() - $timestart ) > 10 ) {
 				return array(
 					'current_file_ftell' => ftell( $handle ),
-					'file_name' => $file,
+					'file_name'          => $file,
 				);
 			}
 		}

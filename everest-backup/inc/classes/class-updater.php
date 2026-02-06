@@ -46,7 +46,6 @@ class Updater {
 		$this->installed_addons = everest_backup_installed_addons();
 
 		$this->init();
-
 	}
 
 	/**
@@ -119,15 +118,15 @@ class Updater {
 
 				add_filter(
 					'plugins_api',
-					function( $res, $action, $args ) use ( $addon ) {
+					function ( $res, $action, $args ) use ( $addon ) {
 
 						// Do nothing if this is not about getting plugin information.
-						if( 'plugin_information' !== $action ) {
+						if ( 'plugin_information' !== $action ) {
 							return false;
 						}
 
 						// Do nothing if it is not our plugin.
-						if( $addon['slug'] !== $args->slug ) {
+						if ( $addon['slug'] !== $args->slug ) {
 							return false;
 						}
 
@@ -143,7 +142,6 @@ class Updater {
 						);
 
 						return $res;
-
 					},
 					20,
 					3
@@ -151,7 +149,7 @@ class Updater {
 
 				add_filter(
 					'site_transient_update_plugins',
-					function( $transient ) use ( $addon ) {
+					function ( $transient ) use ( $addon ) {
 
 						if ( empty( $transient->checked ) ) {
 							return $transient;
@@ -176,7 +174,6 @@ class Updater {
 			}
 		}
 	}
-
 }
 
 new Updater();

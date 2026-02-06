@@ -61,7 +61,6 @@ class Backup_Content {
 
 		$excluded_folders = self::excluded_folders();
 		self::$contents   = self::$filesystem->list_files( $content_dir, $excluded_folders );
-
 	}
 
 	/**
@@ -82,5 +81,4 @@ class Backup_Content {
 
 		return self::$contents;
 	}
-
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * Template file for displaying conditional upsells.
- * 
+ *
  * @since 2.0.0
  */
 
@@ -44,6 +44,17 @@ if ( empty( $upsells ) ) {
 		<?php echo wp_kses_post( $upsells[ array_rand( $upsells ) ] ); ?>
 	</div>
 
-	<a href="<?php echo esc_url( add_query_arg( array( 'ebwp-upsell-dimiss' => 1, '_ebwp-upsell-dimiss-nonce' => everest_backup_create_nonce( '_ebwp-upsell-dimiss-nonce' ) ) ) ); ?>"><?php esc_html_e( 'Remind Later', 'everest-backup' ); ?></a>
+	<a href="
+	<?php
+	echo esc_url(
+		add_query_arg(
+			array(
+				'ebwp-upsell-dimiss'        => 1,
+				'_ebwp-upsell-dimiss-nonce' => everest_backup_create_nonce( '_ebwp-upsell-dimiss-nonce' ),
+			)
+		)
+	);
+	?>
+	"><?php esc_html_e( 'Remind Later', 'everest-backup' ); ?></a>
 
 </div>

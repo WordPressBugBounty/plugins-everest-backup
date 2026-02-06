@@ -92,7 +92,7 @@ class Plugins {
 							__( 'Listing plugin files: %d%% completed', 'everest-backup' ),
 							esc_html( $progress )
 						),
-						'detail' => sprintf( __( 'Listing plugin file: %s', 'everest-backup' ), basename( $file ) ),
+						'detail'   => sprintf( __( 'Listing plugin file: %s', 'everest-backup' ), basename( $file ) ),
 					)
 				);
 
@@ -115,7 +115,5 @@ class Plugins {
 		);
 
 		return self::set_next( 'media' );
-
 	}
-
 }

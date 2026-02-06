@@ -185,7 +185,7 @@ class Database {
 			$export_database = self::export_database( $sql_file );
 
 			$params = self::read_config( 'Params' );
-	
+
 			if ( isset( $params['ebwp_site_db_prefix'] ) ) {
 				$prefix = $params['ebwp_site_db_prefix'];
 			} else {

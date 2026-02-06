@@ -47,6 +47,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     };
     var sseURL = function () {
         var url = new URL(_everest_backup.sseURL);
+        url.searchParams.append('everest_backup_ajax_nonce', _everest_backup._nonce);
         url.searchParams.append('t', "".concat(+new Date()));
         return url.toString();
     };

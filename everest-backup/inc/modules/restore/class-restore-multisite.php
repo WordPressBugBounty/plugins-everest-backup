@@ -253,6 +253,5 @@ class Restore_Multisite {
 		self::$extract->set_temp_data( 'ms_blogs', $blogs ); // Blog network informations.
 
 		everest_backup_log_memory_used();
-
 	}
 }

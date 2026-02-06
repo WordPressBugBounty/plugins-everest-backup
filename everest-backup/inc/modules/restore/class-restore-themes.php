@@ -81,7 +81,6 @@ class Restore_Themes {
 		Logs::info( __( 'Themes restored.', 'everest-backup' ) );
 
 		everest_backup_log_memory_used();
-
 	}
 
 	/**
@@ -97,5 +96,4 @@ class Restore_Themes {
 			update_option( 'sidebars_widgets', $data['Widgets'] );
 		}
 	}
-
 }

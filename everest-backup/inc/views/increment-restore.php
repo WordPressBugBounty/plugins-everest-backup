@@ -12,7 +12,7 @@ use Everest_Backup\Core\Archiver_V2;
  * Exit if accessed directly.
  */
 if ( ! defined( 'ABSPATH' ) ) {
-    exit;
+	exit;
 }
 
 ?>

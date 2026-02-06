@@ -68,7 +68,8 @@ class Admin_Menu {
 			$cron_actions = new Cron_Actions();
 			$cron_actions->schedule_backup( true );
 			unset( $get['manual_scheduled_backup'] );
-			wp_redirect( admin_url(sprintf('admin.php?%s', http_build_query( $get ) ) ) );exit();
+			wp_redirect( admin_url( sprintf( 'admin.php?%s', http_build_query( $get ) ) ) );
+			exit();
 		}
 	}
 

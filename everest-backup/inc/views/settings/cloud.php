@@ -17,20 +17,20 @@ $everest_backup_package_locations = ! empty( $args['package_locations'] ) ? $arg
 
 if ( everest_backup_2fa_active() ) {
 	if ( ! empty( $_POST['everest_backup_auth_totp'] ) ) {
-		$otp = (int) $_POST['everest_backup_auth_totp'];
+		$otp      = (int) $_POST['everest_backup_auth_totp'];
 		$response = everest_backup_2fa_check_otp( $otp );
 		if ( isset( $response['success'] ) && $response['success'] ) {
 			set_transient( 'everest_backup_2fa_checked', true, 600 );
-		} elseif( isset( $response['success'] ) && ! empty( $response['message'] ) ) {
+		} elseif ( isset( $response['success'] ) && ! empty( $response['message'] ) ) {
 			echo $response['message'];
 		}
 	}
 	if ( ! empty( $_POST['everest_backup_auth_recovery_code'] ) ) {
 		$recovery_code = $_POST['everest_backup_auth_recovery_code'];
-		$response = everest_backup_2fa_check_recovery_code( $recovery_code );
+		$response      = everest_backup_2fa_check_recovery_code( $recovery_code );
 		if ( isset( $response['success'] ) && $response['success'] ) {
 			set_transient( 'everest_backup_2fa_checked', true, 600 );
-		} elseif( isset( $response['success'] ) && ! empty( $response['message'] ) ) {
+		} elseif ( isset( $response['success'] ) && ! empty( $response['message'] ) ) {
 			echo $response['message'];
 		}
 	}

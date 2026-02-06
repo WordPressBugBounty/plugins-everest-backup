@@ -65,6 +65,5 @@ class Restore_Plugins {
 		Logs::info( __( 'Plugins restored.', 'everest-backup' ) );
 
 		everest_backup_log_memory_used();
-
 	}
 }

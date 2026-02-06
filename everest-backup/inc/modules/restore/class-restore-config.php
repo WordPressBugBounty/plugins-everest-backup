@@ -114,7 +114,6 @@ class Restore_Config {
 
 		self::$config_file = $config_file;
 		self::$config      = $config;
-
 	}
 
 	/**
@@ -152,7 +151,6 @@ class Restore_Config {
 	protected static function restore() {
 
 		everest_backup_log_memory_used();
-
 	}
 
 	/**

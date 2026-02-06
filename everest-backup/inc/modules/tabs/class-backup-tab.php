@@ -87,6 +87,4 @@ class Backup_Tab extends Tabs_Factory {
 	public function schedule_backup_cb() {
 		everest_backup_render_view( 'backup/schedule-backup', $this->backup_args );
 	}
-
 }
-

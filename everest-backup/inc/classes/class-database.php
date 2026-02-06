@@ -253,12 +253,10 @@ class Database {
 					} else {
 						$where_query[] = sprintf( "(CAST(`Tables_in_%s` AS BINARY) REGEXP BINARY '^%s' AND CAST(`Tables_in_%s` AS BINARY) NOT REGEXP BINARY '^%s')", $this->wpdb->dbname, $prefix_filter[0], $this->wpdb->dbname, $prefix_filter[1] );
 					}
-				} else {
-					if ( $lower_case_table_names ) {
+				} elseif ( $lower_case_table_names ) {
 						$where_query[] = sprintf( "`Tables_in_%s` REGEXP '^%s'", $this->wpdb->dbname, $prefix_filter[0] );
-					} else {
-						$where_query[] = sprintf( "CAST(`Tables_in_%s` AS BINARY) REGEXP BINARY '^%s'", $this->wpdb->dbname, $prefix_filter[0] );
-					}
+				} else {
+					$where_query[] = sprintf( "CAST(`Tables_in_%s` AS BINARY) REGEXP BINARY '^%s'", $this->wpdb->dbname, $prefix_filter[0] );
 				}
 			}
 		} else {
@@ -266,7 +264,6 @@ class Database {
 		}
 
 		return sprintf( "SHOW FULL TABLES FROM `%s` WHERE `Table_type` = 'BASE TABLE' AND (%s)", $this->wpdb->dbname, implode( ' OR ', $where_query ) );
-
 	}
 
 	/**
@@ -283,7 +280,7 @@ class Database {
 		$tables = $wpdb->get_results( $this->get_tables_query(), ARRAY_A ); // @phpcs:ignore
 
 		$table_names = is_array( $tables ) ? array_map(
-			function( $table ) use ( $custom_prefix, $prefix ) {
+			function ( $table ) use ( $custom_prefix, $prefix ) {
 				$table_name = array_values( $table );
 				if ( isset( $table_name[0] ) ) {
 					if ( $custom_prefix ) {
@@ -331,7 +328,6 @@ class Database {
 		$replaced = str_replace( $lists['old'], $lists['new'], $input );
 
 		return $replaced && is_string( $replaced ) ? $replaced : $input;
-
 	}
 
 	/**
@@ -360,7 +356,7 @@ class Database {
 			'/s\:(\d+)\:\"(.*?)\";/s',
 
 			// General all purpose final check.
-			'#s:(\d+):"(.*?)";(?=\\}*(?:[aOsidbN][:;]|\\z))#s'
+			'#s:(\d+):"(.*?)";(?=\\}*(?:[aOsidbN][:;]|\\z))#s',
 		);
 
 		$regex = $regexes[ $key ];
@@ -380,7 +376,6 @@ class Database {
 		$key = $key + 1;
 
 		return $this->recursively_fix_serialized_string( $fixed_string, $key );
-
 	}
 
 	/**
@@ -419,7 +414,7 @@ class Database {
 
 					$explode = array_filter( explode( "\');", $serialized ) );
 
-					if ( count( $explode ) > 1  ) {
+					if ( count( $explode ) > 1 ) {
 						$last_key = everest_backup_array_key_last( $explode );
 
 						$queries[] = ( false !== strpos( $explode[ $last_key ], "\');" ) ) ? rtrim( $serialized, "\');" ) . "');" : $serialized;
@@ -436,38 +431,37 @@ class Database {
 		$query_parts = array();
 
 		return implode( $delimiter, $queries );
-
 	}
 
-	protected function repair_serialized_values_in_query($query) {
-		if (empty($query)) {
+	protected function repair_serialized_values_in_query( $query ) {
+		if ( empty( $query ) ) {
 			return $query;
 		}
 
 		$tuple_regex = '/\(((((\-?\d+(\.\d+)?)*)|(\'[^\']*\')|NULL)(,\s)*)+\)/';
 		$fixed_query = preg_replace_callback(
 			$tuple_regex,
-			function ($matches) {
-				$tuple = $matches[0];
-				$parts = explode(', ', $tuple); // Split elements by comma within the tuple.
-				$fixed_parts = [];
-	
-				foreach ($parts as $part) {
-					$trimmed = trim($part, "'");
+			function ( $matches ) {
+				$tuple       = $matches[0];
+				$parts       = explode( ', ', $tuple ); // Split elements by comma within the tuple.
+				$fixed_parts = array();
+
+				foreach ( $parts as $part ) {
+					$trimmed = trim( $part, "'" );
 					if ( is_serialized( $trimmed ) ) {
 						// Fix serialized value.
-						$unescaped = $this->unescape_mysql($trimmed);
-						$fixed_serialized = $this->recursively_fix_serialized_string($unescaped);
-						$escaped = $this->escape_mysql($fixed_serialized);
-						$fixed_parts[] = "'" . $escaped . "'";
+						$unescaped        = $this->unescape_mysql( $trimmed );
+						$fixed_serialized = $this->recursively_fix_serialized_string( $unescaped );
+						$escaped          = $this->escape_mysql( $fixed_serialized );
+						$fixed_parts[]    = "'" . $escaped . "'";
 					} else {
 						// Non-serialized values remain unchanged.
 						$fixed_parts[] = $part;
 					}
 				}
-	
+
 				// Reconstruct the tuple with fixed parts.
-				return implode(', ', $fixed_parts);
+				return implode( ', ', $fixed_parts );
 			},
 			$query
 		);
@@ -552,7 +546,6 @@ class Database {
 		$write = fwrite( $this->handle, $data ); // @phpcs:ignore
 
 		return is_int( $write );
-
 	}
 
 	/**
@@ -643,7 +636,6 @@ class Database {
 		$new_tables = str_replace( $old_prefix, $new_prefix, implode( ',', $old_tables ) );
 
 		return str_replace( $old_tables, explode( ',', $new_tables ), $input );
-
 	}
 
 	/**
@@ -699,6 +691,4 @@ class Database {
 
 		return str_ireplace( $search, $replace, $input );
 	}
-
 }
-

@@ -1,7 +1,7 @@
 <?php
 /**
  * Template part file for the user consent dialog box.
- * 
+ *
  * @package everest-backup
  * @since 2.1.3
  */

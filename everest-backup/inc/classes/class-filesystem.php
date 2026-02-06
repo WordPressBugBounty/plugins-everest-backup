@@ -299,7 +299,7 @@ class Filesystem {
 		 */
 		$files = array_filter(
 			$all_files,
-			function( $file ) use ( $debug ) {
+			function ( $file ) use ( $debug ) {
 				if ( ( false === strpos( $file, 'node_modules' ) ) ) {
 
 					if ( empty( $debug['exclude_languages_folder'] ) ) {
@@ -319,7 +319,7 @@ class Filesystem {
 	/**
 	 * Wrapper for `Everest_Backup\Filesystem::list_files_all` function.
 	 *
-	 * @param string   $folder Full path to folder. Default empty.
+	 * @param string              $folder Full path to folder. Default empty.
 	 * @param string[] (optional) $exclusion_folders Optional. Array of folder names in $folder directory.
 	 * @param string[] (optional) $exclude_files Optional. Array of file names in $folder directory.
 	 *
@@ -339,7 +339,7 @@ class Filesystem {
 		 */
 		$files = array_filter(
 			$all_files,
-			function( $file ) use ( $debug, $exclude_files ) {
+			function ( $file ) use ( $debug, $exclude_files ) {
 				if ( ( false === strpos( $file, 'node_modules' ) ) && ! array_key_exists( $file, $exclude_files ) ) {
 
 					if ( empty( $debug['exclude_languages_folder'] ) ) {

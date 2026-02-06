@@ -129,20 +129,20 @@ class Cron_Actions {
 
 		$cron_cycle = $schedule_backup['cron_cycle'];
 
-		$hook = "{$cron_cycle}_hook";
+		$hook            = "{$cron_cycle}_hook";
 		$single_run_hook = "{$hook}_single_run_hook";
 
 		add_action( $single_run_hook, array( $this, 'schedule_backup' ) );
 
 		add_action( $hook, array( $this, 'schedule_backup' ) );
 
-		if ( empty( $schedule_backup['increment_cycle'] ) || !everest_backup_pro_active() || '1' !== $schedule_backup['set_incremental_backup']  ) {
+		if ( empty( $schedule_backup['increment_cycle'] ) || ! everest_backup_pro_active() || '1' !== $schedule_backup['set_incremental_backup'] ) {
 			return;
 		}
 
 		$increment_cycle = $schedule_backup['increment_cycle'];
 
-		$hook = "{$increment_cycle}_hook";
+		$hook            = "{$increment_cycle}_hook";
 		$single_run_hook = "{$hook}_single_run_hook";
 
 		add_action( $single_run_hook, array( $this, 'schedule_increment' ) );
@@ -405,16 +405,19 @@ class Cron_Actions {
 		if ( 0 === strpos( $last_backup_file_name, 'ebwpbuwa-' ) ) {
 			foreach ( $file_list as $file ) {
 				if ( $file['filename'] === $last_backup_file_name ) {
-					return array( 'filename' => $last_backup_file_name, 'children_count' => 0 );
+					return array(
+						'filename'       => $last_backup_file_name,
+						'children_count' => 0,
+					);
 				}
 			}
 			return new WP_Error( 'file_not_found', 'Parent not found in cloud.' );
 		}
 		$parent_backup_file = substr_replace( $last_backup_file_name, 'ebwpbuwa-', 0, strlen( 'ebwpinc-' ) );
 		$parent_backup_file = implode( '-', explode( '-', $parent_backup_file, -1 ) );
-		$backup_file = implode( '-', explode( '-', $last_backup_file_name, -1 ) );
-		$parent = false;
-		$children = array();
+		$backup_file        = implode( '-', explode( '-', $last_backup_file_name, -1 ) );
+		$parent             = false;
+		$children           = array();
 
 		foreach ( $file_list as $file ) {
 			if ( $file['filename'] === $parent_backup_file . EVEREST_BACKUP_BACKUP_FILE_EXTENSION ) {
@@ -432,11 +435,17 @@ class Cron_Actions {
 		}
 
 		if ( empty( $children ) ) {
-			return array( 'filename' => $parent, 'children_count' => 0 );
+			return array(
+				'filename'       => $parent,
+				'children_count' => 0,
+			);
 		}
 
 		if ( $this->children_increments_status_ok( $children, $backup_file ) ) {
-			return array( 'filename' => $parent, 'children_count' => count( $children ) );
+			return array(
+				'filename'       => $parent,
+				'children_count' => count( $children ),
+			);
 		}
 		return new WP_Error( 'inconsistent_children', 'Inconsistency found in increment files. Please run a full scheduled backup to resume incremental backup. For more details, refer documentation.' );
 	}
@@ -470,19 +479,19 @@ class Cron_Actions {
 	 */
 	private function children_increments_status_ok( $children, $backup_file ) {
 		$children_count = count( $children );
-		$expected_files = [];
-    
-		for ($i = 0; $i < $children_count; $i++) {
+		$expected_files = array();
+
+		for ( $i = 0; $i < $children_count; $i++ ) {
 			$expected_files[] = $backup_file . '-' . $i . EVEREST_BACKUP_BACKUP_FILE_EXTENSION;
 		}
-		
+
 		$children_set = array_flip( $children );
 		foreach ( $expected_files as $file ) {
-			if ( ! isset( $children_set[$file] ) ) {
+			if ( ! isset( $children_set[ $file ] ) ) {
 				return false;
 			}
 		}
-		
+
 		return true;
 	}
 
@@ -514,7 +523,7 @@ class Cron_Actions {
 				$single_run_hook = "{$hook}_single_run_hook";
 
 				if ( ! wp_next_scheduled( $single_run_hook ) ) {
-					wp_schedule_single_event(time() + 1800, $single_run_hook);
+					wp_schedule_single_event( time() + 1800, $single_run_hook );
 				}
 			}
 		}
@@ -552,7 +561,7 @@ class Cron_Actions {
 				$single_run_hook = "{$hook}_single_run_hook";
 
 				if ( ! wp_next_scheduled( $single_run_hook ) ) {
-					wp_schedule_single_event(time() + 1800, $single_run_hook);
+					wp_schedule_single_event( time() + 1800, $single_run_hook );
 				}
 			}
 		}

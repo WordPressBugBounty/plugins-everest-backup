@@ -67,5 +67,4 @@ class Backup_Uploads {
 			Logs::warn( __( 'Unable to add media files.', 'everest-backup' ) );
 		}
 	}
-
 }

@@ -58,9 +58,9 @@ $incremental_enabled = isset( $everest_backup_settings['schedule_backup']['set_i
 					<td></td>
 					<td>
 					<?php
-					$get = everest_backup_get_submitted_data( 'get' );
+					$get                            = everest_backup_get_submitted_data( 'get' );
 					$get['manual_scheduled_backup'] = 'run';
-					$current_url = admin_url(sprintf('admin.php?%s', http_build_query( $get ) ) );
+					$current_url                    = admin_url( sprintf( 'admin.php?%s', http_build_query( $get ) ) );
 					echo '<a class="everest_bs_manual_backup" href="' . esc_url( $current_url ) . '">Create Scheduled Backup Now</a>';
 					?>
 					</td>

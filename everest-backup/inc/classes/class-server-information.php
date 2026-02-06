@@ -124,7 +124,7 @@ class Server_Information {
 
 		$this->infos['total_space'] = array(
 			'label' => __( 'Total Space', 'everest-backup' ),
-			'value' =>  everest_backup_is_php_function_enabled( 'disk_total_space' ) ? everest_backup_format_size( disk_total_space( ABSPATH ) ) : 'N/A',
+			'value' => everest_backup_is_php_function_enabled( 'disk_total_space' ) ? everest_backup_format_size( disk_total_space( ABSPATH ) ) : 'N/A',
 		);
 
 		$this->infos['available_space'] = array(
@@ -151,7 +151,6 @@ class Server_Information {
 			'label' => __( 'GZip Library Enabled', 'everest-backup' ),
 			'value' => $this->yes_no( everest_backup_is_gzip_lib_enabled() ), // Class names.
 		);
-
 	}
 
 	/**

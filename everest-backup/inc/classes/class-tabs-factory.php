@@ -145,7 +145,6 @@ class Tabs_Factory {
 		}
 
 		$this->current = $current;
-
 	}
 
 	/**
@@ -270,5 +269,4 @@ class Tabs_Factory {
 		</div>
 		<?php
 	}
-
 }

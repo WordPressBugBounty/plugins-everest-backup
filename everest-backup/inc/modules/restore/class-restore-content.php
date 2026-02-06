@@ -108,6 +108,5 @@ class Restore_Content {
 		everest_backup_log_memory_used();
 
 		Logs::info( __( 'Restored wp-content folder.', 'everest-backup' ) );
-
 	}
 }

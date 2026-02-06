@@ -73,7 +73,6 @@ class Backup_Plugins {
 
 		$excluded_plugins   = self::excluded_plugins();
 		self::$plugin_files = self::$filesystem->list_files( $plugins_dir, $excluded_plugins );
-
 	}
 
 	/**

@@ -117,7 +117,7 @@ class EverestThemes_Stats {
 
 		$body = array(
 			'agent' => $this->plugin_data,
-			'data'  => array_merge( $this->get_data(), $additional_data )
+			'data'  => array_merge( $this->get_data(), $additional_data ),
 		);
 
 		return wp_remote_post(
@@ -132,15 +132,15 @@ class EverestThemes_Stats {
 
 	protected function handle_deactivation_feedback() {
 
-		if ( ! isset( $_POST["everestthemes_stats_{$this->plugin_data['TextDomain']}_nonce"] ) ) {
+		if ( ! isset( $_POST[ "everestthemes_stats_{$this->plugin_data['TextDomain']}_nonce" ] ) ) {
 			return;
 		}
 
-		if ( empty( $_POST["everestthemes_stats_{$this->plugin_data['TextDomain']}_feedback"]['title'] ) ) {
+		if ( empty( $_POST[ "everestthemes_stats_{$this->plugin_data['TextDomain']}_feedback" ]['title'] ) ) {
 			return;
 		}
 
-		if ( ! wp_verify_nonce( $_POST["everestthemes_stats_{$this->plugin_data['TextDomain']}_nonce"], "everestthemes_stats_{$this->plugin_data['TextDomain']}_nonce" ) ) {
+		if ( ! wp_verify_nonce( $_POST[ "everestthemes_stats_{$this->plugin_data['TextDomain']}_nonce" ], "everestthemes_stats_{$this->plugin_data['TextDomain']}_nonce" ) ) {
 			return;
 		}
 
@@ -148,21 +148,20 @@ class EverestThemes_Stats {
 			return;
 		}
 
-		$title_hash = md5( $_POST["everestthemes_stats_{$this->plugin_data['TextDomain']}_feedback"]['title'] );
+		$title_hash = md5( $_POST[ "everestthemes_stats_{$this->plugin_data['TextDomain']}_feedback" ]['title'] );
 
 		$this->send(
 			array(
 				'deactivate' => true,
 				'feedback'   => array(
-					'title' => ! empty( $_POST["everestthemes_stats_{$this->plugin_data['TextDomain']}_feedback"]['title'] ) ? $_POST["everestthemes_stats_{$this->plugin_data['TextDomain']}_feedback"]['title'] : '',
-					'input' => ! empty( $_POST["everestthemes_stats_{$this->plugin_data['TextDomain']}_feedback"]['input'][ $title_hash ] ) ? $_POST["everestthemes_stats_{$this->plugin_data['TextDomain']}_feedback"]['input'][ $title_hash ] : '',
+					'title' => ! empty( $_POST[ "everestthemes_stats_{$this->plugin_data['TextDomain']}_feedback" ]['title'] ) ? $_POST[ "everestthemes_stats_{$this->plugin_data['TextDomain']}_feedback" ]['title'] : '',
+					'input' => ! empty( $_POST[ "everestthemes_stats_{$this->plugin_data['TextDomain']}_feedback" ]['input'][ $title_hash ] ) ? $_POST[ "everestthemes_stats_{$this->plugin_data['TextDomain']}_feedback" ]['input'][ $title_hash ] : '',
 				),
 			)
 		);
 
-		wp_safe_redirect( $_POST["everestthemes_stats_{$this->plugin_data['TextDomain']}_deactivation_link"] );
+		wp_safe_redirect( $_POST[ "everestthemes_stats_{$this->plugin_data['TextDomain']}_deactivation_link" ] );
 		exit;
-
 	}
 
 	public function prepare_deactivation_feedback() {
@@ -341,7 +340,7 @@ class EverestThemes_Stats {
 				?>
 
 				<div class="everestthemes-stats-feedback-btn-wrapper">
-					<?php wp_nonce_field( "everestthemes_stats_{$this->plugin_data['TextDomain']}_nonce", "everestthemes_stats_{$this->plugin_data['TextDomain']}_nonce" ) ?>
+					<?php wp_nonce_field( "everestthemes_stats_{$this->plugin_data['TextDomain']}_nonce", "everestthemes_stats_{$this->plugin_data['TextDomain']}_nonce" ); ?>
 					<input type="hidden" name="<?php echo esc_attr( "everestthemes_stats_{$this->plugin_data['TextDomain']}_deactivation_link" ); ?>" value="">
 					<button type="submit"><?php esc_html_e( 'Submit &amp; Deactivate' ); ?></button>
 					<button type="button" id="skip-feedback"><?php echo esc_html_e( 'Skip &amp; Deactivate' ); ?></button>
@@ -490,6 +489,5 @@ class EverestThemes_Stats {
 			'db_version'       => $wpdb->db_version(),
 		);
 	}
-
 }
 

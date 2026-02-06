@@ -33,7 +33,7 @@ class Themes {
 					'status'   => 'in-process',
 					'progress' => 49,
 					'message'  => __( 'Themes ignored.', 'everest-backup' ),
-					'log'      => 'warn'
+					'log'      => 'warn',
 				)
 			);
 
@@ -45,7 +45,7 @@ class Themes {
 				'status'   => 'in-process',
 				'progress' => 49,
 				'message'  => __( 'Listing theme files', 'everest-backup' ),
-				'log'      => 'info'
+				'log'      => 'info',
 			)
 		);
 
@@ -77,7 +77,7 @@ class Themes {
 							__( 'Listing theme files: %d%% completed', 'everest-backup' ),
 							esc_html( $progress )
 						),
-						'detail' => sprintf( __( 'Listing theme file: %s', 'everest-backup' ), basename( $file ) )
+						'detail'   => sprintf( __( 'Listing theme file: %s', 'everest-backup' ), basename( $file ) ),
 					)
 				);
 
@@ -100,7 +100,5 @@ class Themes {
 		);
 
 		return self::set_next( 'content' );
-
 	}
-
 }

@@ -143,7 +143,6 @@ class Compress extends Archiver {
 		$zipname = $backup_directory_path . '/' . $filename;
 
 		return $zipname;
-
 	}
 
 	/**
@@ -238,7 +237,6 @@ class Compress extends Archiver {
 
 		Logs::error( $message );
 		everest_backup_send_error( $message );
-
 	}
 
 	/**
@@ -331,7 +329,5 @@ class Compress extends Archiver {
 		$filesystem = Filesystem::init();
 
 		$filesystem->delete( $zipname );
-
 	}
-
 }

@@ -171,13 +171,13 @@ $everest_backup_restore_tab = new Restore_Tab();
 									<?php
 								} else {
 									if ( ! empty( $args['path'] ) ) {
-										$archiver = new Archiver_V2( $args['path'] );
-										$config = $archiver->get_metadata( 'config' );
+										$archiver            = new Archiver_V2( $args['path'] );
+										$config              = $archiver->get_metadata( 'config' );
 										$current_php_version = PHP_VERSION;
 										$zip_php_version     = ! empty( $config['PHP']['Version'] ) ? $config['PHP']['Version'] : '';
 										$is_comparable       = ( ( $current_php_version !== $zip_php_version ) && ( version_compare( $current_php_version, $zip_php_version, 'gt' ) ) );
 										$is_minor_update     = $zip_php_version && $is_comparable ? everest_backup_version_compare( $current_php_version, $zip_php_version, 'gt', true ) : true;
-								
+
 										if ( ! $is_minor_update ) {
 											?>
 											<p class="notice notice-error">

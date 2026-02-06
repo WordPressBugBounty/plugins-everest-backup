@@ -101,7 +101,6 @@ trait Restore {
 		if ( method_exists( __CLASS__, 'after_restore' ) ) {
 			self::after_restore();
 		}
-
 	}
 
 	/**
@@ -154,7 +153,6 @@ trait Restore {
 		$find_replace[ $old_content_url ] = $new_content_url;
 
 		return $find_replace;
-
 	}
 
 	/**
@@ -167,7 +165,7 @@ trait Restore {
 	protected static function normalize_file_contents( $filepath ) {
 
 		if ( false !== strpos( $filepath, LANGDIR ) ) {
-			//Bail if we are inside language directory.
+			// Bail if we are inside language directory.
 			return;
 		}
 

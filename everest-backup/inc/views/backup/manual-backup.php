@@ -146,15 +146,16 @@ everest_backup_render_view( 'template-parts/message-box' );
 			?>
 			<label for="ebwp_site_db_prefix">Select site to backup: </label>
 			<select name="ebwp_site_db_prefix" id="ebwp_site_db_prefix">
-			<?php foreach ( $sites as $site ) {
+			<?php
+			foreach ( $sites as $site ) {
 				$site_name = trim( $site->path, '/' );
 				if ( '' === $site_name ) {
 					$site_name = 'All';
 				}
-				$prefix = ( 1 === $site->blog_id ) ? $wpdb->base_prefix : $wpdb->get_blog_prefix($site->blog_id);
+				$prefix = ( 1 === $site->blog_id ) ? $wpdb->base_prefix : $wpdb->get_blog_prefix( $site->blog_id );
 				?>
-				<option value="<?php echo esc_attr( $prefix )?>"><?php echo esc_attr( $site_name )?></option>
-			<?php }	?>
+				<option value="<?php echo esc_attr( $prefix ); ?>"><?php echo esc_attr( $site_name ); ?></option>
+			<?php } ?>
 			</select>
 			<?php
 		}

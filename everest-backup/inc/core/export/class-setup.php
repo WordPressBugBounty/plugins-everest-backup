@@ -81,7 +81,7 @@ class Setup {
 
 			// Set site URL.
 			$config['SiteURL'] = $url->siteurl;
-	
+
 			// Set home URL.
 			$config['HomeURL'] = $url->home;
 
@@ -93,7 +93,7 @@ class Setup {
 
 			// Set site URL.
 			$config['SiteURL'] = site_url();
-	
+
 			// Set home URL.
 			$config['HomeURL'] = home_url();
 
@@ -109,7 +109,7 @@ class Setup {
 			$filename = self::get_archive_name();
 		} else {
 			$parent_name = substr_replace( pathinfo( self::$params['parent_backup'], PATHINFO_FILENAME ), 'ebwpinc-', 0, strlen( 'ebwpbuwa-' ) );
-			$filename = $parent_name . '-' . self::$params['children_count'] . EVEREST_BACKUP_BACKUP_FILE_EXTENSION;
+			$filename    = $parent_name . '-' . self::$params['children_count'] . EVEREST_BACKUP_BACKUP_FILE_EXTENSION;
 		}
 		$config['FileInfo'] = array(
 			'uniqid'    => everest_backup_current_request_id(),

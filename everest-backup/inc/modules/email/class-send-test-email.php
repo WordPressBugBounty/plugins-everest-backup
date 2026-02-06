@@ -66,7 +66,6 @@ class Send_Test_Email extends Email {
 		}
 
 		exit;
-
 	}
 }
 

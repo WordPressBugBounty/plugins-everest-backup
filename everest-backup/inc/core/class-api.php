@@ -1,7 +1,7 @@
 <?php
 /**
  * Core file for api.
- * 
+ *
  * @since 2.1.0
  */
 
@@ -44,7 +44,6 @@ class API {
 		require_once EVEREST_BACKUP_CORE_DIR_PATH . 'controllers/class-base.php';
 
 		self::includes_v1_files();
-
 	}
 
 	protected static function includes_v1_files() {
@@ -59,7 +58,6 @@ class API {
 				require_once EVEREST_BACKUP_CORE_DIR_PATH . 'controllers/v1/' . $file;
 			}
 		}
-
 	}
 
 	protected static function get_v1_controllers() {

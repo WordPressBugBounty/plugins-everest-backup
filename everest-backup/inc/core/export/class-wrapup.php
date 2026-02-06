@@ -194,7 +194,7 @@ class Wrapup {
 				);
 			}
 
-			$encode = false;
+			$encode   = false;
 			$FileInfo = self::read_config( 'FileInfo' );
 			if ( isset( $FileInfo['encrypt'] ) && $FileInfo['encrypt'] ) {
 				$encode = true;
@@ -272,7 +272,7 @@ class Wrapup {
 						);
 					}
 
-					if ( ( time() - $timestart ) > (EVEREST_BACKUP_PHP_EXECUTION_PARKHINE/2) ) {
+					if ( ( time() - $timestart ) > ( EVEREST_BACKUP_PHP_EXECUTION_PARKHINE / 2 ) ) {
 						return self::set_next(
 							'wrapup',
 							wp_json_encode(
@@ -332,7 +332,7 @@ class Wrapup {
 									'count'   => $count,
 									'ftell'   => ftell( $handle ),
 									'stats'   => $stats,
-									'remove_' => 1,  
+									'remove_' => 1,
 								)
 							)
 						);
@@ -343,10 +343,10 @@ class Wrapup {
 							'wrapup',
 							wp_json_encode(
 								array(
-									'count' => $count,
-									'ftell' => ftell( $handle ),
-									'stats' => $stats,
-									'remove_' => 1,  
+									'count'   => $count,
+									'ftell'   => ftell( $handle ),
+									'stats'   => $stats,
+									'remove_' => 1,
 								)
 							)
 						);

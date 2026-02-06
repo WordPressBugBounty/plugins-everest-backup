@@ -44,7 +44,7 @@ class Manual_Backup_Controller extends Base {
 				array(
 					'methods'             => \WP_REST_Server::CREATABLE,
 					'callback'            => array( $this, 'create_item' ),
-					'permission_callback' => array( $this, 'create_item_permissions_check' )
+					'permission_callback' => array( $this, 'create_item_permissions_check' ),
 				),
 			),
 		);
@@ -102,7 +102,5 @@ class Manual_Backup_Controller extends Base {
 		);
 
 		return json_decode( @file_get_contents( EVEREST_BACKUP_PROC_STAT_PATH ), true );
-
 	}
-
 }

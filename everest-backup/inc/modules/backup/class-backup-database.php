@@ -65,7 +65,7 @@ class Backup_Database {
 				'wbk_email_templates',
 				'wbk_service_categories',
 				'wbk_gg_calendars',
-				'wbk_coupons'
+				'wbk_coupons',
 			)
 		);
 
@@ -88,7 +88,6 @@ class Backup_Database {
 		if ( $created && $filesystem->is_file( $database_file_path ) ) {
 			self::$database_file_path = $database_file_path;
 		}
-
 	}
 
 	/**
@@ -127,5 +126,4 @@ class Backup_Database {
 			Logs::warn( __( 'Unable to create Database file.', 'everest-backup' ) );
 		}
 	}
-
 }

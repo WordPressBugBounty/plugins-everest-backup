@@ -80,19 +80,16 @@ class Restore_Uploads {
 				restore_current_blog();
 
 			}
-		} else {
-			if ( is_array( $uploads ) && ! empty( $uploads ) ) {
-				foreach ( $uploads as $upload ) {
-					$upload_to = str_replace( $storage_dir, $wp_content_dir, $upload );
+		} elseif ( is_array( $uploads ) && ! empty( $uploads ) ) {
+			foreach ( $uploads as $upload ) {
+				$upload_to = str_replace( $storage_dir, $wp_content_dir, $upload );
 
-					$filesystem->move_file( $upload, $upload_to );
-				}
+				$filesystem->move_file( $upload, $upload_to );
 			}
 		}
 
 		Logs::info( __( 'Media files restored.', 'everest-backup' ) );
 
 		everest_backup_log_memory_used();
-
 	}
 }

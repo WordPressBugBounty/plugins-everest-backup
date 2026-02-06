@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-08-04 10:37+0000\n"
+"POT-Creation-Date: 2025-11-12 13:32+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -135,7 +135,7 @@ msgstr ""
 msgid "Ignore other files and folders from wp-content folder"
 msgstr ""
 
-#: ../inc/functions.php:1775, ../inc/classes/class-admin-menu.php:372, ../inc/classes/class-admin-menu.php:373, ../inc/modules/tabs/class-settings-tab.php:78
+#: ../inc/functions.php:1775, ../inc/classes/class-admin-menu.php:373, ../inc/classes/class-admin-menu.php:374, ../inc/modules/tabs/class-settings-tab.php:78
 msgid "Debug"
 msgstr ""
 
@@ -143,23 +143,23 @@ msgstr ""
 msgid "Abort"
 msgstr ""
 
-#: ../inc/functions.php:1777, ../inc/classes/class-admin-menu.php:188, ../inc/classes/class-admin-menu.php:214, ../inc/classes/class-admin-menu.php:215, ../inc/views/backup/schedule-backup.php:87, ../inc/views/backup/schedule-backup.php:171
+#: ../inc/functions.php:1777, ../inc/classes/class-admin-menu.php:189, ../inc/classes/class-admin-menu.php:215, ../inc/classes/class-admin-menu.php:216, ../inc/views/backup/schedule-backup.php:87, ../inc/views/backup/schedule-backup.php:171
 msgid "Backup"
 msgstr ""
 
-#: ../inc/functions.php:1778, ../inc/views/restore.php:248, ../inc/views/restore.php:203, ../inc/modules/history/class-history-table.php:526, ../inc/modules/history/class-history-table.php:518, ../inc/modules/history/class-history-table.php:510
+#: ../inc/functions.php:1778, ../inc/views/restore.php:248, ../inc/views/restore.php:203, ../inc/modules/history/class-history-table.php:529, ../inc/modules/history/class-history-table.php:521, ../inc/modules/history/class-history-table.php:513
 msgid "Rollback"
 msgstr ""
 
-#: ../inc/functions.php:1779, ../inc/classes/class-admin-menu.php:222, ../inc/classes/class-admin-menu.php:223
+#: ../inc/functions.php:1779, ../inc/classes/class-admin-menu.php:223, ../inc/classes/class-admin-menu.php:224
 msgid "Restore"
 msgstr ""
 
-#: ../inc/functions.php:1780, ../inc/classes/class-admin-menu.php:330, ../inc/classes/class-admin-menu.php:331, ../inc/modules/tabs/class-migration-clone-tab.php:63, ../inc/views/migration-clone/clone.php:110
+#: ../inc/functions.php:1780, ../inc/classes/class-admin-menu.php:331, ../inc/classes/class-admin-menu.php:332, ../inc/modules/tabs/class-migration-clone-tab.php:63, ../inc/views/migration-clone/clone.php:110
 msgid "Clone"
 msgstr ""
 
-#: ../inc/functions.php:1781, ../inc/classes/class-admin-menu.php:288, ../inc/classes/class-admin-menu.php:289, ../inc/modules/tabs/class-backup-tab.php:64
+#: ../inc/functions.php:1781, ../inc/classes/class-admin-menu.php:289, ../inc/classes/class-admin-menu.php:290, ../inc/modules/tabs/class-backup-tab.php:64
 msgid "Schedule Backup"
 msgstr ""
 
@@ -205,156 +205,156 @@ msgstr ""
 msgid "Could not write tables to config file."
 msgstr ""
 
-#: ../inc/classes/class-admin-menu.php:189
+#: ../inc/classes/class-admin-menu.php:190
 msgid "Everest Backup"
 msgstr ""
 
-#: ../inc/classes/class-admin-menu.php:230, ../inc/classes/class-admin-menu.php:231
+#: ../inc/classes/class-admin-menu.php:231, ../inc/classes/class-admin-menu.php:232
 msgid "Migration / Clone"
 msgstr ""
 
-#: ../inc/classes/class-admin-menu.php:238, ../inc/modules/email/class-email-logs.php:120
+#: ../inc/classes/class-admin-menu.php:239, ../inc/modules/email/class-email-logs.php:120
 msgid "Backup History"
 msgstr ""
 
-#: ../inc/classes/class-admin-menu.php:239
+#: ../inc/classes/class-admin-menu.php:240
 msgid "History"
 msgstr ""
 
-#: ../inc/classes/class-admin-menu.php:246, ../inc/classes/class-admin-menu.php:247, ../inc/modules/logs/class-logs-table.php:99
+#: ../inc/classes/class-admin-menu.php:247, ../inc/classes/class-admin-menu.php:248, ../inc/modules/logs/class-logs-table.php:99
 msgid "Logs"
 msgstr ""
 
-#: ../inc/classes/class-admin-menu.php:254, ../inc/classes/class-admin-menu.php:255
+#: ../inc/classes/class-admin-menu.php:255, ../inc/classes/class-admin-menu.php:256
 msgid "Settings"
 msgstr ""
 
-#: ../inc/classes/class-admin-menu.php:262, ../inc/classes/class-admin-menu.php:263, ../inc/classes/class-everest-backup.php:995
+#: ../inc/classes/class-admin-menu.php:263, ../inc/classes/class-admin-menu.php:264, ../inc/classes/class-everest-backup.php:995
 msgid "Addons"
 msgstr ""
 
-#: ../inc/classes/class-admin-menu.php:278, ../inc/classes/class-admin-menu.php:279, ../inc/modules/tabs/class-backup-tab.php:59
+#: ../inc/classes/class-admin-menu.php:279, ../inc/classes/class-admin-menu.php:280, ../inc/modules/tabs/class-backup-tab.php:59
 msgid "Manual Backup"
 msgstr ""
 
-#: ../inc/classes/class-admin-menu.php:299, ../inc/classes/class-admin-menu.php:300, ../inc/modules/tabs/class-restore-tab.php:61
+#: ../inc/classes/class-admin-menu.php:300, ../inc/classes/class-admin-menu.php:301, ../inc/modules/tabs/class-restore-tab.php:61
 msgid "Upload File"
 msgstr ""
 
-#: ../inc/classes/class-admin-menu.php:309, ../inc/classes/class-admin-menu.php:310, ../inc/modules/tabs/class-restore-tab.php:66
+#: ../inc/classes/class-admin-menu.php:310, ../inc/classes/class-admin-menu.php:311, ../inc/modules/tabs/class-restore-tab.php:66
 msgid "Available Files"
 msgstr ""
 
-#: ../inc/classes/class-admin-menu.php:320, ../inc/classes/class-admin-menu.php:321, ../inc/modules/tabs/class-migration-clone-tab.php:58
+#: ../inc/classes/class-admin-menu.php:321, ../inc/classes/class-admin-menu.php:322, ../inc/modules/tabs/class-migration-clone-tab.php:58
 msgid "Migration"
 msgstr ""
 
-#: ../inc/classes/class-admin-menu.php:341, ../inc/classes/class-admin-menu.php:342, ../inc/modules/tabs/class-settings-tab.php:60
+#: ../inc/classes/class-admin-menu.php:342, ../inc/classes/class-admin-menu.php:343, ../inc/modules/tabs/class-settings-tab.php:60
 msgid "General"
 msgstr ""
 
-#: ../inc/classes/class-admin-menu.php:351, ../inc/classes/class-admin-menu.php:352, ../inc/modules/tabs/class-settings-tab.php:65
+#: ../inc/classes/class-admin-menu.php:352, ../inc/classes/class-admin-menu.php:353, ../inc/modules/tabs/class-settings-tab.php:65
 msgid "Cloud"
 msgstr ""
 
-#: ../inc/classes/class-admin-menu.php:361, ../inc/classes/class-admin-menu.php:362, ../inc/modules/tabs/class-settings-tab.php:70, ../inc/views/migration-clone/clone.php:78
+#: ../inc/classes/class-admin-menu.php:362, ../inc/classes/class-admin-menu.php:363, ../inc/modules/tabs/class-settings-tab.php:70, ../inc/views/migration-clone/clone.php:78
 msgid "Information"
 msgstr ""
 
-#: ../inc/classes/class-admin-menu.php:390
+#: ../inc/classes/class-admin-menu.php:391
 msgid "Changelogs &#127882;"
 msgstr ""
 
-#: ../inc/classes/class-admin-menu.php:391, ../inc/views/template-parts/header.php:78
+#: ../inc/classes/class-admin-menu.php:392, ../inc/views/template-parts/header.php:78
 msgid "Changelogs"
 msgstr ""
 
-#: ../inc/classes/class-admin-menu.php:402
+#: ../inc/classes/class-admin-menu.php:403
 msgid "Upgrade To Pro"
 msgstr ""
 
-#: ../inc/classes/class-admin-menu.php:403
+#: ../inc/classes/class-admin-menu.php:404
 msgid "UPGRADE TO PRO"
 msgstr ""
 
-#: ../inc/classes/class-ajax.php:309
+#: ../inc/classes/class-ajax.php:418
 msgid "Clone failed because package download url is missing."
 msgstr ""
 
-#: ../inc/classes/class-ajax.php:314
+#: ../inc/classes/class-ajax.php:423
 msgid "Downloading the file from the host site."
 msgstr ""
 
-#: ../inc/classes/class-ajax.php:320
+#: ../inc/classes/class-ajax.php:431
 msgid "Failed to download the file from the host site."
 msgstr ""
 
-#: ../inc/classes/class-ajax.php:325
+#: ../inc/classes/class-ajax.php:436
 msgid "File downloaded successfully."
 msgstr ""
 
-#: ../inc/classes/class-ajax.php:337, ../inc/classes/class-ajax.php:374, ../inc/classes/class-ajax.php:408, ../inc/classes/class-ajax.php:446
+#: ../inc/classes/class-ajax.php:452, ../inc/classes/class-ajax.php:498, ../inc/classes/class-ajax.php:540, ../inc/classes/class-ajax.php:586
 msgid "Current user does not have permission to upload files."
 msgstr ""
 
-#: ../inc/classes/class-ajax.php:351, ../inc/classes/class-ajax.php:346
+#: ../inc/classes/class-ajax.php:468, ../inc/classes/class-ajax.php:462
 msgid "The current uploaded file seems to be tampered with."
 msgstr ""
 
 #. translators: %s is the restore start time.
-#: ../inc/classes/class-ajax.php:468
+#: ../inc/classes/class-ajax.php:609
 msgid "Restore started at: %s"
 msgstr ""
 
-#: ../inc/classes/class-ajax.php:474
+#: ../inc/classes/class-ajax.php:616
 msgid "Extracting package"
 msgstr ""
 
-#: ../inc/classes/class-ajax.php:493
+#: ../inc/classes/class-ajax.php:638
 msgid "Cleaning remaining extracted files"
 msgstr ""
 
 #. translators: %s is the restore completed time.
-#: ../inc/classes/class-ajax.php:500
+#: ../inc/classes/class-ajax.php:646
 msgid "Restore completed at: %s"
 msgstr ""
 
 #. translators: %s is the total restore time.
-#: ../inc/classes/class-ajax.php:503
+#: ../inc/classes/class-ajax.php:649
 msgid "Total time: %s"
 msgstr ""
 
-#: ../inc/classes/class-ajax.php:505, ../inc/core/import/class-wrapup.php:320
+#: ../inc/classes/class-ajax.php:651, ../inc/core/import/class-wrapup.php:320
 msgid "Restore completed."
 msgstr ""
 
 #. translators: %s is unreadable file basename.
-#: ../inc/classes/class-archiver.php:329
+#: ../inc/classes/class-archiver.php:325
 msgid "Skipping file \"%s\" because it is unreadable."
 msgstr ""
 
 #. translators: %d is the progress percent.
-#: ../inc/classes/class-archiver.php:375
+#: ../inc/classes/class-archiver.php:371
 msgid "Archiving media files ( %d%% )"
 msgstr ""
 
 #. translators: %d is the progress percent.
-#: ../inc/classes/class-archiver.php:384
+#: ../inc/classes/class-archiver.php:380
 msgid "Archiving theme files ( %d%% )"
 msgstr ""
 
 #. translators: %d is the progress percent.
-#: ../inc/classes/class-archiver.php:393
+#: ../inc/classes/class-archiver.php:389
 msgid "Archiving plugin files ( %d%% )"
 msgstr ""
 
 #. translators: %d is the progress percent.
-#: ../inc/classes/class-archiver.php:402
+#: ../inc/classes/class-archiver.php:398
 msgid "Archiving wp-content files ( %d%% )"
 msgstr ""
 
 #. translators: %d is the total number of files.
-#: ../inc/classes/class-archiver.php:430
+#: ../inc/classes/class-archiver.php:425
 msgid "Archiving %d files. This step can take some time."
 msgstr ""
 
@@ -423,37 +423,37 @@ msgstr ""
 msgid "Initializing new archive."
 msgstr ""
 
-#: ../inc/classes/class-compress.php:184
+#: ../inc/classes/class-compress.php:183
 msgid "Total files:"
 msgstr ""
 
-#: ../inc/classes/class-compress.php:217, ../inc/classes/class-extract.php:316
+#: ../inc/classes/class-compress.php:216, ../inc/classes/class-extract.php:316
 msgid "Checking disk available space."
 msgstr ""
 
 #. translators: %1$s is total filesize and %2$s is server available free disk space.
-#: ../inc/classes/class-compress.php:223, ../inc/classes/class-extract.php:322
+#: ../inc/classes/class-compress.php:222, ../inc/classes/class-extract.php:322
 msgid "Required disk space: %1$s. Available disk space: %2$s"
 msgstr ""
 
-#: ../inc/classes/class-compress.php:226, ../inc/classes/class-extract.php:325
+#: ../inc/classes/class-compress.php:225, ../inc/classes/class-extract.php:325
 msgid "Disk space available."
 msgstr ""
 
-#: ../inc/classes/class-compress.php:253
+#: ../inc/classes/class-compress.php:251
 msgid "Wrapping things up."
 msgstr ""
 
 #. translators: %s is size of backup file.
-#: ../inc/classes/class-compress.php:263
+#: ../inc/classes/class-compress.php:261
 msgid "Backup created of size %s"
 msgstr ""
 
-#: ../inc/classes/class-compress.php:263
+#: ../inc/classes/class-compress.php:261
 msgid "Failed to created backup"
 msgstr ""
 
-#: ../inc/classes/class-compress.php:324, ../inc/core/export/class-wrapup.php:65
+#: ../inc/classes/class-compress.php:322, ../inc/core/export/class-wrapup.php:65
 msgid "Deleting the backup file from the server."
 msgstr ""
 
@@ -669,11 +669,11 @@ msgstr ""
 msgid "Waiting for response"
 msgstr ""
 
-#: ../inc/classes/class-server-information.php:68, ../inc/views/backup/manual-backup.php:130, ../inc/views/backup/schedule-backup.php:158, ../inc/views/backup/schedule-backup.php:268, ../inc/views/settings/general.php:110, ../inc/views/settings/general.php:158, ../inc/views/settings/general.php:174
+#: ../inc/classes/class-server-information.php:68, ../inc/views/backup/manual-backup.php:130, ../inc/views/backup/schedule-backup.php:158, ../inc/views/backup/schedule-backup.php:268, ../inc/views/settings/general.php:111, ../inc/views/settings/general.php:160, ../inc/views/settings/general.php:176
 msgid "Yes"
 msgstr ""
 
-#: ../inc/classes/class-server-information.php:68, ../inc/views/backup/manual-backup.php:131, ../inc/views/backup/schedule-backup.php:159, ../inc/views/backup/schedule-backup.php:269, ../inc/views/settings/general.php:140, ../inc/views/settings/general.php:111, ../inc/views/settings/general.php:159, ../inc/views/settings/general.php:175
+#: ../inc/classes/class-server-information.php:68, ../inc/views/backup/manual-backup.php:131, ../inc/views/backup/schedule-backup.php:159, ../inc/views/backup/schedule-backup.php:269, ../inc/views/settings/general.php:142, ../inc/views/settings/general.php:112, ../inc/views/settings/general.php:161, ../inc/views/settings/general.php:177
 msgid "No"
 msgstr ""
 
@@ -729,59 +729,59 @@ msgstr ""
 msgid "GZip Library Enabled"
 msgstr ""
 
-#: ../inc/classes/class-server-information.php:167
+#: ../inc/classes/class-server-information.php:166
 msgid "WordPress Version"
 msgstr ""
 
-#: ../inc/classes/class-server-information.php:172
+#: ../inc/classes/class-server-information.php:171
 msgid "Database Version"
 msgstr ""
 
-#: ../inc/classes/class-server-information.php:177
+#: ../inc/classes/class-server-information.php:176
 msgid "Multisite"
 msgstr ""
 
-#: ../inc/classes/class-server-information.php:194
+#: ../inc/classes/class-server-information.php:193
 msgid "Backup Directory Path"
 msgstr ""
 
-#: ../inc/classes/class-server-information.php:199
+#: ../inc/classes/class-server-information.php:198
 msgid "Backup Directory Writable"
 msgstr ""
 
-#: ../inc/classes/class-server-information.php:204
+#: ../inc/classes/class-server-information.php:203
 msgid "Temporary Directory Path"
 msgstr ""
 
-#: ../inc/classes/class-server-information.php:209
+#: ../inc/classes/class-server-information.php:208
 msgid "Temporary Directory Writable"
 msgstr ""
 
-#: ../inc/classes/class-server-information.php:214
+#: ../inc/classes/class-server-information.php:213
 msgid "EBWP Version"
 msgstr ""
 
-#: ../inc/classes/class-server-information.php:219
+#: ../inc/classes/class-server-information.php:218
 msgid "EBWP Encrypt"
 msgstr ""
 
-#: ../inc/classes/class-server-information.php:224
+#: ../inc/classes/class-server-information.php:223
 msgid "EBWP Addons"
 msgstr ""
 
-#: ../inc/classes/class-server-information.php:229
+#: ../inc/classes/class-server-information.php:228
 msgid "EBWP Active Addons"
 msgstr ""
 
-#: ../inc/classes/class-server-information.php:234
+#: ../inc/classes/class-server-information.php:233
 msgid "EBWP Paused Addons"
 msgstr ""
 
-#: ../inc/classes/class-server-information.php:299
+#: ../inc/classes/class-server-information.php:298
 msgid "View Table"
 msgstr ""
 
-#: ../inc/classes/class-server-information.php:299
+#: ../inc/classes/class-server-information.php:298
 msgid "View JSON"
 msgstr ""
 
@@ -790,7 +790,7 @@ msgstr ""
 msgid "%s is ignored."
 msgstr ""
 
-#: ../inc/traits/trait-backup.php:156
+#: ../inc/traits/trait-backup.php:155
 msgid "Process aborted."
 msgstr ""
 
@@ -954,7 +954,7 @@ msgstr ""
 msgid "Listing content files: %d%% completed"
 msgstr ""
 
-#: ../inc/core/export/class-content.php:87, ../inc/core/export/class-incremental.php:123
+#: ../inc/core/export/class-content.php:87, ../inc/core/export/class-incremental.php:122
 msgid "Listing content file: %s"
 msgstr ""
 
@@ -1009,7 +1009,7 @@ msgstr ""
 msgid "Listing incremental files"
 msgstr ""
 
-#: ../inc/core/export/class-incremental.php:119
+#: ../inc/core/export/class-incremental.php:118
 msgid "Listing incremental content files: %d%% completed"
 msgstr ""
 
@@ -1206,24 +1206,24 @@ msgstr ""
 msgid "Restoring files"
 msgstr ""
 
-#: ../inc/core/import/class-extraction.php:287, ../inc/core/import/class-extraction.php:354
+#: ../inc/core/import/class-extraction.php:288, ../inc/core/import/class-extraction.php:355
 msgid "Restoring files [ %1$s ] : %2$d%% completed"
 msgstr ""
 
-#: ../inc/core/import/class-extraction.php:292, ../inc/core/import/class-extraction.php:359
+#: ../inc/core/import/class-extraction.php:293, ../inc/core/import/class-extraction.php:360
 msgid "Restored: %1$s out of %2$s"
 msgstr ""
 
 #. translators: total files and time taken
-#: ../inc/core/import/class-extraction.php:393
+#: ../inc/core/import/class-extraction.php:394
 msgid "Restored %1$d files. Time taken: %2$s"
 msgstr ""
 
-#: ../inc/core/import/class-extraction.php:397
+#: ../inc/core/import/class-extraction.php:398
 msgid "Removing uploaded archive file"
 msgstr ""
 
-#: ../inc/core/import/class-extraction.php:397
+#: ../inc/core/import/class-extraction.php:398
 msgid "Keeping uploaded archive file."
 msgstr ""
 
@@ -1249,64 +1249,64 @@ msgid "Failed to get the blog id."
 msgstr ""
 
 #. translators: progress, current table number and total tables.
-#: ../inc/core/import/class-wrapup.php:100
+#: ../inc/core/import/class-wrapup.php:103
 msgid "Importing database: %1$d%% completed [ %2$s out of %3$s ]"
 msgstr ""
 
 #. translators: query count.
-#: ../inc/core/import/class-wrapup.php:151, ../inc/core/import/class-wrapup.php:140
+#: ../inc/core/import/class-wrapup.php:154, ../inc/core/import/class-wrapup.php:143
 msgid "Queries count: "
 msgstr ""
 
-#: ../inc/core/import/class-wrapup.php:222
+#: ../inc/core/import/class-wrapup.php:227
 msgid "Database Imported..."
 msgstr ""
 
-#: ../inc/core/import/class-wrapup.php:223
+#: ../inc/core/import/class-wrapup.php:228
 msgid "Database imported."
 msgstr ""
 
-#: ../inc/core/import/class-wrapup.php:197
+#: ../inc/core/import/class-wrapup.php:202
 msgid "Next step..."
 msgstr ""
 
-#: ../inc/core/import/class-wrapup.php:204
+#: ../inc/core/import/class-wrapup.php:209
 msgid "Database skipped."
 msgstr ""
 
-#: ../inc/core/import/class-wrapup.php:237
+#: ../inc/core/import/class-wrapup.php:241
 msgid "Restoration almost complete..."
 msgstr ""
 
-#: ../inc/core/import/class-wrapup.php:238
+#: ../inc/core/import/class-wrapup.php:242
 msgid "Uploaded archive file removed"
 msgstr ""
 
-#: ../inc/core/import/class-wrapup.php:238
+#: ../inc/core/import/class-wrapup.php:242
 msgid "Uploaded archive file kept"
 msgstr ""
 
-#: ../inc/core/import/class-wrapup.php:308
+#: ../inc/core/import/class-wrapup.php:313
 msgid "Flushing cache and clearing temporary files"
 msgstr ""
 
-#: ../inc/core/import/class-wrapup.php:316
+#: ../inc/core/import/class-wrapup.php:324
 msgid "Auth cleared."
 msgstr ""
 
-#: ../inc/modules/backup/class-backup-config.php:119
+#: ../inc/modules/backup/class-backup-config.php:118
 msgid "Creating config file."
 msgstr ""
 
-#: ../inc/modules/backup/class-backup-config.php:147
+#: ../inc/modules/backup/class-backup-config.php:145
 msgid "Creating backup config file"
 msgstr ""
 
-#: ../inc/modules/backup/class-backup-config.php:168
+#: ../inc/modules/backup/class-backup-config.php:166
 msgid "Unable to create config file."
 msgstr ""
 
-#: ../inc/modules/backup/class-backup-config.php:166
+#: ../inc/modules/backup/class-backup-config.php:164
 msgid "Config file created successfully."
 msgstr ""
 
@@ -1314,7 +1314,7 @@ msgstr ""
 msgid "Sorting some remaining files from wp-content folders."
 msgstr ""
 
-#: ../inc/modules/backup/class-backup-content.php:79
+#: ../inc/modules/backup/class-backup-content.php:78
 msgid "Listing wp-content files"
 msgstr ""
 
@@ -1322,15 +1322,15 @@ msgstr ""
 msgid "Exporting database."
 msgstr ""
 
-#: ../inc/modules/backup/class-backup-database.php:127
+#: ../inc/modules/backup/class-backup-database.php:126
 msgid "Unable to create Database file."
 msgstr ""
 
-#: ../inc/modules/backup/class-backup-database.php:118
+#: ../inc/modules/backup/class-backup-database.php:117
 msgid "Listing database ( %s )"
 msgstr ""
 
-#: ../inc/modules/backup/class-backup-database.php:125
+#: ../inc/modules/backup/class-backup-database.php:124
 msgid "Database file created successfully."
 msgstr ""
 
@@ -1338,11 +1338,11 @@ msgstr ""
 msgid "Adding plugins files."
 msgstr ""
 
-#: ../inc/modules/backup/class-backup-plugins.php:91
+#: ../inc/modules/backup/class-backup-plugins.php:90
 msgid "Listing plugins"
 msgstr ""
 
-#: ../inc/modules/backup/class-backup-plugins.php:105
+#: ../inc/modules/backup/class-backup-plugins.php:104
 msgid "Plugins files added successfully."
 msgstr ""
 
@@ -1438,7 +1438,7 @@ msgstr ""
 msgid "Tags ( %s )"
 msgstr ""
 
-#: ../inc/modules/history/class-history-table.php:162, ../inc/modules/history/class-history-table.php:527, ../inc/modules/history/class-history-table.php:588, ../inc/modules/logs/class-logs-table.php:129
+#: ../inc/modules/history/class-history-table.php:162, ../inc/modules/history/class-history-table.php:530, ../inc/modules/history/class-history-table.php:591, ../inc/modules/logs/class-logs-table.php:129
 msgid "Remove"
 msgstr ""
 
@@ -1458,28 +1458,28 @@ msgstr ""
 msgid "Change?"
 msgstr ""
 
-#: ../inc/modules/history/class-history-table.php:523
+#: ../inc/modules/history/class-history-table.php:526
 msgid "Download"
 msgstr ""
 
-#: ../inc/modules/history/class-history-table.php:563, ../inc/views/migration-clone/migration.php:60
+#: ../inc/modules/history/class-history-table.php:566, ../inc/views/migration-clone/migration.php:60
 msgid "Migration Key"
 msgstr ""
 
-#: ../inc/modules/history/class-history-table.php:587
+#: ../inc/modules/history/class-history-table.php:590
 msgid "Backup file corrupted/incomplete"
 msgstr ""
 
-#: ../inc/modules/history/class-history-table.php:618, ../inc/views/backup/manual-backup.php:62, ../inc/views/backup/schedule-backup.php:326, ../inc/views/settings/general.php:62
+#: ../inc/modules/history/class-history-table.php:621, ../inc/views/backup/manual-backup.php:62, ../inc/views/backup/schedule-backup.php:326, ../inc/views/settings/general.php:62
 msgid "Included"
 msgstr ""
 
-#: ../inc/modules/history/class-history-table.php:621, ../inc/views/settings/general.php:63
+#: ../inc/modules/history/class-history-table.php:624, ../inc/views/settings/general.php:63
 msgid "Excluded"
 msgstr ""
 
 #. translators: %s is the human time difference result.
-#: ../inc/modules/history/class-history-table.php:672
+#: ../inc/modules/history/class-history-table.php:675
 msgid "%s ago"
 msgstr ""
 
@@ -1551,19 +1551,19 @@ msgstr ""
 msgid "Restored wp-content folder."
 msgstr ""
 
-#: ../inc/modules/restore/class-restore-database.php:86
+#: ../inc/modules/restore/class-restore-database.php:85
 msgid "Restoring database"
 msgstr ""
 
-#: ../inc/modules/restore/class-restore-database.php:91
+#: ../inc/modules/restore/class-restore-database.php:90
 msgid "Database file not found."
 msgstr ""
 
-#: ../inc/modules/restore/class-restore-database.php:144
+#: ../inc/modules/restore/class-restore-database.php:143
 msgid "Failed to restore database."
 msgstr ""
 
-#: ../inc/modules/restore/class-restore-database.php:141
+#: ../inc/modules/restore/class-restore-database.php:140
 msgid "Database restored."
 msgstr ""
 
@@ -1602,7 +1602,7 @@ msgstr ""
 msgid "Restoring media files."
 msgstr ""
 
-#: ../inc/modules/restore/class-restore-uploads.php:93
+#: ../inc/modules/restore/class-restore-uploads.php:91
 msgid "Media files restored."
 msgstr ""
 
@@ -1638,19 +1638,19 @@ msgstr ""
 msgid "PREMIUM"
 msgstr ""
 
-#: ../inc/views/addons/listings.php:132
+#: ../inc/views/addons/listings.php:131
 msgid "Buy Now"
 msgstr ""
 
-#: ../inc/views/addons/listings.php:121
+#: ../inc/views/addons/listings.php:120
 msgid "Installing..."
 msgstr ""
 
-#: ../inc/views/addons/listings.php:124
+#: ../inc/views/addons/listings.php:123
 msgid "View Details"
 msgstr ""
 
-#: ../inc/views/addons/listings.php:128
+#: ../inc/views/addons/listings.php:127
 msgid "Install & Activate"
 msgstr ""
 
@@ -1702,7 +1702,7 @@ msgstr ""
 msgid "Delete the backup file from the server after uploading the file to the cloud."
 msgstr ""
 
-#: ../inc/views/backup/manual-backup.php:166
+#: ../inc/views/backup/manual-backup.php:167
 msgid "Backup Now!"
 msgstr ""
 
@@ -1770,7 +1770,7 @@ msgstr ""
 msgid "Send me an email log after schedule backup is completed."
 msgstr ""
 
-#: ../inc/views/backup/schedule-backup.php:384, ../inc/views/settings/cloud.php:106, ../inc/views/settings/debug.php:75, ../inc/views/settings/general.php:213
+#: ../inc/views/backup/schedule-backup.php:384, ../inc/views/settings/cloud.php:106, ../inc/views/settings/debug.php:75, ../inc/views/settings/general.php:215
 msgid "Save Settings"
 msgstr ""
 
@@ -1947,35 +1947,35 @@ msgstr ""
 msgid "OpenSSL extension required for file content encryption is missing. Please refer to <a target=\"_blank\" href=\"https://www.php.net/manual/en/openssl.installation.php\">PHP documentation</a> for info on how to install OpenSSL library."
 msgstr ""
 
-#: ../inc/views/settings/general.php:152
+#: ../inc/views/settings/general.php:154
 msgid "Delete After Restore"
 msgstr ""
 
-#: ../inc/views/settings/general.php:153
+#: ../inc/views/settings/general.php:155
 msgid "Auto delete the backup file after restore, clone and rollback."
 msgstr ""
 
-#: ../inc/views/settings/general.php:169
+#: ../inc/views/settings/general.php:171
 msgid "Show menu in Site Admin Dashboard"
 msgstr ""
 
-#: ../inc/views/settings/general.php:186
+#: ../inc/views/settings/general.php:188
 msgid "Logger Speed"
 msgstr ""
 
-#: ../inc/views/settings/general.php:187
+#: ../inc/views/settings/general.php:189
 msgid "Speed for fetching process details and logs. This can also affect the overall process time. </br>Range: From 50ms delay (Fastest) To 4000ms delay (Slowest)"
 msgstr ""
 
-#: ../inc/views/settings/general.php:191
+#: ../inc/views/settings/general.php:193
 msgid "Fastest ( More server load )"
 msgstr ""
 
-#: ../inc/views/settings/general.php:193
+#: ../inc/views/settings/general.php:195
 msgid "Slowest ( Less server load )"
 msgstr ""
 
-#: ../inc/views/settings/general.php:195
+#: ../inc/views/settings/general.php:197
 msgid "Delay: %s milliseconds"
 msgstr ""
 
@@ -2104,24 +2104,24 @@ msgstr ""
 msgid "Everest Backup's process Error"
 msgstr ""
 
-#: ../inc/views/template-parts/proc-lock-info.php:269
+#: ../inc/views/template-parts/proc-lock-info.php:270
 msgid "Failed to reconnect 5 times. Try reloading..."
 msgstr ""
 
-#: ../inc/views/template-parts/proc-lock-info.php:272
+#: ../inc/views/template-parts/proc-lock-info.php:273
 msgid "Lost connection with server. Reconnecting..."
 msgstr ""
 
 #. translators: %s is replaced with "Abort"
-#: ../inc/views/template-parts/proc-lock-info.php:286
+#: ../inc/views/template-parts/proc-lock-info.php:287
 msgid "Please type `%s` to abort the process."
 msgstr ""
 
-#: ../inc/views/template-parts/proc-lock-info.php:295
+#: ../inc/views/template-parts/proc-lock-info.php:296
 msgid "Prompt did not match."
 msgstr ""
 
-#: ../inc/views/template-parts/upsells.php:47
+#: ../inc/views/template-parts/upsells.php:58
 msgid "Remind Later"
 msgstr ""
 

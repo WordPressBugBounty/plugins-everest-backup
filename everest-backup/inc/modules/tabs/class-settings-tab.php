@@ -123,6 +123,4 @@ class Settings_Tab extends Tabs_Factory {
 	public function debug_cb() {
 		everest_backup_render_view( 'settings/debug', $this->settings_args );
 	}
-
 }
-

@@ -3,6 +3,7 @@
  * Deprecated functions since Everest Backup 1.1.2.
  *
  * @since 1.1.2
+ *
  * @phpcs:disable
  */
 

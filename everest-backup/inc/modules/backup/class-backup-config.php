@@ -105,7 +105,6 @@ class Backup_Config {
 		);
 
 		return $config;
-
 	}
 
 	/**
@@ -129,7 +128,6 @@ class Backup_Config {
 		if ( $created && $filesystem->is_file( $config_json_path ) ) {
 			self::$config_json_path = $config_json_path;
 		}
-
 	}
 
 	/**
@@ -168,5 +166,4 @@ class Backup_Config {
 			Logs::warn( __( 'Unable to create config file.', 'everest-backup' ) );
 		}
 	}
-
 }

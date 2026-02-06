@@ -77,7 +77,7 @@ class Media {
 							__( 'Listing media files: %d%% completed', 'everest-backup' ),
 							esc_html( $progress )
 						),
-						'detail' => sprintf( __( 'Listing media file: %s', 'everest-backup' ), basename( $file ) )
+						'detail'   => sprintf( __( 'Listing media file: %s', 'everest-backup' ), basename( $file ) ),
 					)
 				);
 
@@ -100,7 +100,5 @@ class Media {
 		);
 
 		return self::set_next( 'themes' );
-
 	}
-
 }

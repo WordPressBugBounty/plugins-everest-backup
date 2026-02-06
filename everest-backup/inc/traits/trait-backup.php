@@ -131,7 +131,6 @@ trait Backup {
 				}
 			}
 		}
-
 	}
 
 	/**
@@ -182,7 +181,5 @@ trait Backup {
 		if ( method_exists( __CLASS__, 'after_addfiles' ) ) {
 			self::after_addfiles();
 		}
-
 	}
-
 }

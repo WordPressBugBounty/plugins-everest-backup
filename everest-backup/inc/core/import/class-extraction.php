@@ -79,7 +79,7 @@ class Extraction {
 	 */
 	private static function run( $params ) {
 
-		$metadata = self::get_metadata();
+		$metadata  = self::get_metadata();
 		$file_info = $metadata['config']['FileInfo'];
 		$encrypted = false;
 		if ( isset( $file_info ) && $file_info['encrypt'] ) {
@@ -145,7 +145,7 @@ class Extraction {
 
 			while ( ! feof( $archiver->get_ziphandle() ) ) {
 				$previous_line_seek = ftell( $archiver->get_ziphandle() );
-				$line = fgets( $archiver->get_ziphandle() );
+				$line               = fgets( $archiver->get_ziphandle() );
 
 				/**
 				 * Implementation for deleting files.
@@ -157,17 +157,18 @@ class Extraction {
 				 */
 				/**
 				 *if ( 0 === strpos( $line, 'EBWPFILE_DELETE:' ) ) {
-				 *	$path = trim( str_replace( 'EBWPFILE_DELETE:', '', $line ) );
-				 *	$path = str_replace( chr( 0 ), '', $path ); // Fix for null byte issue.
-				 *	if ( false !== strpos( $path, 'ebwp-files' ) ) {
-				 *		$path = everest_backup_current_request_storage_path( $path );
-				 *	} else {
-				 *		$path = wp_normalize_path( WP_CONTENT_DIR . '/' . $path );
-				 *	}
-				 *	if ( file_exists( $path ) ) {
-				 *		@unlink( $path );
-				 *	}
-				 *	continue;
+				 *  $path = trim( str_replace( 'EBWPFILE_DELETE:', '', $line ) );
+				 *  $path = str_replace( chr( 0 ), '', $path ); // Fix for null byte issue.
+				 *  if ( false !== strpos( $path, 'ebwp-files' ) ) {
+				 *      $path = everest_backup_current_request_storage_path( $path );
+				 *  } else {
+				 *      $path = wp_normalize_path( WP_CONTENT_DIR . '/' . $path );
+				 *  }
+				 *  if ( file_exists( $path ) ) {
+				 *
+				 *      @unlink( $path );
+				 *  }
+				 *  continue;
 				 *}
 				*/
 
@@ -251,7 +252,7 @@ class Extraction {
 							 */
 							$curr_pos = ftell( $handle );
 
-							if ( ! ! $curr_pos ) {
+							if ( (bool) $curr_pos ) {
 								// Remove additional last line which gets added during archive process.
 								ftruncate( $handle, $curr_pos - 1 );
 							}

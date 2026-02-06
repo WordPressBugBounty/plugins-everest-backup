@@ -53,7 +53,7 @@ class Export {
 	public static function init( $params = array() ) {
 		$procstat = Logs::get_proc_stat();
 
-		$params  = $params ? $params : everest_backup_get_ajax_response( EVEREST_BACKUP_EXPORT_ACTION );
+		$params = $params ? $params : everest_backup_get_ajax_response( EVEREST_BACKUP_EXPORT_ACTION );
 
 		$params = empty( $params['status'] ) && ! empty( $procstat['status'] ) ? array_merge( $params, $procstat ) : $params;
 

@@ -33,7 +33,7 @@ class Wrapup {
 			},
 			apply_filters(
 				'everest_backup_critical_tables_for_import',
-					array(
+				array(
 					'users',
 					'usermeta',
 					'options',
@@ -66,14 +66,17 @@ class Wrapup {
 		$critical_tables = self::get_critical_tables( $db_configs['Prefix'] );
 
 		if ( ! isset( $params['critical'] ) ) {
-			$database_files = array_filter( $database_files, function ( $val ) use ( $critical_tables ) {
-				foreach ( $critical_tables as $table ) {
-					if ( false !== strpos( $val, $table ) ) {
-						return false;
+			$database_files = array_filter(
+				$database_files,
+				function ( $val ) use ( $critical_tables ) {
+					foreach ( $critical_tables as $table ) {
+						if ( false !== strpos( $val, $table ) ) {
+							return false;
+						}
 					}
+					return true;
 				}
-				return true;
-			} );
+			);
 		} else {
 			$critical = true;
 		}
@@ -86,23 +89,23 @@ class Wrapup {
 			Logs::info( 'Importing databases', 'everest-backup' );
 			$find_replace = self::get_find_replace();
 
-			$start_time = time();
+			$start_time  = time();
 			$current_key = $params['current_key'] ?? 0;
 			foreach ( $database_files as $database_file ) {
 
 				$progress = ( ( $current_key + 1 ) / $total_tables ) * 100;
 
 				$proc_stat_args = array(
-					'status'   => 'in-process',
-					'progress' => round( $progress * 0.25 + 65, 2 ), // At the end, it is always going to be 90%.
-					'message'  => sprintf(
+					'status'       => 'in-process',
+					'progress'     => round( $progress * 0.25 + 65, 2 ), // At the end, it is always going to be 90%.
+					'message'      => sprintf(
 						/* translators: progress, current table number and total tables. */
 						__( 'Importing database: %1$d%% completed [ %2$s out of %3$s ]', 'everest-backup' ),
 						esc_html( $progress ),
 						esc_html( $current_key + 1 ),
 						esc_html( $total_tables )
 					),
-					'current_key' => $current_key,
+					'current_key'  => $current_key,
 					'total_tables' => $total_tables,
 				);
 
@@ -112,7 +115,7 @@ class Wrapup {
 					foreach ( $blog as $blog_id => $blog_val ) {
 						\switch_to_blog( $blog_id );
 
-						$metadata = self::get_metadata();
+						$metadata    = self::get_metadata();
 						$config_data = $metadata['config'];
 
 						$find_replace = array();
@@ -133,7 +136,7 @@ class Wrapup {
 						$find_replace[ $old_home_url ]   = $new_home_url;
 						$find_replace[ $old_upload_dir ] = $new_upload_dir;
 						$find_replace[ $old_upload_url ] = $new_upload_url;
-						$import_database = new Import_Database( $database_file, $db_configs['Tables'], $find_replace );
+						$import_database                 = new Import_Database( $database_file, $db_configs['Tables'], $find_replace );
 						$import_database->import_table(
 							function ( $query_count ) use ( $proc_stat_args ) {
 								/* translators: query count. */
@@ -186,6 +189,8 @@ class Wrapup {
 	 * Run.
 	 */
 	private static function run( $params ) {
+		$token = wp_generate_password( 32, false );
+		set_transient( 'eb_post_restore_token', $token, 5 * MINUTE_IN_SECONDS );
 
 		$metadata = self::get_metadata();
 
@@ -201,29 +206,28 @@ class Wrapup {
 					'status'   => 'in-process',
 					'progress' => 65,
 					'message'  => $msg,
-					'detail'   =>  __( 'Database skipped.', 'everest-backup' ),
+					'detail'   => __( 'Database skipped.', 'everest-backup' ),
 				)
 			);
 			Logs::info( $msg );
 
 			everest_backup_send_success();
-	
+
 			die();
-		} else {
-			if ( ! empty( $metadata['config']['Database'] ) ) {
-				if ( self::import_databases( $metadata['config']['Database'], $params ) ) {
-					return;
-				}
-				Logs::set_proc_stat(
-					array(
-						'log'      => 'info',
-						'status'   => 'in-process',
-						'progress' => 65,
-						'message'  => __( 'Database Imported...', 'everest-backup' ),
-						'detail'   =>  __( 'Database imported.', 'everest-backup' ),
-					)
-				);
+		} elseif ( ! empty( $metadata['config']['Database'] ) ) {
+			if ( self::import_databases( $metadata['config']['Database'], $params ) ) {
+				return;
 			}
+
+			Logs::set_proc_stat(
+				array(
+					'log'      => 'info',
+					'status'   => 'in-process',
+					'progress' => 65,
+					'message'  => __( 'Database Imported...', 'everest-backup' ),
+					'detail'   => __( 'Database imported.', 'everest-backup' ),
+				)
+			);
 		}
 
 		$general_settings     = everest_backup_get_settings( 'general' );
@@ -252,6 +256,7 @@ class Wrapup {
 		Logs::info( 'Activating plugins', 'everest-backup' );
 		wp_clean_plugins_cache();
 		$active_plugins = ! empty( $metadata['config']['ActivePlugins'] ) ? everest_backup_filter_plugin_list( $metadata['config']['ActivePlugins'] ) : array();
+
 		if ( ! empty( $active_plugins ) ) {
 			if ( ! empty( $metadata['config']['Database'] ) && ! empty( $metadata['config']['Database']['Tables'] ) ) {
 				$current = array();
@@ -312,14 +317,18 @@ class Wrapup {
 		flush_rewrite_rules();
 		everest_backup_elementor_cache_flush();
 
+		Logs::done( __( 'Restore completed.', 'everest-backup' ) );
+
 		if ( empty( $metadata['config']['Database'] ) || ! ( isset( $params['skip_database'] ) && isset( $params['incremental'] ) ) ) {
+
 			Logs::info( __( 'Auth cleared.', 'everest-backup' ) );
+
 			wp_clear_auth_cookie();
 		}
 
-		Logs::done( __( 'Restore completed.', 'everest-backup' ) );
-
 		do_action( 'everest_backup_after_restore_done', $metadata );
+
+		set_transient( 'is_restore_completed', true, MINUTE_IN_SECONDS );
 
 		if ( get_transient( 'everest_backup_wp_cli_express' ) ) {
 			add_filter( 'everest_backup_disable_send_json', '__return_true' );
@@ -336,10 +345,10 @@ class Wrapup {
 		update_option( 'permalink_structure', $default_structure );
 
 		// Set WooCommerce specific permalinks
-		$woocommerce_permalinks = array(
-			'product_base'           => '/product',
-			'category_base'          => '/product-category',
-			'tag_base'               => '/product-tag',
+		$woocommerce_permalinks            = array(
+			'product_base'  => '/product',
+			'category_base' => '/product-category',
+			'tag_base'      => '/product-tag',
 		);
 		$serialized_woocommerce_permalinks = maybe_serialize( $woocommerce_permalinks );
 		update_option( 'woocommerce_permalinks', $serialized_woocommerce_permalinks );

@@ -70,10 +70,8 @@ class Backup_Directory {
 
 		if ( $enable ) {
 			return $this->filesystem->writefile( $file, '' );
-		} else {
-			if ( file_exists( $file ) ) {
+		} elseif ( file_exists( $file ) ) {
 				return $this->filesystem->delete( $file );
-			}
 		}
 	}
 
@@ -182,7 +180,7 @@ class Backup_Directory {
 
 		$sorted = usort(
 			$backups,
-			function( $a, $b ) use ( $order ) {
+			function ( $a, $b ) use ( $order ) {
 				$time_a = filemtime( $a );
 				$time_b = filemtime( $b );
 				return 'asc' === $order ? strcmp( $time_b, $time_a ) : strcmp( $time_a, $time_b );
@@ -246,7 +244,6 @@ class Backup_Directory {
 		}
 
 		return $older_backups;
-
 	}
 
 	/**
@@ -325,7 +322,6 @@ class Backup_Directory {
 		}
 
 		return $backups_data;
-
 	}
 
 	/**
@@ -415,7 +411,6 @@ class Backup_Directory {
 		}
 
 		return $old_misc_files;
-
 	}
 
 	/**
@@ -429,8 +424,8 @@ class Backup_Directory {
 			'.htaccess'                              => $this->htaccess_content(),
 			'index.php'                              => '<?php',
 			'index.html'                             => '',
-			'.PROCSTAT'                               => '{}',
-			'.LOCKFILE'                               => '',
+			'.PROCSTAT'                              => '{}',
+			'.LOCKFILE'                              => '',
 			basename( EVEREST_BACKUP_ACTIVITY_PATH ) => '',                          // In this file, logs will be placed during the process.
 		);
 

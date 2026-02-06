@@ -105,21 +105,22 @@ $show_menu_in_site_admin_dashboard = ! empty( $everest_backup_settings['general'
 							if ( ! extension_loaded( 'openssl' ) ) {
 								echo '<input type="hidden" name="everest_backup_settings[general][encrypt_backup]" value="no">';
 								echo __( 'OpenSSL extension required for file content encryption is missing. Please refer to <a target="_blank" href="https://www.php.net/manual/en/openssl.installation.php">PHP documentation</a> for info on how to install OpenSSL library.', 'everest-backup' );
-							} else { ?>
+							} else {
+								?>
 								<select name="everest_backup_settings[general][encrypt_backup]" id="everest_backup_settings_general_encrypt_backup">
 									<option <?php selected( $encrypt_backup, 'yes' ); ?> value="yes"><?php esc_html_e( 'Yes', 'everest-backup' ); ?></option>
 									<option <?php selected( $encrypt_backup, 'no' ); ?> value="no"><?php esc_html_e( 'No', 'everest-backup' ); ?></option>
 								</select>
 								<!-- <div
 									id="everest_backup_settings_general_encrypt_backup_password_div"
-									style="<?php //echo ( $encrypt_backup === 'yes' ) ? '': 'display:none'; ?>"
+									style="<?php // echo ( $encrypt_backup === 'yes' ) ? '': 'display:none'; ?>"
 								>
 									Password?
 									<input
 										type="text"
 										name="everest_backup_settings[general][encrypt_backup_password]"
 										id="everest_backup_settings_general_encrypt_backup_password"
-										value="<?php //echo ! empty( $everest_backup_settings['general']['encrypt_backup_password'] ) ? esc_attr( $everest_backup_settings['general']['encrypt_backup_password'] ) : ''; ?>"
+										value="<?php // echo ! empty( $everest_backup_settings['general']['encrypt_backup_password'] ) ? esc_attr( $everest_backup_settings['general']['encrypt_backup_password'] ) : ''; ?>"
 									/>
 								</div>
 								<script>
@@ -133,7 +134,8 @@ $show_menu_in_site_admin_dashboard = ! empty( $everest_backup_settings['general'
 										})
 									})
 								</script> -->
-							<?php }
+								<?php
+							}
 						} else {
 							?>
 							<select name="" disabled>
@@ -192,7 +194,7 @@ $show_menu_in_site_admin_dashboard = ! empty( $everest_backup_settings['general'
 						<input id="logger_speed_range" type="range" step="50" min="50" max="4000" value="<?php echo esc_attr( $logger_speed ); ?>" placeholder="Ex: zip, lock" name="everest_backup_settings[general][logger_speed]">
 						<span title="<?php esc_attr_e( '4000 milliseconds delay' ); ?>"><?php esc_html_e( 'Slowest ( Less server load )', 'everest-backup' ); ?></span>
 					</label>
-					<p class="description"><?php echo sprintf( esc_html__( 'Delay: %s milliseconds', 'everest-backup' ), '<span id="logger_speed_display">' . esc_html( $logger_speed ) . '</span>' ); ?></p>
+					<p class="description"><?php printf( esc_html__( 'Delay: %s milliseconds', 'everest-backup' ), '<span id="logger_speed_display">' . esc_html( $logger_speed ) . '</span>' ); ?></p>
 				</td>
 			</tr>
 

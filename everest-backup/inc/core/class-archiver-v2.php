@@ -161,7 +161,7 @@ class Archiver_V2 {
 			}
 			fwrite( $this->ziphandle, $fwrite ); // @phpcs:ignore
 
-			if ( ( time() - $timestart ) > (EVEREST_BACKUP_PHP_EXECUTION_PARKHINE/2) ) {
+			if ( ( time() - $timestart ) > ( EVEREST_BACKUP_PHP_EXECUTION_PARKHINE / 2 ) ) {
 				return array(
 					'current_file_ftell' => ftell( $handle ),
 					'file_name'          => $file,
@@ -182,7 +182,7 @@ class Archiver_V2 {
 	 * @param bool   $encode  Encode if true, default otherwise.
 	 * @return bool|array If file write complete, returns true for succcess and false on failure. Returns file pointer and name as array if incomplete.
 	 */
-	public function add_remove_file( $file  ) {
+	public function add_remove_file( $file ) {
 		$path = $this->get_entryname( $file );
 
 		return fwrite( $this->ziphandle, "EBWPFILE_DELETE:{$path}\n" ); // @phpcs:ignore
@@ -196,7 +196,7 @@ class Archiver_V2 {
 	 */
 	public function encrypt( $string, $key = '' ) {
 		$ivlen = $this->getIVLength();
-		$iv    = openssl_random_pseudo_bytes($ivlen);
+		$iv    = openssl_random_pseudo_bytes( $ivlen );
 		return $iv . openssl_encrypt( $string, $this->cipher, $key, OPENSSL_RAW_DATA, $iv );
 	}
 
@@ -216,8 +216,8 @@ class Archiver_V2 {
 	/**
 	 * Get next encrypted chunk with IV used to encrypt it.
 	 *
-	 * @param  string       $line_seek Before line seek.
-	 * @return string|false 
+	 * @param  string $line_seek Before line seek.
+	 * @return string|false
 	 */
 	public function get_next_encrypted_chunk( $line_seek = false ) {
 		if ( $line_seek ) {
@@ -232,10 +232,10 @@ class Archiver_V2 {
 			if ( -1 < $end_pos ) {
 				$string = substr( $string, 0, $end_pos );
 				fseek( $this->ziphandle, $curr_s + $end_pos );
-				if ( "\n" === substr($string, -1) ) {
-					$string = substr($string, 0, -1);
+				if ( "\n" === substr( $string, -1 ) ) {
+					$string = substr( $string, 0, -1 );
 				}
-			} 
+			}
 			return $string;
 		}
 		return false;
@@ -304,10 +304,10 @@ class Archiver_V2 {
 	 * Scan the backup file for the list of files and their positions.
 	 *
 	 * @return array{
-     *  path: string,
-     *  start: int,
-     *  end: int
-     * }[] Array of files and their positions.
+	 *  path: string,
+	 *  start: int,
+	 *  end: int
+	 * }[] Array of files and their positions.
 	 */
 	function scan_file( $resume = false, $c_seek = 0 ) {
 		$file_data       = array();
@@ -318,38 +318,41 @@ class Archiver_V2 {
 			fseek( $this->ziphandle, $c_seek );
 		}
 		while ( ( $line = fgets( $this->ziphandle ) ) !== false ) {
-			$current_position = ftell($this->ziphandle);
+			$current_position = ftell( $this->ziphandle );
 
 			// Match start marker
-			if (preg_match('/^EBWPFILE_START:(.+?)$/', trim($line), $matches)) {
-				$file_path = $matches[1];
-				$start_positions[$file_path] = $current_position;
+			if ( preg_match( '/^EBWPFILE_START:(.+?)$/', trim( $line ), $matches ) ) {
+				$file_path                     = $matches[1];
+				$start_positions[ $file_path ] = $current_position;
 			}
 
 			// Match end marker
-			if (preg_match('/^EBWPFILE_END:(.+?)$/', trim($line), $matches)) {
+			if ( preg_match( '/^EBWPFILE_END:(.+?)$/', trim( $line ), $matches ) ) {
 				$file_path = $matches[1];
 
-				if (isset($start_positions[$file_path])) {
+				if ( isset( $start_positions[ $file_path ] ) ) {
 					$file_data[] = array(
 						'path'  => $file_path,
 						'start' => $start_positions[ $file_path ],
-						'end'   => $current_position - strlen($line), // End of the file data
+						'end'   => $current_position - strlen( $line ), // End of the file data
 					);
 
 					// Remove the start position once matched
-					unset($start_positions[$file_path]);
+					unset( $start_positions[ $file_path ] );
 				}
 			}
 
-			if (  ( time() - $start_time ) > EVEREST_BACKUP_PHP_EXECUTION_PARKHINE ) {
+			if ( ( time() - $start_time ) > EVEREST_BACKUP_PHP_EXECUTION_PARKHINE ) {
 				$c_seek = ftell( $this->get_ziphandle() );
 				$this->close();
-				echo wp_json_encode( array(
-					'files'     => $file_data,
-					'continued' => true,
-					'c_seek'    => $c_seek,
-				) ); die();
+				echo wp_json_encode(
+					array(
+						'files'     => $file_data,
+						'continued' => true,
+						'c_seek'    => $c_seek,
+					)
+				);
+				die();
 			}
 		}
 

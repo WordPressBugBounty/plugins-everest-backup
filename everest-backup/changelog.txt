@@ -1,4 +1,20 @@
 == Changelog ==
+
+== v2.3.9 ==
+ * Fixes: Minor issues
+
+== v2.3.8 ==
+ * Fixes: Minor issues
+
+== v2.3.7 =
+* Docs: Update readme.txt and changelogs.
+
+== v2.3.6 =
+* Fix: Missing Authorization to Unauthenticated Backup Failure.
+* Fix: Security related issues v2.3.6 =
+* Fix: Missing Authorization to Unauthenticated Backup Failure.
+* Fix: Security related issues
+
 = v2.3.5 =
 * Fix: Resolved a minor bug to improve stability.
 

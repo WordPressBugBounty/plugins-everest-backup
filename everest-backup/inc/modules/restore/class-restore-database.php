@@ -72,7 +72,6 @@ class Restore_Database {
 		self::$database_file   = $database_file;
 		self::$exported_tables = $exported_tables;
 		self::$find_replace    = self::get_find_replace();
-
 	}
 
 	/**
@@ -143,7 +142,6 @@ class Restore_Database {
 		} else {
 			Logs::warn( __( 'Failed to restore database.', 'everest-backup' ) );
 		}
-
 	}
 
 	/**

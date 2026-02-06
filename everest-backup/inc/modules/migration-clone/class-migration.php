@@ -89,4 +89,3 @@ class Migration extends Migration_Clone {
 		);
 	}
 }
-

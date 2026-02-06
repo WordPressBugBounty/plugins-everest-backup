@@ -52,7 +52,7 @@ class Incremental {
 	 *
 	 * @return void
 	 */
-    private static function run() {
+	private static function run() {
 		$params = self::read_config( 'Params' );
 
 		if ( ! isset( $params['incremental'] ) ) {
@@ -64,7 +64,7 @@ class Incremental {
 				'status'   => 'in-process',
 				'progress' => 71,
 				'message'  => __( 'Listing incremental files', 'everest-backup' ),
-				'log'      => 'info'
+				'log'      => 'info',
 			)
 		);
 
@@ -86,13 +86,12 @@ class Incremental {
 		self::put_current_backup_file_info( $files );
 		$file_list = array_merge( $file_list, $files );
 
-
 		$total_files = count( $file_list );
 		$total_size  = 0;
 
 		if ( is_array( $file_list ) && ! empty( $file_list ) ) {
 			$prev_file_list = self::read_last_backup_file_info();
-			$count = 0;
+			$count          = 0;
 			foreach ( $file_list as $index => $file ) {
 
 				++$count;
@@ -137,5 +136,5 @@ class Incremental {
 		everest_backup_export_wp_database();
 
 		return self::set_next( 'wrapup' );
-    }
+	}
 }

@@ -113,7 +113,6 @@ trait Import {
 		$find_replace[ $old_content_url ] = $new_content_url;
 
 		return $find_replace;
-
 	}
 
 	public static function set_next( $next, $subtask = null ) {

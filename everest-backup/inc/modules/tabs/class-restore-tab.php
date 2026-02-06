@@ -98,6 +98,5 @@ class Restore_Tab extends Tabs_Factory {
 		</form>
 		<?php
 	}
-
 }
 

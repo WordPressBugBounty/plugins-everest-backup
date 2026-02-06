@@ -121,7 +121,6 @@ class Email_Logs extends Email {
 		$message[] = sprintf( '<a href="{{LOGS_PAGE_LINK}}">%s</a>', esc_html__( 'All Logs', 'everest-backup' ) );
 
 		return implode( "\n", $message );
-
 	}
 }
 

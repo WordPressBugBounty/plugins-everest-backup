@@ -110,7 +110,6 @@ abstract class Archiver {
 		$this->paths_to_replace = array_map( 'wp_normalize_path', $paths_to_replace );
 
 		$this->archiver_init();
-
 	}
 
 	/**
@@ -162,7 +161,6 @@ abstract class Archiver {
 
 		$this->type = $archiver['type'];
 		$this->lib  = $archiver['lib'];
-
 	}
 
 	/**
@@ -185,7 +183,6 @@ abstract class Archiver {
 		}
 
 		return $this->unzip_using_fallback_archiver( $file, $to );
-
 	}
 
 	/**
@@ -284,7 +281,6 @@ abstract class Archiver {
 		if ( is_int( $filesize ) ) {
 			$this->total_files_size += $filesize;
 		}
-
 	}
 
 	/**
@@ -405,7 +401,6 @@ abstract class Archiver {
 		}
 
 		Logs::set_proc_stat( $procstat, 0 );
-
 	}
 
 	/**
@@ -431,7 +426,6 @@ abstract class Archiver {
 			),
 			0
 		);
-
 	}
 
 	/**

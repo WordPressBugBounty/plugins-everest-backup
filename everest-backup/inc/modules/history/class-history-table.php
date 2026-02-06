@@ -246,11 +246,11 @@ class History_Table extends \WP_List_Table {
 			<div class="alignleft actions bulkactions">
 				<?php $this->bulk_actions( $which ); ?>
 			</div>
-			<?php
+				<?php
 			endif;
 
 			if ( 'top' === $which ) {
-				$get = everest_backup_get_submitted_data( 'get' );
+				$get         = everest_backup_get_submitted_data( 'get' );
 				$backup_type = $get['backup_type'] ?? 'regular';
 				?>
 				<select name="backup_type" id="everest_backup_backup_type">
@@ -347,7 +347,7 @@ class History_Table extends \WP_List_Table {
 		if ( ! is_array( $backups ) ) {
 			$backups = Backup_Directory::init()->get_backups();
 		}
-		$get = everest_backup_get_submitted_data( 'get' );
+		$get         = everest_backup_get_submitted_data( 'get' );
 		$backup_type = $get['backup_type'] ?? 'regular';
 		if ( 'regular' === $backup_type ) {
 			$backup_values = array_filter(
@@ -363,7 +363,7 @@ class History_Table extends \WP_List_Table {
 					return ( 0 === strpos( $val['filename'], 'ebwpbuwa-' ) );
 				}
 			);
-			$childrens = array_filter(
+			$childrens     = array_filter(
 				$backups,
 				function ( $val ) {
 					return ( 0 === strpos( $val['filename'], 'ebwpinc-' ) );
@@ -376,10 +376,10 @@ class History_Table extends \WP_List_Table {
 						$val['filename'],
 						$matches
 					);
-					$val['hostname']   = $matches[1];
-					$val['time']       = $matches[2];
-					$val['random']     = $matches[3];
-					$val['children']   = $this->file_inc_children( $val, $childrens );
+					$val['hostname'] = $matches[1];
+					$val['time']     = $matches[2];
+					$val['random']   = $matches[3];
+					$val['children'] = $this->file_inc_children( $val, $childrens );
 					return $val;
 				},
 				$backup_values
@@ -399,9 +399,11 @@ class History_Table extends \WP_List_Table {
 	private function file_inc_children( $current, &$childrens ) {
 		$child_init_name = 'ebwpinc-' . $current['hostname'] . '-' . $current['time'] . '-' . $current['random'];
 
-		$i = 0; $current_childrens = array(); $n_childrens = array();
+		$i                 = 0;
+		$current_childrens = array();
+		$n_childrens       = array();
 		foreach ( $childrens as $child ) {
-			$child['parent'] = 'ebwpbuwa-' . $current['hostname'] . '-' . $current['time'] . '-' . $current['random'] . EVEREST_BACKUP_BACKUP_FILE_EXTENSION;
+			$child['parent']                   = 'ebwpbuwa-' . $current['hostname'] . '-' . $current['time'] . '-' . $current['random'] . EVEREST_BACKUP_BACKUP_FILE_EXTENSION;
 			$n_childrens[ $child['filename'] ] = $child;
 		}
 
@@ -409,8 +411,8 @@ class History_Table extends \WP_List_Table {
 			$child_name = $child_init_name . '-' . $i . EVEREST_BACKUP_BACKUP_FILE_EXTENSION;
 			if ( array_key_exists( $child_name, $n_childrens ) ) {
 				$n_childrens[ $child_name ]['increment'] = $i;
-				$current_childrens[ $child_name ] = $n_childrens[ $child_name ];
-				$i++;
+				$current_childrens[ $child_name ]        = $n_childrens[ $child_name ];
+				++$i;
 				continue;
 			}
 			break;
@@ -505,10 +507,11 @@ class History_Table extends \WP_List_Table {
 	protected function package_row_actions( $item ) {
 		if ( isset( $item['children'] ) ) {
 			if ( ! empty( $item['children'] ) ) {
-				$html = ''; $sn = 0;
+				$html = '';
+				$sn   = 0;
 				foreach ( $item['children'] as $child ) {
 					$button = sprintf( '<a href="%1$s" class="button-secondary">%2$s</a>', esc_url( $this->get_inc_restore_link( $child ) ), esc_html__( 'Rollback', 'everest-backup' ) );
-					$html .= '<li class="logs-list-item item-key-' . $sn . ' notice notice-info">Restore Point ' . $sn++ . ' : &nbsp; ' . wp_date( 'h:i:s A [F j, Y]', $child['time'] ) . '&nbsp;&nbsp;' . $button . '</li>';
+					$html  .= '<li class="logs-list-item item-key-' . $sn . ' notice notice-info">Restore Point ' . $sn++ . ' : &nbsp; ' . wp_date( 'h:i:s A [F j, Y]', $child['time'] ) . '&nbsp;&nbsp;' . $button . '</li>';
 				}
 				$row_actions = array(
 					'rollbacks' => '<ul class="everest-backup-logs-list">' . $html . '</ul>',
@@ -651,7 +654,7 @@ class History_Table extends \WP_List_Table {
 			case 'filename':
 				$items = $this->package_row_actions( $item );
 				if ( ! empty( $item['children'] ) ) {
-					$html = '<details>';
+					$html  = '<details>';
 					$html .= '<summary><strong>' . $item[ $column_name ] . '</strong></summary>';
 					$html .= '<p>';
 					$html .= isset( $items['rollbacks'] ) ? $items['rollbacks'] : $this->row_actions( $items, true );

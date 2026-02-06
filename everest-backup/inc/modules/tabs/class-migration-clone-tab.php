@@ -86,6 +86,4 @@ class Migration_Clone_Tab extends Tabs_Factory {
 	public function clone_cb() {
 		everest_backup_render_view( 'migration-clone/clone', $this->migration_clone_args );
 	}
-
 }
-

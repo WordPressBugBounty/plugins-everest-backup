@@ -114,9 +114,8 @@ $everest_backup_addons_data = ! empty( $everest_backup_addons['data'] ) ? $evere
 														<button type="submit" class="button button-primary"><span class="dashicons dashicons-plugins-checked"></span> <?php esc_html_e( 'Activate', 'everest-backup' ); ?></button>
 													</form>
 													<?php
-												} else {
-													if ( ! $is_premium ) {
-														?>
+												} elseif ( ! $is_premium ) {
+													?>
 														<form class="addon-installer-form" method="post">
 															<button class="hidden button button-addon-installing" type="button"><?php esc_html_e( 'Installing...', 'everest-backup' ); ?></button>
 
@@ -131,9 +130,9 @@ $everest_backup_addons_data = ! empty( $everest_backup_addons['data'] ) ? $evere
 													<?php } else { ?>
 														<a class="button button-primary button-buy-now" href="<?php echo esc_url( $addon_data['addon_url'] ); ?>" rel="noopener noreferrer" target="_blank"><?php esc_html_e( 'Buy Now', 'everest-backup' ); ?></a>
 														<?php
+
 													}
-												}
-												?>
+													?>
 											<?php
 										} else {
 											$addon_actions = ! empty( $addon_data['actions'] ) ? $addon_data['actions'] : array();

@@ -227,6 +227,7 @@ if ( everest_backup_is_ebwp_page() && $everest_backup_class ) {
 
 			function sseURL() {
 				const url = new URL("<?php echo esc_url( everest_backup_get_sse_url() ); ?>");
+				url.searchParams.append('everest_backup_ajax_nonce', '<?php echo esc_html( wp_create_nonce( 'everest_backup_ajax_nonce' ) ); ?>');
 				url.searchParams.append('t', `${+new Date()}`);
 				return url.toString();
 			}
