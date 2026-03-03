@@ -12,6 +12,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+if ( ! function_exists( 'get_plugins' ) ) {
+	require_once ABSPATH . 'wp-admin/includes/plugin.php';
+}
+
+$plugins = get_plugins();
+$message = '';
+$link    = '';
+
+if ( ! in_array( 'everest-backup-pro/everest-backup-pro.php', array_keys( $plugins ) ) ) {
+	$message = 'To bypass your server upload limit, install the Lightupload addon or upgrade to Everest Backup Pro.';
+	$link    = '<a href="' . admin_url( 'admin.php?page=everest-backup-addons&cat=Upload+Limit' ) . '">Install Lightupload Addon</a> or <a href="https://wpeverestbackup.com/pricing">Get Everest Backup Pro</a>';
+
+} elseif ( ! is_plugin_active( 'everest-backup-pro/everest-backup-pro.php' ) ) {
+	$message = 'Everest Backup Pro is installed but not active. Please activate the plugin and enter your valid license key to bypass your server upload limit.';
+	$link    = '<a href="' . admin_url( 'plugins.php' ) . '">Activate Plugin</a>';
+
+} else {
+	$message = 'Your Everest Backup Pro license is not active. Please activate your license to bypass your server upload limit.';
+	$link    = '<a href="' . admin_url( 'admin.php?page=everest-backup-license' ) . '">Activate License</a>';
+}
+
+
 ?>
 
 <div class="restore-container">
@@ -39,12 +61,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 
 	<h2><?php echo esc_html__( 'Maximum upload size:', 'everest-backup' ) . ' ' . esc_html( $args['max_upload_size'] ); ?></h2>
+
 	<?php
-	if ( ! defined( 'EVEREST_BACKUP_UNLIMITED_FILE' ) ) {
+	if ( ! defined( 'EVEREST_BACKUP_UNLIMITED_FILE' ) && ! everest_backup_pro_active() ) {
 		?>
-		<h4 style="color: green;"><?php esc_html_e( 'Got limited upload size?', 'everest-backup' ); ?> <a href="<?php echo esc_url( network_admin_url( 'admin.php?page=everest-backup-addons&cat=Upload+Limit' ) ); ?>"><?php esc_html_e( 'View Available Addons', 'everest-backup' ); ?></a></h4>
+		<h4 style="color: green;"><?php esc_html_e( $message, 'everest-backup' ); ?>
+		<?php echo $link; ?>
+		</h4>
 		<?php
 	}
 	?>
-
 </div>

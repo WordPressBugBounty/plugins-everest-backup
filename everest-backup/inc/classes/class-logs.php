@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Logs the process.
  *
@@ -20,6 +21,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 1.0.0
  */
 class Logs {
+
+
 
 	/**
 	 * Warning: It must be set to false again after sensitive information has been logged:
@@ -204,6 +207,20 @@ class Logs {
 
 		if ( ! $procstat ) {
 			return;
+		}
+
+		// CRITICAL: Preserve restore_token in procstat
+		// When database is imported, wp_options table is replaced
+		// This causes user logout, so we MUST keep the token in procstat
+		// for subsequent requests to authenticate
+		/**
+		 * @since 2.3.10
+		 */
+		if ( ! isset( $procstat['restore_token'] ) ) {
+			// Get token from file if not in procstat
+			if ( defined( 'EVEREST_BACKUP_RESTORE_TOKEN_PATH' ) && file_exists( EVEREST_BACKUP_RESTORE_TOKEN_PATH ) ) {
+				$procstat['restore_token'] = file_get_contents( EVEREST_BACKUP_RESTORE_TOKEN_PATH );
+			}
 		}
 
 		if ( empty( $procstat['next'] ) ) {

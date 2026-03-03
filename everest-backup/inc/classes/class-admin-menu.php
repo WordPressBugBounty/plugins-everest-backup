@@ -7,7 +7,6 @@
 
 namespace Everest_Backup;
 
-use function cli\err;
 use Everest_Backup\Modules\Cron_Actions;
 
 /**

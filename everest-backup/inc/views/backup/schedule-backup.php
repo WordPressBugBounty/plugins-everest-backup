@@ -96,7 +96,7 @@ $incremental_enabled = isset( $everest_backup_settings['schedule_backup']['set_i
 											<?php
 										} else {
 											?>
-											<option 
+											<option
 												<?php isset( $everest_backup_settings['schedule_backup']['cron_cycle'] ) && $everest_backup_settings['schedule_backup']['cron_cycle'] ? selected( $everest_backup_settings['schedule_backup']['cron_cycle'], $everest_backup_cron_cycle_key ) : ''; ?>
 												value="<?php echo esc_attr( $everest_backup_cron_cycle_key ); ?>"><?php echo esc_html( $everest_backup_cron_cycle['display'] ); ?></option>
 											<?php
@@ -110,6 +110,7 @@ $incremental_enabled = isset( $everest_backup_settings['schedule_backup']['set_i
 
 							<input type="time" value="<?php echo ! empty( $everest_backup_settings['schedule_backup']['cron_cycle_time'] ) ? esc_attr( $everest_backup_settings['schedule_backup']['cron_cycle_time'] ) : '00:00'; ?>" name="everest_backup_settings[schedule_backup][cron_cycle_time]">
 						</label>
+
 						<p>
 							<?php esc_html_e( 'Server Time:', 'everest-backup' ); ?>
 							<code><?php echo esc_html( wp_date( 'h:i:s A e' ) ); ?></code>
@@ -180,7 +181,7 @@ $incremental_enabled = isset( $everest_backup_settings['schedule_backup']['set_i
 												<?php
 											} else {
 												?>
-												<option 
+												<option
 													<?php isset( $everest_backup_settings['schedule_backup']['increment_cycle'] ) && $everest_backup_settings['schedule_backup']['increment_cycle'] ? selected( $everest_backup_settings['schedule_backup']['increment_cycle'], $everest_backup_cron_cycle_key ) : ''; ?>
 													value="<?php echo esc_attr( $everest_backup_cron_cycle_key ); ?>"><?php echo esc_html( $everest_backup_cron_cycle['display'] ); ?></option>
 												<?php

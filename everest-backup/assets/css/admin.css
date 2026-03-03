@@ -22,24 +22,29 @@ main.everest-backup-wrapper {
   gap: 20px;
   /* Wider Screen */
 }
+
 @media (max-width: 1024px) {
   main.everest-backup-wrapper {
     flex-direction: column;
   }
 }
+
 main.everest-backup-wrapper #everest-backup-container {
   width: 80%;
   /* Wider Screen */
 }
+
 @media (max-width: 1024px) {
   main.everest-backup-wrapper #everest-backup-container {
     width: 100%;
   }
 }
+
 main.everest-backup-wrapper aside.everest-backup-sidebar {
   width: 20%;
   /* Wider Screen */
 }
+
 @media (max-width: 1024px) {
   main.everest-backup-wrapper aside.everest-backup-sidebar {
     width: 100%;
@@ -54,24 +59,29 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
   width: 100%;
   /* Wider Screen */
 }
+
 @media (max-width: 1024px) {
   .everest-backup-header {
     flex-direction: column;
   }
 }
+
 .everest-backup-header .everest-backup-logo {
   padding: 20px;
 }
+
 .everest-backup-header .everest-backup-status-bar {
   display: flex;
   align-items: center;
   align-content: center;
   font-weight: bold;
 }
+
 .everest-backup-header .everest-backup-header-links {
   padding: 20px;
   /* Wider Screen */
 }
+
 @media (max-width: 767px) {
   .everest-backup-header .everest-backup-header-links {
     display: flex;
@@ -79,12 +89,14 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
     padding-top: 0;
   }
 }
+
 .everest-backup-header .everest-backup-header-links a {
   color: #0c61dd;
   padding: 5px 30px;
   border-color: #0b57c5;
   /* Wider Screen */
 }
+
 @media (max-width: 767px) {
   .everest-backup-header .everest-backup-header-links a {
     padding: 10px;
@@ -93,6 +105,7 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
     margin: 0;
   }
 }
+
 .everest-backup-header .everest-backup-header-links a span {
   vertical-align: middle;
   line-height: 18px;
@@ -106,6 +119,7 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
   padding: 10px 10px;
   margin: 0 0 10px;
 }
+
 .everest-backup-breadcrumb.sticky {
   position: -webkit-sticky;
   position: sticky;
@@ -136,6 +150,7 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
   text-shadow: none;
   transition: 0.4s;
 }
+
 .button-primary:hover {
   background: #0b57c5;
   border-color: transparent;
@@ -147,8 +162,13 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
   background: #f6f7f7;
   vertical-align: top;
 }
+
 .button-secondary:hover {
   background: #0c61dd;
+}
+
+.eb-text-danger {
+  color: #c62208;
 }
 
 .button-danger {
@@ -159,6 +179,7 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
   text-shadow: none;
   transition: 0.4s;
 }
+
 .button-danger:hover {
   opacity: 0.8;
   border-color: transparent;
@@ -172,6 +193,7 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
   text-shadow: none;
   transition: 0.4s;
 }
+
 .button-success:hover {
   opacity: 0.8;
   border-color: transparent;
@@ -184,6 +206,7 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
   margin: 0;
   box-shadow: none;
 }
+
 #everest-backup-container .everest-backup-tab .tab-head .wp-filter ul.filter-links li a {
   position: relative;
   border-top: 4px solid transparent;
@@ -204,25 +227,31 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
       transform: translateY(-50%);
   }*/
 }
+
 #everest-backup-container .everest-backup-tab .tab-head .wp-filter ul.filter-links li a:hover {
   background: #ffffff;
   color: #0b57c5;
   border-top-color: #0b57c5;
 }
+
 #everest-backup-container .everest-backup-tab .tab-head .wp-filter ul.filter-links li a:hover::before {
   display: none;
 }
+
 #everest-backup-container .everest-backup-tab .tab-head .wp-filter ul.filter-links li a.current {
   background: #ffffff;
   color: #0b57c5;
   border-top-color: #0b57c5;
 }
+
 #everest-backup-container .everest-backup-tab .tab-head .wp-filter ul.filter-links li a.current::before {
   display: none;
 }
+
 #everest-backup-container .everest-backup-tab .tab-head .wp-filter ul.filter-links li:last-child a::before {
   display: none;
 }
+
 #everest-backup-container .everest-backup-tab .tab-content {
   background-color: #ffffff;
   padding: 20px;
@@ -233,22 +262,27 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
   background: #fff;
   margin-top: 20px;
 }
+
 .everest-backup-sidebar .everest-backup_card:first-child {
   margin-top: 0;
 }
+
 .everest-backup-sidebar .everest-backup_card_title {
   padding: 0;
   margin: 0 0 17px;
 }
+
 .everest-backup-sidebar .everest-backup_card_content {
   margin-bottom: 15px;
 }
+
 .everest-backup-sidebar .everest-backup_card p a {
   background-color: #0c61dd;
   color: #ffffff;
   padding: 2px 20px;
   margin-top: 10px;
 }
+
 .everest-backup-sidebar .everest-backup_card p a img {
   margin-bottom: -3px;
 }
@@ -256,10 +290,12 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
 .toggle-switch {
   display: inline-block;
 }
+
 .toggle-switch input[type=checkbox].toggle {
   display: none;
 }
-.toggle-switch input[type=checkbox].toggle + label {
+
+.toggle-switch input[type=checkbox].toggle+label {
   display: inline-block;
   height: 35px;
   width: 110px;
@@ -274,12 +310,14 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
   transition: all 0.3s ease;
   /* Wider Screen */
 }
+
 @media (max-width: 991px) {
-  .toggle-switch input[type=checkbox].toggle + label {
+  .toggle-switch input[type=checkbox].toggle+label {
     width: 88px;
   }
 }
-.toggle-switch input[type=checkbox].toggle + label::before {
+
+.toggle-switch input[type=checkbox].toggle+label::before {
   position: absolute;
   top: 4px;
   height: 20px;
@@ -289,7 +327,8 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
   transition: all 0.3s ease;
   z-index: 3;
 }
-.toggle-switch input[type=checkbox].toggle + label::after {
+
+.toggle-switch input[type=checkbox].toggle+label::after {
   width: 86px;
   text-align: center;
   z-index: 2;
@@ -300,17 +339,20 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
   overflow: hidden;
   /* Wider Screen */
 }
+
 @media (max-width: 991px) {
-  .toggle-switch input[type=checkbox].toggle + label::after {
+  .toggle-switch input[type=checkbox].toggle+label::after {
     width: 63px;
     font-size: 12px;
   }
 }
-.toggle-switch input[type=checkbox].toggle:not(:checked) + label {
+
+.toggle-switch input[type=checkbox].toggle:not(:checked)+label {
   background-color: #ffffff;
   text-align: right;
 }
-.toggle-switch input[type=checkbox].toggle:not(:checked) + label::after {
+
+.toggle-switch input[type=checkbox].toggle:not(:checked)+label::after {
   content: attr(data-unchecked);
   right: 0;
   left: auto;
@@ -318,34 +360,40 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
   color: #b7d5ed;
   /* Wider Screen */
 }
+
 @media (max-width: 991px) {
-  .toggle-switch input[type=checkbox].toggle:not(:checked) + label::after {
+  .toggle-switch input[type=checkbox].toggle:not(:checked)+label::after {
     font-size: 12px;
   }
 }
-.toggle-switch input[type=checkbox].toggle:not(:checked) + label::before {
+
+.toggle-switch input[type=checkbox].toggle:not(:checked)+label::before {
   left: 4px;
   background-color: #b7d5ed;
 }
-.toggle-switch input[type=checkbox].toggle:checked + label {
+
+.toggle-switch input[type=checkbox].toggle:checked+label {
   text-align: left;
   border-color: #5bb914;
   background-color: #5bb914;
 }
-.toggle-switch input[type=checkbox].toggle:checked + label::after {
+
+.toggle-switch input[type=checkbox].toggle:checked+label::after {
   content: attr(data-checked);
   left: 0;
   right: auto;
   opacity: 1;
   color: #ffffff;
 }
-.toggle-switch input[type=checkbox].toggle:checked + label::before {
+
+.toggle-switch input[type=checkbox].toggle:checked+label::before {
   left: 80px;
   background-color: #ffffff;
   /* Wider Screen */
 }
+
 @media (max-width: 991px) {
-  .toggle-switch input[type=checkbox].toggle:checked + label::before {
+  .toggle-switch input[type=checkbox].toggle:checked+label::before {
     left: 57px;
   }
 }
@@ -377,17 +425,21 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
   justify-content: space-between;
   align-items: center;
 }
+
 #everest-backup-modal-wrapper .modal-header .loader-box {
   display: block;
   text-align: center;
 }
+
 #everest-backup-modal-wrapper .modal-header .title {
   font-size: 1.25rem;
 }
+
 #everest-backup-modal-wrapper .modal-header .title.on-process-success {
   color: #5bb914 !important;
   font-size: 20px !important;
 }
+
 #everest-backup-modal-wrapper .modal-header .title.on-process-success span {
   font-size: 23px;
   margin-right: 5px;
@@ -397,6 +449,7 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
   background-color: #d5ecff;
   padding: 10px 15px;
 }
+
 #everest-backup-modal-wrapper .ebwp-modal-body a {
   padding: 5px 30px;
   margin: 7px 0;
@@ -435,15 +488,19 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
 .progress-bar {
   box-shadow: none;
 }
+
 .progress-bar.text-left {
   text-align: left;
 }
+
 .progress-bar.text-left span {
   margin-left: 10px;
 }
+
 .progress-bar.text-right {
   text-align: right;
 }
+
 .progress-bar.text-right span {
   margin-right: 10px;
 }
@@ -452,18 +509,22 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
   from {
     background-position: 40px 0;
   }
+
   to {
     background-position: 0 0;
   }
 }
+
 @keyframes progress-bar-stripes {
   from {
     background-position: 40px 0;
   }
+
   to {
     background-position: 0 0;
   }
 }
+
 .progress.active .progress-bar,
 .progress-bar.active {
   -webkit-animation: progress-bar-stripes 2s linear infinite;
@@ -498,6 +559,7 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
   margin: 10px 0 5px;
   transition: 0.4s;
 }
+
 #backup-on-process .button-danger svg {
   width: 10px;
   height: 10px;
@@ -507,6 +569,7 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
   margin-right: 10px;
   vertical-align: middle;
 }
+
 #backup-on-process .button-danger span {
   vertical-align: middle;
 }
@@ -514,6 +577,7 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
 .after-process-complete {
   text-align: center;
 }
+
 .after-process-complete #zip-download-link {
   position: relative;
   background: #5bb914;
@@ -525,6 +589,7 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
   margin-right: 10px !important;
   transition: 0.4s;
 }
+
 .after-process-complete #zip-download-link::after {
   content: "";
   position: absolute;
@@ -536,10 +601,12 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
   left: 9%;
   transform: translateY(-50%);
 }
+
 .after-process-complete #zip-download-link:hover {
   opacity: 0.8;
   border-color: transparent;
 }
+
 .after-process-complete #generate-migration-key {
   position: relative;
   background: #0c61dd;
@@ -551,6 +618,7 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
   margin-right: 10px !important;
   transition: 0.4s;
 }
+
 .after-process-complete #generate-migration-key::after {
   content: "";
   position: absolute;
@@ -562,6 +630,7 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
   left: 9%;
   transform: translateY(-50%);
 }
+
 .after-process-complete #generate-migration-key:hover {
   opacity: 0.8;
   border-color: transparent;
@@ -574,6 +643,7 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
   gap: 10px;
   padding: 10px 0 5px;
 }
+
 .after-file-uploaded .button-danger {
   position: relative;
   display: flex;
@@ -587,6 +657,7 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
   margin-top: 0;
   transition: 0.4s;
 }
+
 .after-file-uploaded .button-danger svg {
   width: 10px;
   height: 10px;
@@ -596,9 +667,11 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
   margin-right: 5px;
   vertical-align: middle;
 }
+
 .after-file-uploaded .button-danger span {
   vertical-align: middle;
 }
+
 .after-file-uploaded .button-success {
   position: relative;
   align-items: center;
@@ -611,6 +684,7 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
   margin-top: 0;
   transition: 0.4s;
 }
+
 .after-file-uploaded .button-success svg {
   background: #fff;
   width: 10px;
@@ -620,9 +694,11 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
   margin-right: 5px;
   vertical-align: middle;
 }
+
 .after-file-uploaded .button-success span {
   vertical-align: middle;
 }
+
 .after-file-uploaded.hidden {
   display: none;
 }
@@ -633,15 +709,18 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
   border: none;
   padding: 0;
 }
+
 #everest-backup-consent-dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.5);
 }
+
 #everest-backup-consent-dialog .consent-header {
   background-color: #0c61dd;
   text-align: center;
   border-radius: 0 0 10px 10px;
   padding: 32px;
 }
+
 #everest-backup-consent-dialog .consent-header h2 {
   color: #ffffff;
   font-size: 20px;
@@ -650,17 +729,21 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
   margin: 0;
   padding: 0;
 }
+
 #everest-backup-consent-dialog .consent-header h2 span {
   position: relative;
 }
+
 #everest-backup-consent-dialog .consent-header h2 span::after {
   background-color: red;
   content: "";
 }
+
 #everest-backup-consent-dialog .consent-body {
   text-align: center;
   padding: 32px;
 }
+
 #everest-backup-consent-dialog .consent-body p {
   color: #545454;
   font-size: 16px;
@@ -669,50 +752,60 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
   margin-bottom: 24px;
   padding: 0;
 }
+
 #everest-backup-consent-dialog .consent-body p span {
   color: #141414;
   font-weight: 700;
 }
+
 #everest-backup-consent-dialog .consent-body button {
   width: 100%;
   font-size: 16px;
   font-weight: 600;
   padding: 5px 15px;
 }
+
 #everest-backup-consent-dialog .consent-body details summary {
   display: inline-flex;
   color: #838383;
   padding: 15px 15px 0;
   cursor: pointer;
 }
+
 #everest-backup-consent-dialog .consent-body details summary:hover {
   color: #666666;
 }
+
 #everest-backup-consent-dialog .consent-body details .details-wrap {
   background-color: #f6f6f6;
   padding: 24px;
   margin-top: 15px;
   text-align: left;
 }
+
 #everest-backup-consent-dialog .consent-body details .details-wrap h4 {
   margin: 0;
   padding: 0;
   margin-bottom: 10px;
   color: #484646;
 }
+
 #everest-backup-consent-dialog .consent-body details .details-wrap ul {
   color: #6c6c6c;
   margin: 0;
   padding: 0;
 }
+
 #everest-backup-consent-dialog .consent-body details form {
   margin-top: 20px;
 }
+
 #everest-backup-consent-dialog .consent-body details form button {
   font-size: 12px;
   color: #a7a7a7;
   text-decoration: none;
 }
+
 #everest-backup-consent-dialog .consent-body details form button:hover {
   background-color: transparent;
 }
@@ -722,6 +815,7 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
   display: inline;
   color: #46afd7;
 }
+
 #everest-backup-container .eb-tooltip .eb-tooltiptext {
   visibility: hidden;
   width: 220px;
@@ -736,12 +830,14 @@ main.everest-backup-wrapper aside.everest-backup-sidebar {
   z-index: 5;
   /* Wider Screen */
 }
+
 @media (max-width: 767px) {
   #everest-backup-container .eb-tooltip .eb-tooltiptext {
     top: -5px;
     right: 105%;
   }
 }
+
 #everest-backup-container .eb-tooltip:hover .eb-tooltiptext {
   visibility: visible;
 }
@@ -757,11 +853,13 @@ Manual Backup Styles
   margin-bottom: 0;
   /* Wider Screen */
 }
+
 @media (max-width: 767px) {
   #everest-backup-container .tab-content form#backup-form {
     flex-direction: column;
   }
 }
+
 #everest-backup-container .tab-content form#backup-form .backup-additional-settings {
   background: #fff;
   width: 50%;
@@ -771,16 +869,19 @@ Manual Backup Styles
   /* Wider Screen */
   /* Wider Screen */
 }
+
 @media (max-width: 991px) {
   #everest-backup-container .tab-content form#backup-form .backup-additional-settings {
     width: 55%;
   }
 }
+
 @media (max-width: 767px) {
   #everest-backup-container .tab-content form#backup-form .backup-additional-settings {
     width: 100%;
   }
 }
+
 #everest-backup-container .tab-content form#backup-form .backup-additional-settings summary {
   font-size: 16px;
   line-height: 1.5;
@@ -790,26 +891,31 @@ Manual Backup Styles
   color: #0c61dd;
   cursor: pointer;
 }
-#everest-backup-container .tab-content form#backup-form .backup-additional-settings[open] > summary {
+
+#everest-backup-container .tab-content form#backup-form .backup-additional-settings[open]>summary {
   background-color: #0c61dd;
   color: #ffffff;
 }
+
 #everest-backup-container .tab-content form#backup-form .backup-additional-settings h2 {
   display: inline-block;
   font-size: 25px;
   margin: 0;
   padding: 0px 0 10px;
 }
+
 #everest-backup-container .tab-content form#backup-form .backup-additional-settings p {
   font-size: 16px;
   margin: 0;
 }
+
 #everest-backup-container .tab-content form#backup-form .backup-additional-settings ul.backup-files-wrapper {
   background-color: #f5f5f5;
   padding: 15px;
   margin: 10px 0 40px;
   border-radius: 5px;
 }
+
 #everest-backup-container .tab-content form#backup-form .backup-additional-settings ul.backup-files-wrapper li {
   display: flex;
   align-items: center;
@@ -818,33 +924,40 @@ Manual Backup Styles
   font-weight: 500;
   /* Wider Screen */
 }
+
 @media (max-width: 991px) {
   #everest-backup-container .tab-content form#backup-form .backup-additional-settings ul.backup-files-wrapper li {
     justify-content: space-between;
   }
 }
+
 #everest-backup-container .tab-content form#backup-form .backup-additional-settings ul.backup-files-wrapper li .left {
   width: 50%;
 }
+
 #everest-backup-container .tab-content form#backup-form .backup-additional-settings ul.backup-files-wrapper li .left svg {
   margin-right: 6px;
   /* Wider Screen */
 }
+
 @media (max-width: 767px) {
   #everest-backup-container .tab-content form#backup-form .backup-additional-settings ul.backup-files-wrapper li .left svg {
     display: none;
   }
 }
+
 #everest-backup-container .tab-content form#backup-form .backup-additional-settings ul.backup-files-wrapper.backup-location {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
+
 #everest-backup-container .tab-content form#backup-form .backup-additional-settings ul.backup-files-wrapper.backup-location li {
   display: flex;
   justify-content: space-between;
   /* Wider Screen */
 }
+
 @media (max-width: 1440px) {
   #everest-backup-container .tab-content form#backup-form .backup-additional-settings ul.backup-files-wrapper.backup-location li {
     flex-direction: column;
@@ -852,40 +965,50 @@ Manual Backup Styles
     gap: 10px;
   }
 }
+
 #everest-backup-container .tab-content form#backup-form .backup-additional-settings ul.backup-files-wrapper.backup-location li .left {
   width: 50%;
   /* Wider Screen */
 }
+
 @media (max-width: 1440px) {
   #everest-backup-container .tab-content form#backup-form .backup-additional-settings ul.backup-files-wrapper.backup-location li .left {
     width: 100%;
   }
 }
+
 #everest-backup-container .tab-content form#backup-form .backup-additional-settings ul.backup-files-wrapper.backup-location li .right {
   width: 50%;
   /* Wider Screen */
 }
+
 @media (max-width: 1440px) {
   #everest-backup-container .tab-content form#backup-form .backup-additional-settings ul.backup-files-wrapper.backup-location li .right {
     width: 100%;
   }
 }
-#everest-backup-container .tab-content form#backup-form .backup-additional-settings ul.backup-files-wrapper.backup-location li .right input, #everest-backup-container .tab-content form#backup-form .backup-additional-settings ul.backup-files-wrapper.backup-location li .right select {
+
+#everest-backup-container .tab-content form#backup-form .backup-additional-settings ul.backup-files-wrapper.backup-location li .right input,
+#everest-backup-container .tab-content form#backup-form .backup-additional-settings ul.backup-files-wrapper.backup-location li .right select {
   width: 100%;
   border: none;
 }
+
 #everest-backup-container .tab-content form#backup-form .backup-additional-settings table.form-table {
   background: #d5ecff;
   padding: 0;
   margin: 0;
 }
+
 #everest-backup-container .tab-content form#backup-form .backup-additional-settings table.form-table th {
   width: 180px;
   padding: 10px;
 }
+
 #everest-backup-container .tab-content form#backup-form .backup-additional-settings table.form-table select {
   width: 100%;
 }
+
 #everest-backup-container .tab-content form#backup-form .everest-backup-btn-wrapper {
   background: #fff;
   width: 50%;
@@ -899,16 +1022,19 @@ Manual Backup Styles
   /* Wider Screen */
   /* Wider Screen */
 }
+
 @media (max-width: 991px) {
   #everest-backup-container .tab-content form#backup-form .everest-backup-btn-wrapper {
     width: 45%;
   }
 }
+
 @media (max-width: 767px) {
   #everest-backup-container .tab-content form#backup-form .everest-backup-btn-wrapper {
     width: 100%;
   }
 }
+
 #everest-backup-container .tab-content form#backup-form .everest-backup-btn-wrapper button#btn-backup {
   display: block;
   background: linear-gradient(310deg, #e81186 0%, #0c61dd 100%) !important;
@@ -929,44 +1055,52 @@ Manual Backup Styles
   /* Wider Screen */
   /* Wider Screen */
 }
+
 @media (max-width: 1920px) {
   #everest-backup-container .tab-content form#backup-form .everest-backup-btn-wrapper button#btn-backup {
     margin-top: 20%;
   }
 }
+
 @media (max-width: 1440px) {
   #everest-backup-container .tab-content form#backup-form .everest-backup-btn-wrapper button#btn-backup {
     margin-top: 32%;
     padding: 18px 20px;
   }
 }
+
 @media (max-width: 1024px) {
   #everest-backup-container .tab-content form#backup-form .everest-backup-btn-wrapper button#btn-backup {
     margin-top: 50%;
     padding: 20px 30px;
   }
 }
+
 @media (max-width: 991px) {
   #everest-backup-container .tab-content form#backup-form .everest-backup-btn-wrapper button#btn-backup {
     padding: 10px 20px;
   }
 }
+
 @media (max-width: 767px) {
   #everest-backup-container .tab-content form#backup-form .everest-backup-btn-wrapper button#btn-backup {
     margin-top: 0%;
     margin-bottom: 10%;
   }
 }
+
 #everest-backup-container .tab-content form#backup-form .everest-backup-btn-wrapper button#btn-backup svg {
   display: block;
   margin: 0 auto;
   /* Wider Screen */
 }
+
 @media (max-width: 991px) {
   #everest-backup-container .tab-content form#backup-form .everest-backup-btn-wrapper button#btn-backup svg {
     width: 45px;
   }
 }
+
 #everest-backup-container .tab-content form#backup-form .everest-backup-btn-wrapper button#btn-backup span {
   display: block;
   font-size: 27px;
@@ -977,24 +1111,29 @@ Manual Backup Styles
   /* Wider Screen */
   /* Wider Screen */
 }
+
 @media (max-width: 1440px) {
   #everest-backup-container .tab-content form#backup-form .everest-backup-btn-wrapper button#btn-backup span {
     font-size: 20px;
   }
 }
+
 @media (max-width: 1024px) {
   #everest-backup-container .tab-content form#backup-form .everest-backup-btn-wrapper button#btn-backup span {
     font-size: 20px;
   }
 }
+
 @media (max-width: 991px) {
   #everest-backup-container .tab-content form#backup-form .everest-backup-btn-wrapper button#btn-backup span {
     font-size: 18px;
   }
 }
+
 #everest-backup-container .tab-content form#backup-form .everest-backup-btn-wrapper button#btn-backup:hover {
   background: linear-gradient(310deg, #0c61dd 0%, #e81186 100%) !important;
 }
+
 #everest-backup-container .tab-content form#backup-form .everest-backup-btn-wrapper .button-danger {
   position: relative;
   align-items: center;
@@ -1007,6 +1146,7 @@ Manual Backup Styles
   margin-top: 10px;
   transition: 0.4s;
 }
+
 #everest-backup-container .tab-content form#backup-form .everest-backup-btn-wrapper .button-danger svg {
   background: #fff;
   padding: 5px;
@@ -1014,9 +1154,11 @@ Manual Backup Styles
   margin-right: 10px;
   vertical-align: middle;
 }
+
 #everest-backup-container .tab-content form#backup-form .everest-backup-btn-wrapper .button-danger span {
   vertical-align: middle;
 }
+
 #everest-backup-container .tab-content form#backup-form .everest-backup-btn-wrapper #zip-download-link {
   position: relative;
   background: #5bb914;
@@ -1028,6 +1170,7 @@ Manual Backup Styles
   margin-top: 10px;
   transition: 0.4s;
 }
+
 #everest-backup-container .tab-content form#backup-form .everest-backup-btn-wrapper #zip-download-link::after {
   content: "";
   position: absolute;
@@ -1038,15 +1181,18 @@ Manual Backup Styles
   left: 20%;
   transform: translateY(-50%);
 }
+
 #everest-backup-container .tab-content form#backup-form .everest-backup-btn-wrapper #zip-download-link:hover {
   opacity: 0.8;
   border-color: transparent;
 }
+
 #everest-backup-container .tab-content form#backup-form .everest-backup-btn-wrapper .spinner {
   width: 50%;
   margin: 0 auto;
   margin-top: 10px;
 }
+
 #everest-backup-container .tab-content form#backup-form .everest-backup-btn-wrapper details#everest-backup-logs-container {
   background: #f2f2f2;
   width: 317px;
@@ -1057,10 +1203,12 @@ Manual Backup Styles
   margin: 0 auto;
   margin-top: 10px;
 }
+
 #everest-backup-container .tab-content form#backup-form .everest-backup-btn-wrapper details#everest-backup-logs-container .everest-backup-logs-list {
   list-style: none;
   text-align: left;
 }
+
 #everest-backup-container .tab-content form#backup-form .everest-backup-btn-wrapper details#everest-backup-logs-container .everest-backup-logs-list li {
   color: #242424;
   padding: 5px 10px;
@@ -1072,36 +1220,43 @@ Schedule Backup Styles
 #everest-backup-container .schedule-backup-wrapper {
   padding: 25px 25px 0;
 }
+
 #everest-backup-container .schedule-backup-wrapper p.description {
   font-weight: bold;
   padding: 0;
   margin: 0;
 }
+
 #everest-backup-container .schedule-backup-wrapper table#schedule-backup {
   background: rgba(213, 236, 255, 0.36);
   border-radius: 4px;
 }
+
 #everest-backup-container .schedule-backup-wrapper table#schedule-backup .schedule-backup-table-rows label {
   /* Wider Screen */
   /* Wider Screen */
 }
+
 @media (max-width: 767px) {
   #everest-backup-container .schedule-backup-wrapper table#schedule-backup .schedule-backup-table-rows label {
     display: flex;
     gap: 20px;
   }
 }
+
 @media (max-width: 567px) {
   #everest-backup-container .schedule-backup-wrapper table#schedule-backup .schedule-backup-table-rows label {
     flex-direction: column;
   }
 }
+
 #everest-backup-container .schedule-backup-wrapper table#schedule-backup th {
   width: 180px;
   padding: 23px;
   /* Wider Screen */
   /* Wider Screen */
 }
+
 @media (max-width: 767px) {
   #everest-backup-container .schedule-backup-wrapper table#schedule-backup th {
     background-color: #b7dcfd;
@@ -1109,25 +1264,31 @@ Schedule Backup Styles
     padding: 10px;
   }
 }
+
 @media (max-width: 567px) {
   #everest-backup-container .schedule-backup-wrapper table#schedule-backup th {
     width: 92%;
   }
 }
+
 #everest-backup-container .schedule-backup-wrapper table#schedule-backup td {
   /* Wider Screen */
 }
+
 @media (max-width: 767px) {
   #everest-backup-container .schedule-backup-wrapper table#schedule-backup td {
     padding: 23px;
   }
 }
+
 #everest-backup-container .schedule-backup-wrapper table#schedule-backup select {
   width: 200px;
 }
+
 #everest-backup-container .schedule-backup-wrapper table#schedule-backup details {
   display: inline-block;
 }
+
 #everest-backup-container .schedule-backup-wrapper table#schedule-backup details summary {
   font-size: 16px;
   line-height: 1.5;
@@ -1138,35 +1299,43 @@ Schedule Backup Styles
   cursor: pointer;
   transition: 0.4s;
 }
-#everest-backup-container .schedule-backup-wrapper table#schedule-backup details[open] > summary {
+
+#everest-backup-container .schedule-backup-wrapper table#schedule-backup details[open]>summary {
   background-color: #0c61dd;
   color: #ffffff;
 }
+
 #everest-backup-container .schedule-backup-wrapper table#schedule-backup details table.form-table {
   background: #ffffff;
   margin: 0;
   padding: 0;
 }
+
 #everest-backup-container .schedule-backup-wrapper table#schedule-backup details table.form-table tr {
   /* Wider Screen */
 }
+
 @media (max-width: 767px) {
   #everest-backup-container .schedule-backup-wrapper table#schedule-backup details table.form-table tr {
     display: flex;
   }
 }
+
 #everest-backup-container .schedule-backup-wrapper table#schedule-backup details table.form-table tr th {
   /* Wider Screen */
 }
+
 @media (max-width: 767px) {
   #everest-backup-container .schedule-backup-wrapper table#schedule-backup details table.form-table tr th {
     width: 37%;
     padding: 25px 11px 0;
   }
 }
+
 #everest-backup-container p.submit {
   padding: 0 25px 25px;
 }
+
 #everest-backup-container p.submit .button-primary {
   padding: 5px 30px;
 }
@@ -1185,19 +1354,24 @@ Backup Failed
 .after-process-error {
   padding: 30px;
 }
+
 .after-process-error .modal-header .on-process-error {
   color: #c62208;
 }
+
 .after-process-error .modal-header p {
   font-size: 16px;
   font-weight: 500;
 }
+
 .after-process-error .ebwp-modal-body {
   background-color: transparent !important;
 }
+
 .after-process-error .ebwp-modal-body p {
   font-weight: 500;
 }
+
 .after-process-error .ebwp-modal-body .share-debut {
   font-weight: 500;
   white-space: normal;
@@ -1205,17 +1379,20 @@ Backup Failed
   padding: 10px 30px !important;
   /* Wider Screen */
 }
+
 @media (max-width: 767px) {
   .after-process-error .ebwp-modal-body .share-debut {
     padding: 15px 20px !important;
   }
 }
+
 .after-process-error .ebwp-modal-body .activity-log-btn {
   font-weight: 500;
   text-decoration: none;
   padding: 0 !important;
   margin: 0 !important;
 }
+
 .after-process-error .ebwp-modal-body .activity-log-btn :hover {
   text-decoration: underline;
 }
@@ -1225,48 +1402,62 @@ Backup Failed
   height: auto;
   padding: 40px 0;
 }
+
 #restore-wrapper .restore-container #drag-drop-area .drag-drop-inside {
   margin: 0 auto 0;
 }
+
 #restore-wrapper .restore-container #drag-drop-area .drag-drop-inside svg path {
   fill: #0c61dd;
 }
+
 #restore-wrapper .tablenav {
   margin-top: 0;
   margin-right: 0;
   margin-bottom: 0;
   margin-left: 0;
 }
+
 #restore-wrapper .tablenav .alignleft {
   /* Wider Screen */
 }
+
 @media (max-width: 767px) {
   #restore-wrapper .tablenav .alignleft {
     float: none;
     text-align: center;
   }
 }
+
 #restore-wrapper .tablenav .alignleft select {
   /* Wider Screen */
 }
+
 @media (max-width: 767px) {
   #restore-wrapper .tablenav .alignleft select {
     float: none;
   }
 }
-#restore-wrapper .tablenav select, #restore-wrapper .tablenav input, #restore-wrapper .tablenav input[type=submit] {
+
+#restore-wrapper .tablenav select,
+#restore-wrapper .tablenav input,
+#restore-wrapper .tablenav input[type=submit] {
   height: 32px;
 }
+
 #restore-wrapper .tablenav input[type=submit] {
   background-color: #0c61dd;
   color: #ffffff;
 }
+
 #restore-wrapper #everest-backup-container {
   width: 100%;
 }
+
 #restore-wrapper .tablenav.top .actions {
   /* Wider Screen */
 }
+
 @media (max-width: 991px) {
   #restore-wrapper .tablenav.top .actions {
     display: block;
@@ -1281,13 +1472,16 @@ Migration Style
   Clone Style
   ========================*/
 }
+
 .migration-clone-container .migration-wrapper #col-container {
   display: flex;
   gap: 20px;
 }
+
 .migration-clone-container .migration-wrapper .wp-clearfix {
   /* Wider Screen */
 }
+
 @media (max-width: 767px) {
   .migration-clone-container .migration-wrapper .wp-clearfix {
     display: flex;
@@ -1295,6 +1489,7 @@ Migration Style
     justify-content: space-between;
   }
 }
+
 .migration-clone-container .migration-wrapper .wp-clearfix #col-left {
   background: rgb(34, 113, 177);
   background: linear-gradient(180deg, rgba(34, 113, 177, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
@@ -1302,23 +1497,28 @@ Migration Style
   padding: 20px;
   /* Wider Screen */
 }
+
 @media (max-width: 767px) {
   .migration-clone-container .migration-wrapper .wp-clearfix #col-left {
     width: 93%;
   }
 }
+
 .migration-clone-container .migration-wrapper .wp-clearfix #col-left .form-wrap h2 {
   padding: 0;
   margin: 0;
 }
+
 .migration-clone-container .migration-wrapper .wp-clearfix #col-left .form-wrap form.validate .form-field label {
   font-size: 13px;
 }
+
 .migration-clone-container .migration-wrapper .wp-clearfix #col-left .form-wrap form.validate .form-field select {
   width: 100%;
   border: none;
   margin: 12px 0;
 }
+
 .migration-clone-container .migration-wrapper .wp-clearfix #col-left .form-wrap form.validate .form-field .copy-key-wrapper {
   position: relative;
   background: #d5ecff;
@@ -1330,17 +1530,21 @@ Migration Style
   margin: 3px 0;
   /* Wider Screen */
 }
+
 @media (max-width: 767px) {
   .migration-clone-container .migration-wrapper .wp-clearfix #col-left .form-wrap form.validate .form-field .copy-key-wrapper {
     flex-direction: column;
   }
+
   .migration-clone-container .migration-wrapper .wp-clearfix #col-left .form-wrap form.validate .form-field .copy-key-wrapper input {
     width: 100% !important;
   }
+
   .migration-clone-container .migration-wrapper .wp-clearfix #col-left .form-wrap form.validate .form-field .copy-key-wrapper .copy-button {
     width: 100% !important;
   }
 }
+
 .migration-clone-container .migration-wrapper .wp-clearfix #col-left .form-wrap form.validate .form-field .copy-key-wrapper input {
   background-color: #ffffff;
   width: calc(100% - 104px);
@@ -1350,14 +1554,19 @@ Migration Style
   outline: none;
   /* Wider Screen */
 }
+
 @media (max-width: 767px) {
   .migration-clone-container .migration-wrapper .wp-clearfix #col-left .form-wrap form.validate .form-field .copy-key-wrapper input {
     width: calc(100% - 104px);
   }
 }
-.migration-clone-container .migration-wrapper .wp-clearfix #col-left .form-wrap form.validate .form-field .copy-key-wrapper input:focus, .migration-clone-container .migration-wrapper .wp-clearfix #col-left .form-wrap form.validate .form-field .copy-key-wrapper input :active, .migration-clone-container .migration-wrapper .wp-clearfix #col-left .form-wrap form.validate .form-field .copy-key-wrapper input :visited {
+
+.migration-clone-container .migration-wrapper .wp-clearfix #col-left .form-wrap form.validate .form-field .copy-key-wrapper input:focus,
+.migration-clone-container .migration-wrapper .wp-clearfix #col-left .form-wrap form.validate .form-field .copy-key-wrapper input :active,
+.migration-clone-container .migration-wrapper .wp-clearfix #col-left .form-wrap form.validate .form-field .copy-key-wrapper input :visited {
   outline: none;
 }
+
 .migration-clone-container .migration-wrapper .wp-clearfix #col-left .form-wrap form.validate .form-field .copy-key-wrapper .copy-button {
   background: #0c61dd;
   display: flex;
@@ -1374,9 +1583,11 @@ Migration Style
   transform: scale(1);
   animation: pulse 2s infinite;
 }
+
 .migration-clone-container .migration-wrapper .wp-clearfix #col-left .form-wrap form.validate .form-field .copy-key-wrapper .copy-button:active {
   background: #ffffff;
 }
+
 .migration-clone-container .migration-wrapper .wp-clearfix #col-left .form-wrap form.validate .form-field .copy-key-wrapper .copy-button::before {
   content: "Copied";
   position: absolute;
@@ -1389,6 +1600,7 @@ Migration Style
   font-size: 15px;
   display: none;
 }
+
 .migration-clone-container .migration-wrapper .wp-clearfix #col-left .form-wrap form.validate .form-field .copy-key-wrapper .copy-button::after {
   content: "";
   position: absolute;
@@ -1400,17 +1612,21 @@ Migration Style
   transform: rotate(45deg);
   display: none;
 }
+
 .migration-clone-container .migration-wrapper .wp-clearfix #col-left .form-wrap form.validate .form-field .copy-key-wrapper .copy-button .copy-text {
   font-size: 13px;
   font-weight: bold;
   margin-top: -3px;
 }
+
 .migration-clone-container .migration-wrapper .wp-clearfix #col-left .form-wrap form.validate .form-field .copy-key-wrapper.active .copy-button::before {
   display: block;
 }
+
 .migration-clone-container .migration-wrapper .wp-clearfix #col-left .form-wrap form.validate .form-field .copy-key-wrapper.active .copy-button::after {
   display: block;
 }
+
 .migration-clone-container .migration-wrapper .wp-clearfix #col-left .form-wrap form.validate .form-field p.description {
   position: relative;
   background-color: hsl(0, 0%, 100%);
@@ -1421,6 +1637,7 @@ Migration Style
   margin: 12px 0 23px;
   box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2);
 }
+
 .migration-clone-container .migration-wrapper .wp-clearfix #col-left .form-wrap form.validate .form-field p.description::after {
   content: "";
   position: absolute;
@@ -1432,13 +1649,16 @@ Migration Style
   right: 10%;
   transform: rotate(45deg);
 }
+
 .migration-clone-container .migration-wrapper .wp-clearfix #col-left .form-wrap form.validate p.submit {
   padding: 0;
 }
+
 .migration-clone-container .migration-wrapper .wp-clearfix .ebwp-center {
   padding: 50px 0;
   /* Wider Screen */
 }
+
 @media (max-width: 767px) {
   .migration-clone-container .migration-wrapper .wp-clearfix .ebwp-center {
     order: 2;
@@ -1446,6 +1666,7 @@ Migration Style
     text-align: left !important;
   }
 }
+
 .migration-clone-container .migration-wrapper .wp-clearfix #col-right {
   background: rgb(34, 113, 177);
   background: linear-gradient(180deg, rgba(34, 113, 177, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
@@ -1453,56 +1674,68 @@ Migration Style
   padding: 20px;
   /* Wider Screen */
 }
+
 @media (max-width: 767px) {
   .migration-clone-container .migration-wrapper .wp-clearfix #col-right {
     width: 93%;
     order: 3;
   }
 }
+
 .migration-clone-container .migration-wrapper .wp-clearfix #col-right .form-wrap h2 {
   padding: 0;
   margin: 0;
 }
+
 .migration-clone-container .migration-wrapper .wp-clearfix #col-right .form-wrap a {
   padding: 5px 30px;
   margin: 13px 0;
 }
+
 @keyframes pulse {
   0% {
     transform: scale(0.95);
     box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
   }
+
   70% {
     transform: scale(1);
     box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
   }
+
   100% {
     transform: scale(0.95);
     box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
   }
 }
+
 .migration-clone-container .clone-wrapper #col-left {
   background: rgb(34, 113, 177);
   background: linear-gradient(180deg, rgba(34, 113, 177, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
   width: 43%;
   padding: 20px;
 }
+
 .migration-clone-container .clone-wrapper #col-left .form-wrap h2 {
   padding: 0;
   margin: 0;
 }
+
 .migration-clone-container .clone-wrapper #col-left .form-wrap form.validate .form-field input {
   border: none;
   margin: 12px 0 10px;
   border: 1px solid #b7d5ed;
 }
+
 .migration-clone-container .clone-wrapper #col-left .form-wrap form.validate .form-field strong {
   display: block;
   margin: 0px 0 25px;
 }
+
 .migration-clone-container .clone-wrapper #col-left .form-wrap form.validate p.submit {
   padding: 0;
 }
+
 .migration-clone-container .clone-wrapper #col-right {
   background: #d5ecff;
   position: relative;
@@ -1521,28 +1754,36 @@ Migration Style
       transform: rotate(45deg);
   }*/
 }
+
 .migration-clone-container .clone-wrapper #col-right .form-wrap h2 {
   padding: 0;
   margin: 0;
 }
-.migration-clone-container .clone-wrapper #col-right .form-wrap strong.notice.notice-error, .migration-clone-container .clone-wrapper #col-right .form-wrap p.notice.notice-info {
+
+.migration-clone-container .clone-wrapper #col-right .form-wrap strong.notice.notice-error,
+.migration-clone-container .clone-wrapper #col-right .form-wrap p.notice.notice-info {
   display: block;
   padding: 10px;
   margin: 10px 0;
 }
+
 .migration-clone-container .clone-wrapper #col-right .form-wrap ul {
   list-style: none !important;
   padding: 0;
   margin: 10px 0 10px;
 }
+
 .migration-clone-container .clone-wrapper #col-right .form-wrap p.submit {
   padding: 0;
   margin: 15px 0;
 }
 
-.migration-key-generated #col-left h2, .migration-key-generated #col-left label, .migration-key-generated #col-left select {
+.migration-key-generated #col-left h2,
+.migration-key-generated #col-left label,
+.migration-key-generated #col-left select {
   opacity: 0.1;
 }
+
 .migration-key-generated #col-right {
   opacity: 0.1;
 }
@@ -1551,37 +1792,45 @@ body.everest-backup_page_everest-backup-history #everest-backup-container {
   background-color: #ffffff;
   padding: 20px;
 }
+
 body.everest-backup_page_everest-backup-history #everest-backup-container .tablenav {
   padding: 10px 0;
   margin: 0 0 10px;
 }
+
 body.everest-backup_page_everest-backup-history #everest-backup-container .tablenav select,
 body.everest-backup_page_everest-backup-history #everest-backup-container .tablenav input,
 body.everest-backup_page_everest-backup-history #everest-backup-container .tablenav input[type=submit] {
   height: 32px;
 }
+
 body.everest-backup_page_everest-backup-history #everest-backup-container .tablenav input[type=submit] {
   background-color: #0c61dd;
   color: #ffffff;
 }
+
 body.everest-backup_page_everest-backup-history .tablenav.top {
   /* Wider Screen */
 }
+
 @media (max-width: 991px) {
   body.everest-backup_page_everest-backup-history .tablenav.top {
     margin: 0 auto;
     text-align: center;
   }
 }
+
 body.everest-backup_page_everest-backup-history .tablenav.top .actions {
   /* Wider Screen */
 }
+
 @media (max-width: 991px) {
   body.everest-backup_page_everest-backup-history .tablenav.top .actions {
     display: block;
     margin: 0 auto;
   }
 }
+
 body.everest-backup_page_everest-backup-history .everest-backup-modal {
   display: none;
   position: fixed;
@@ -1593,6 +1842,7 @@ body.everest-backup_page_everest-backup-history .everest-backup-modal {
   z-index: 9999;
   text-align: center;
 }
+
 body.everest-backup_page_everest-backup-history .everest-backup-modal-content {
   background-color: white;
   border-radius: 5px;
@@ -1607,81 +1857,102 @@ body.everest-backup_page_everest-backup-history .everest-backup-modal-content {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
 @media (max-width: 1024px) {
   body.everest-backup_page_everest-backup-history .everest-backup-modal-content {
     max-width: 100%;
   }
 }
+
 body.everest-backup_page_everest-backup-history .everest-backup-modal-close {
   cursor: pointer;
   float: right;
   font-size: 20px;
   font-weight: bold;
 }
+
 body.everest-backup_page_everest-backup-history .float-right {
   float: right;
 }
+
 body.everest-backup_page_everest-backup-history .float-left {
   float: left;
 }
+
 body.everest-backup_page_everest-backup-history .w-25 {
   width: 25%;
 }
+
 body.everest-backup_page_everest-backup-history .w-75 {
   width: 75%;
 }
+
 body.everest-backup_page_everest-backup-history .everest-backup-loader-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent white background */
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Semi-transparent white background */
   display: none;
   justify-content: center;
   align-items: center;
-  z-index: 9999; /* Ensure it's above other content */
+  z-index: 9999;
+  /* Ensure it's above other content */
 }
+
 body.everest-backup_page_everest-backup-history .everest-backup-loader {
-  border: 8px solid #f3f3f3; /* Light grey */
-  border-top: 8px solid #3498db; /* Blue */
+  border: 8px solid #f3f3f3;
+  /* Light grey */
+  border-top: 8px solid #3498db;
+  /* Blue */
   border-radius: 50%;
   width: 50px;
   height: 50px;
   animation: spin 2s linear infinite;
 }
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
 }
+
 body.everest-backup_page_everest-backup-history .everest-backup-file-list {
   text-align: left;
   line-height: 1.5;
   font-size: larger;
 }
+
 body.everest-backup_page_everest-backup-history .everest-backup-file-list .tree {
   --spacing: 1.5rem;
   --radius: 10px;
 }
+
 body.everest-backup_page_everest-backup-history .everest-backup-file-list .tree li {
   display: block;
   position: relative;
   padding-left: calc(2 * var(--spacing) - var(--radius) - 2px);
 }
+
 body.everest-backup_page_everest-backup-history .everest-backup-file-list .tree ul {
   margin-left: calc(var(--radius) - var(--spacing));
   padding-left: 0;
 }
+
 body.everest-backup_page_everest-backup-history .everest-backup-file-list .tree ul li {
   border-left: 2px solid #ddd;
 }
+
 body.everest-backup_page_everest-backup-history .everest-backup-file-list .tree ul li:last-child {
   border-color: transparent;
 }
+
 body.everest-backup_page_everest-backup-history .everest-backup-file-list .tree ul li::before {
   content: "";
   display: block;
@@ -1693,20 +1964,25 @@ body.everest-backup_page_everest-backup-history .everest-backup-file-list .tree 
   border: solid #ddd;
   border-width: 0 0 2px 2px;
 }
+
 body.everest-backup_page_everest-backup-history .everest-backup-file-list .tree summary {
   display: block;
   cursor: pointer;
 }
+
 body.everest-backup_page_everest-backup-history .everest-backup-file-list .tree summary::marker,
 body.everest-backup_page_everest-backup-history .everest-backup-file-list .tree summary::-webkit-details-marker {
   display: none;
 }
+
 body.everest-backup_page_everest-backup-history .everest-backup-file-list .tree summary:focus {
   outline: none;
 }
+
 body.everest-backup_page_everest-backup-history .everest-backup-file-list .tree summary:focus-visible {
   outline: 1px dotted #000;
 }
+
 body.everest-backup_page_everest-backup-history .everest-backup-file-list .tree li::after,
 body.everest-backup_page_everest-backup-history .everest-backup-file-list .tree summary::before {
   content: "";
@@ -1719,6 +1995,7 @@ body.everest-backup_page_everest-backup-history .everest-backup-file-list .tree 
   border-radius: 50%;
   background: #ddd;
 }
+
 body.everest-backup_page_everest-backup-history .everest-backup-file-list .tree summary::before {
   content: "";
   text-align: center;
@@ -1728,13 +2005,16 @@ body.everest-backup_page_everest-backup-history .everest-backup-file-list .tree 
   z-index: 1;
   background: #696 url("/wp-content/plugins/everest-backup/assets/images/expand-collapse.svg") 0 0;
 }
-body.everest-backup_page_everest-backup-history .everest-backup-file-list .tree details[open] > summary::before {
+
+body.everest-backup_page_everest-backup-history .everest-backup-file-list .tree details[open]>summary::before {
   background-position: calc(-2 * var(--radius)) 0;
 }
+
 body.everest-backup_page_everest-backup-history .everest-backup-file-in-backup:hover {
   cursor: pointer;
   text-decoration: underline;
 }
+
 body.everest-backup_page_everest-backup-history .everest-backup-file-in-backup-download::after {
   font-family: "dashicons";
   content: "\f316";
@@ -1747,16 +2027,22 @@ body.everest-backup_page_everest-backup-logs #everest-backup-container {
   background-color: #ffffff;
   padding: 20px;
 }
+
 body.everest-backup_page_everest-backup-logs #everest-backup-container .tablenav {
   margin: 0;
 }
-body.everest-backup_page_everest-backup-logs #everest-backup-container .tablenav select, body.everest-backup_page_everest-backup-logs #everest-backup-container .tablenav input, body.everest-backup_page_everest-backup-logs #everest-backup-container .tablenav input[type=submit] {
+
+body.everest-backup_page_everest-backup-logs #everest-backup-container .tablenav select,
+body.everest-backup_page_everest-backup-logs #everest-backup-container .tablenav input,
+body.everest-backup_page_everest-backup-logs #everest-backup-container .tablenav input[type=submit] {
   height: 32px;
 }
+
 body.everest-backup_page_everest-backup-logs #everest-backup-container .tablenav select {
   width: 130px;
   line-height: normal !important;
 }
+
 body.everest-backup_page_everest-backup-logs #everest-backup-container .tablenav input[type=submit] {
   background-color: #0c61dd;
   color: #ffffff;
@@ -1766,21 +2052,26 @@ body.everest-backup_page_everest-backup-logs #everest-backup-container .tablenav
   background: rgba(213, 236, 255, 0.36);
   border-radius: 4px;
 }
+
 #everest-backup-modules-settings-tab .tab-content table.form-table#general tr th {
   width: 156px;
   padding: 26px 0 0 23px;
 }
+
 #everest-backup-modules-settings-tab .tab-content table.form-table#general tr td input {
   border: none;
   margin: 5px 7px 0 0 !important;
 }
+
 #everest-backup-modules-settings-tab .tab-content table.form-table#general tr td a {
   margin-top: 0px;
 }
+
 #everest-backup-modules-settings-tab .tab-content table.form-table#general tr td [data-title] {
   position: relative;
   margin: 8px 10px;
 }
+
 #everest-backup-modules-settings-tab .tab-content table.form-table#general tr td [data-title]:after {
   content: attr(data-title);
   position: absolute;
@@ -1795,11 +2086,13 @@ body.everest-backup_page_everest-backup-logs #everest-backup-container .tablenav
   opacity: 0;
   border: 1px solid #0b57c5;
 }
+
 #everest-backup-modules-settings-tab .tab-content table.form-table#general tr td [data-title]:hover:after {
   opacity: 1;
   transition: all 0.1s ease 0.5s;
   visibility: visible;
 }
+
 #everest-backup-modules-settings-tab .tab-content p.submit {
   padding: 0;
 }
@@ -1808,18 +2101,22 @@ body.everest-backup_page_everest-backup-logs #everest-backup-container .tablenav
   background: rgba(213, 236, 255, 0.36);
   border-radius: 4px;
 }
+
 #everest-backup-modules-settings-tab .tab-content table.form-table#cloud tr th {
   width: 156px;
   padding: 22px 0 0 23px;
 }
+
 #everest-backup-modules-settings-tab .tab-content table.form-table#cloud tr th .cloud-logo-box {
   display: flex;
   align-items: center;
   gap: 10px;
 }
+
 #everest-backup-modules-settings-tab .tab-content table.form-table#cloud tr details {
   /*display: inline-block;*/
 }
+
 #everest-backup-modules-settings-tab .tab-content table.form-table#cloud tr details summary {
   font-size: 16px;
   line-height: 1.5;
@@ -1830,18 +2127,21 @@ body.everest-backup_page_everest-backup-logs #everest-backup-container .tablenav
   cursor: pointer;
   transition: 0.4s;
 }
-#everest-backup-modules-settings-tab .tab-content table.form-table#cloud tr details[open] > summary {
+
+#everest-backup-modules-settings-tab .tab-content table.form-table#cloud tr details[open]>summary {
   background-color: #0c61dd;
   color: #ffffff;
   /* Wider Screen */
 }
+
 @media (max-width: 767px) {
-  #everest-backup-modules-settings-tab .tab-content table.form-table#cloud tr details[open] > summary {
+  #everest-backup-modules-settings-tab .tab-content table.form-table#cloud tr details[open]>summary {
     width: 84%;
     font-size: 15px;
     margin: 10px auto 0;
   }
 }
+
 #everest-backup-modules-settings-tab .tab-content table.form-table#cloud tr details table.form-table {
   background: #ffffff;
   border: none;
@@ -1849,16 +2149,20 @@ body.everest-backup_page_everest-backup-logs #everest-backup-container .tablenav
   margin: 0;
   /* Wider Screen */
 }
+
 @media (max-width: 767px) {
   #everest-backup-modules-settings-tab .tab-content table.form-table#cloud tr details table.form-table {
     margin: 0 auto;
     width: 92%;
   }
 }
+
 #everest-backup-modules-settings-tab .tab-content table.form-table#cloud tr details table.form-table tr:first-child {
   border-bottom: 1px solid #e8e8e8;
 }
-#everest-backup-modules-settings-tab .tab-content table.form-table#cloud tr details table.form-table tr th, #everest-backup-modules-settings-tab .tab-content table.form-table#cloud tr details table.form-table tr td {
+
+#everest-backup-modules-settings-tab .tab-content table.form-table#cloud tr details table.form-table tr th,
+#everest-backup-modules-settings-tab .tab-content table.form-table#cloud tr details table.form-table tr td {
   padding: 10px;
 }
 
@@ -1866,10 +2170,12 @@ body.everest-backup_page_everest-backup-logs #everest-backup-container .tablenav
   background-color: #ffffff;
   padding: 20px;
 }
+
 #everest-backup-container .theme-browser .addons-categories {
   background: #c0c8d0;
   padding: 10px;
 }
+
 #everest-backup-container .theme-browser .themes .postbox {
   background: #e7eff5;
   border: none;
@@ -1877,27 +2183,35 @@ body.everest-backup_page_everest-backup-logs #everest-backup-container .tablenav
   padding: 0 20px 0;
   margin-bottom: 20px;
 }
+
 #everest-backup-container .theme-browser .themes .postbox .postbox-header {
   border: none;
 }
+
 #everest-backup-container .theme-browser .themes .postbox .postbox-header h2 {
   padding: 0;
   margin: 15px 0;
 }
+
 #everest-backup-container .theme-browser .themes .postbox .theme {
   background: #ffffff;
   width: 29.3% !important;
   border: none;
   /* Wider Screen */
 }
+
 @media (max-width: 767px) {
   #everest-backup-container .theme-browser .themes .postbox .theme {
     width: 100% !important;
   }
 }
-#everest-backup-container .theme-browser .themes .postbox .theme:nth-child(3n), #everest-backup-container .theme-browser .themes .postbox .theme:nth-child(4n), #everest-backup-container .theme-browser .themes .postbox .theme:nth-child(5n) {
+
+#everest-backup-container .theme-browser .themes .postbox .theme:nth-child(3n),
+#everest-backup-container .theme-browser .themes .postbox .theme:nth-child(4n),
+#everest-backup-container .theme-browser .themes .postbox .theme:nth-child(5n) {
   margin-right: 4% !important;
 }
+
 #everest-backup-container .theme-browser .themes .postbox .theme .ribbon {
   position: absolute;
   right: -5px;
@@ -1908,6 +2222,7 @@ body.everest-backup_page_everest-backup-logs #everest-backup-container .tablenav
   height: 75px;
   text-align: right;
 }
+
 #everest-backup-container .theme-browser .themes .postbox .theme .ribbon span {
   font-size: 10px;
   font-weight: bold;
@@ -1926,6 +2241,7 @@ body.everest-backup_page_everest-backup-logs #everest-backup-container .tablenav
   top: 19px;
   right: -21px;
 }
+
 #everest-backup-container .theme-browser .themes .postbox .theme .ribbon span::before {
   content: "";
   position: absolute;
@@ -1937,6 +2253,7 @@ body.everest-backup_page_everest-backup-logs #everest-backup-container .tablenav
   border-bottom: 3px solid transparent;
   border-top: 3px solid #767971;
 }
+
 #everest-backup-container .theme-browser .themes .postbox .theme .ribbon span::after {
   content: "";
   position: absolute;
@@ -1948,6 +2265,7 @@ body.everest-backup_page_everest-backup-logs #everest-backup-container .tablenav
   border-bottom: 3px solid transparent;
   border-top: 3px solid #767971;
 }
+
 #everest-backup-container .theme-browser .themes .postbox .theme .active-ribbon {
   position: absolute;
   left: -10px;
@@ -1963,6 +2281,7 @@ body.everest-backup_page_everest-backup-logs #everest-backup-container .tablenav
   text-align: center;
   line-height: 20px;
 }
+
 #everest-backup-container .theme-browser .themes .postbox .theme .active-ribbon::before {
   content: " ";
   background: url(../images/active-ribbon-shadow.png);
@@ -1974,13 +2293,16 @@ body.everest-backup_page_everest-backup-logs #everest-backup-container .tablenav
   left: 0;
   margin-bottom: -10px;
 }
+
 #everest-backup-container .theme-browser .themes .postbox .theme .theme-id-container h1 {
   background-color: #f9f9f9;
 }
+
 #everest-backup-container .theme-browser .themes .postbox .theme .theme-id-container .theme-actions {
   background: rgba(0, 0, 0, 0.7);
   padding: 9px 0px;
 }
+
 #everest-backup-container .theme-browser .themes .section-divider {
   background: #585858;
   display: block;
@@ -1996,12 +2318,14 @@ body.everest-backup_page_everest-backup-logs #everest-backup-container .tablenav
   row-gap: 20px;
   /* Wider Screen */
 }
+
 @media (max-width: 767px) {
   .changelog-wrap {
     grid-template-columns: auto;
     row-gap: 20px;
   }
 }
+
 .changelog-wrap .change-log-card {
   position: relative;
   box-sizing: border-box;

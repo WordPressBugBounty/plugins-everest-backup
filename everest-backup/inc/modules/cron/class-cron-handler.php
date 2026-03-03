@@ -51,5 +51,3 @@ class Cron_Handler extends Cron {
 		return $schedules;
 	}
 }
-
-new Cron_Handler();

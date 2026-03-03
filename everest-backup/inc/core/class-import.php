@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Core class for new import feature. This class will initialize required importing classes.
  *
@@ -26,6 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 2.0.0
  */
 class Import {
+
 
 	/**
 	 * Load file.
@@ -58,7 +60,7 @@ class Import {
 			Logs::init( 'clone' );
 		}
 
-		$params  = $params ? $params : everest_backup_get_ajax_response( EVEREST_BACKUP_IMPORT_ACTION );
+		$params  = $params ? $params : everest_backup_get_ajax_response( EVEREST_BACKUP_IMPORT_ACTION, true );
 		$current = ! empty( $params['next'] ) ? $params['next'] : 'check';
 
 		self::load_file( $current );

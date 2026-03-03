@@ -156,7 +156,7 @@ $everest_backup_restore_tab = new Restore_Tab();
 
 							<h2><?php esc_html_e( 'Package Information', 'everest-backup' ); ?></h2>
 
-							<?php if ( ! empty( $args['filename'] ) ) { ?>
+						<?php if ( ! empty( $args['filename'] ) ) { ?>
 								<ul>
 									<li><?php printf( '<strong>%1$s :</strong> %2$s', esc_html__( 'Filename', 'everest-backup' ), esc_html( $args['filename'] ) ); ?></li>
 									<li><?php printf( '<strong>%1$s :</strong> %2$s', esc_html__( 'Created On', 'everest-backup' ), esc_html( wp_date( 'h:i:s A [F j, Y]', $args['time'] ) ) ); ?></li>
@@ -165,10 +165,17 @@ $everest_backup_restore_tab = new Restore_Tab();
 
 								<?php
 								if ( $everest_backup_max_upload_size && ( $args['size'] >= $everest_backup_max_upload_size ) ) {
-									?>
-									<p class="notice notice-error"><?php printf( '<strong>%1$s :</strong> %2$s', esc_html__( 'Maximum Upload Size', 'everest-backup' ), esc_html( everest_backup_format_size( $everest_backup_max_upload_size ) ) ); ?></p>
-									<p class="notice notice-error"><strong><?php esc_html_e( 'Rollback denied because package size is larger than allowed maximum upload size.', 'everest-backup' ); ?></strong> <a href="<?php echo esc_url( network_admin_url( 'admin.php?page=everest-backup-addons&cat=Upload+Limit' ) ); ?>"><?php esc_html_e( 'View Available Addons', 'everest-backup' ); ?></a></p>
-									<?php
+									if ( is_plugin_active( 'everest-backup-pro/everest-backup-pro.php' ) ) {
+										?>
+											<p class="notice notice-error"><?php printf( '<strong>%1$s :</strong> %2$s', esc_html__( 'Maximum Upload Size', 'everest-backup' ), esc_html( everest_backup_format_size( $everest_backup_max_upload_size ) ) ); ?></p>
+											<p class="notice notice-error"><strong><?php esc_html_e( 'Rollback denied because package size is larger than allowed maximum upload size.', 'everest-backup' ); ?></strong> <a href="<?php echo esc_url( network_admin_url( 'admin.php?page=everest-backup-license' ) ); ?>"><?php esc_html_e( 'Activate Your License', 'everest-backup' ); ?></a></p>
+										<?php
+									} else {
+										?>
+											<p class="notice notice-error"><?php printf( '<strong>%1$s :</strong> %2$s', esc_html__( 'Maximum Upload Size', 'everest-backup' ), esc_html( everest_backup_format_size( $everest_backup_max_upload_size ) ) ); ?></p>
+											<p class="notice notice-error"><strong><?php esc_html_e( 'Rollback denied because package size is larger than allowed maximum upload size.', 'everest-backup' ); ?></strong> <a href="<?php echo esc_url( network_admin_url( 'admin.php?page=everest-backup-addons&cat=Everest+Backup+Pro' ) ); ?>"><?php esc_html_e( 'View Available Addons', 'everest-backup' ); ?></a></p>
+										<?php
+									}
 								} else {
 									if ( ! empty( $args['path'] ) ) {
 										$archiver            = new Archiver_V2( $args['path'] );
@@ -182,10 +189,10 @@ $everest_backup_restore_tab = new Restore_Tab();
 											?>
 											<p class="notice notice-error">
 												<strong>
-													<?php esc_html_e( "This backup uses PHP v$zip_php_version, but your site is running v$current_php_version. Restoring could cause problems. For a smooth restore, we recommend using the same PHP version for both your backup and your website. Proceed with caution!", 'everest-backup' ); ?>
+												<?php esc_html_e( "This backup uses PHP v$zip_php_version, but your site is running v$current_php_version. Restoring could cause problems. For a smooth restore, we recommend using the same PHP version for both your backup and your website. Proceed with caution!", 'everest-backup' ); ?>
 												</strong>
 											</p>
-											<?php
+												<?php
 										}
 									}
 									if ( empty( $args['rollback'] ) ) {
@@ -203,7 +210,7 @@ $everest_backup_restore_tab = new Restore_Tab();
 												<button class="button-secondary" id="btn-rollback" type="submit"><?php esc_html_e( 'Rollback', 'everest-backup' ); ?></button>
 											</form>
 										</div>
-										<?php
+											<?php
 									}
 								}
 								?>
@@ -214,7 +221,7 @@ $everest_backup_restore_tab = new Restore_Tab();
 							<?php } ?>
 						</div>
 
-						<?php
+								<?php
 					} elseif ( everest_backup_doing_increment_rollback() ) {
 						$response  = everest_backup_get_submitted_data( 'get', true );
 						$transient = new Transient( $response['cloud'] . '_folder_contents' );
@@ -249,7 +256,7 @@ $everest_backup_restore_tab = new Restore_Tab();
 								</form>
 							</div>
 						</div>
-						<?php
+							<?php
 					} else {
 						$everest_backup_restore_tab->display();
 					}

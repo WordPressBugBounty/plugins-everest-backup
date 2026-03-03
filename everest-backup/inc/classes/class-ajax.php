@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Handles ajax requests.
  *
@@ -31,6 +32,7 @@ use Exception;
  * @since 1.0.0
  */
 class Ajax {
+
 
 
 	/**
@@ -71,7 +73,7 @@ class Ajax {
 		add_action( 'wp_ajax_everest_backup_process_status_unlink', array( $this, 'process_status_unlink' ) );
 
 		// Security Note: nopriv action is disabled to prevent non-privileged users from activating plugins.
-		// add_action( 'wp_ajax_nopriv_everest_backup_activate_plugin', array( $this, 'activate_plugin' ) );
+		add_action( 'wp_ajax_nopriv_everest_backup_activate_plugin', array( $this, 'activate_plugin' ) );
 
 		// Plugin activation handler (admin only).
 		add_action( 'wp_ajax_everest_backup_activate_plugin', array( $this, 'activate_plugin' ) );
@@ -92,29 +94,38 @@ class Ajax {
 	 * @return void
 	 */
 	public function process_status() {
-		// Retrieve process logs and authentication tokens.
-		$logs                 = Logs::get_proc_stat();
-		$is_restore_completed = get_transient( 'is_restore_completed' );
-
 		// Check if user is admin with valid nonce.
 		$can_access = current_user_can( 'manage_options' ) && wp_verify_nonce( $_GET['everest_backup_ajax_nonce'], 'everest_backup_ajax_nonce' );
 
-		// Allow access for verification only within 1 minute after the restore completes; otherwise, it remains false or undefined. This temporary access lets us display the “Restore Completed” message even though users are logged out at the end of the process—without it, the UI would get stuck at the final step.
-		if ( ! $can_access ) {
-			$can_access = $is_restore_completed;
+		// Check for valid restore token if not admin.
+		$restore_token = isset( $_GET['restore_token'] ) ? sanitize_text_field( wp_unslash( $_GET['restore_token'] ) ) : '';
+
+		if ( ! $can_access && $restore_token ) {
+			$can_access = $this->validate_restore_token( $restore_token );
 		}
 
 		// Deny access if neither condition is met.
 		if ( ! $can_access ) {
-			wp_send_json_error( -1, 403 );
+			wp_send_json_error( 'You do not have permission to access this page.', 403 );
 			return;
 		}
 
 		$logs = Logs::get_proc_stat();
 
-		// Deleted the transient when send the success response to the user.
-		if ( $logs['status'] ) {
-			delete_transient( 'is_restore_completed' );
+		// If user is admin (or has valid nonce) but doesn't have the token yet, send it in the response.
+		// This helps if the frontend lost the token or needs to re-sync.
+		if ( current_user_can( 'manage_options' ) ) {
+			$token_path = EVEREST_BACKUP_RESTORE_TOKEN_PATH;
+
+			if ( file_exists( $token_path ) ) {
+				$logs['restore_token'] = file_get_contents( $token_path );
+			} else {
+				// create
+				$this->generate_restore_token();
+				Logs::info( 'Token Created at ' . $token_path );
+			}
+		} else {
+			Logs::info( 'User cannot manage options' );
 		}
 
 		wp_send_json( $logs );
@@ -124,36 +135,32 @@ class Ajax {
 	 * Clean up process status files and transients after backup/restore completion.
 	 *
 	 * Removes process status file, lock file, and temporary nonces.
-	 * Only accessible to administrators or when CAN_DELETE_LOGS constant is true.
+	 * Only accessible to administrators.
 	 *
 	 * @return void
 	 */
 	public function process_status_unlink() {
-		check_ajax_referer( 'everest_backup_ajax_nonce', 'everest_backup_ajax_nonce' );
-
 		// Verify user has permission to delete logs.
+		check_ajax_referer( 'everest_backup_ajax_nonce', 'everest_backup_ajax_nonce' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			die;
 		}
 
-		// Removed is_restore_completed transient which can give access to the user to see the restore completed message.
-		if ( get_transient( 'is_restore_completed' ) ) {
-			delete_transient( 'is_restore_completed' );
-		}
-
 		// Delete process status file if it exists.
 		if ( file_exists( EVEREST_BACKUP_PROC_STAT_PATH ) ) {
-			@unlink( EVEREST_BACKUP_PROC_STAT_PATH ); // @phpcs:ignore
+			@unlink(EVEREST_BACKUP_PROC_STAT_PATH); // @phpcs:ignore
 		}
 
-		// Delete lock file if it exists.
 		if ( file_exists( EVEREST_BACKUP_LOCKFILE_PATH ) ) {
-			@unlink( EVEREST_BACKUP_LOCKFILE_PATH ); // @phpcs:ignore
+			// Delete lock file if it exists.
+			@unlink(EVEREST_BACKUP_LOCKFILE_PATH); // @phpcs:ignore
 		}
 
-		// Prevent further log deletions.
-		define( 'CAN_DELETE_LOGS', false );
+		// Delete restore token file if it exists.
+		if ( file_exists( EVEREST_BACKUP_RESTORE_TOKEN_PATH ) ) {
+			@unlink(EVEREST_BACKUP_RESTORE_TOKEN_PATH); // @phpcs:ignore
+		}
 
 		// Clean up REST API properties.
 		everest_backup_unset_rest_properties();
@@ -204,7 +211,7 @@ class Ajax {
 
 		// Remove old zip file if it exists.
 		if ( file_exists( $plugin_zip ) ) {
-			unlink( $plugin_zip ); // @phpcs:ignore
+			unlink($plugin_zip); // @phpcs:ignore
 		}
 
 		// Write downloaded content to zip file.
@@ -227,7 +234,7 @@ class Ajax {
 		everest_backup_activate_ebwp_addon( $plugin );
 
 		// Clean up zip file.
-		unlink( $plugin_zip );// @phpcs:ignore
+		unlink($plugin_zip); // @phpcs:ignore
 
 		wp_send_json_success();
 	}
@@ -457,13 +464,13 @@ class Ajax {
 		everest_backup_setup_environment();
 
 		// Validate file extension for blob uploads.
-		if ( 'blob' === $_FILES['file']['name'] ) { // @phpcs:ignore
-			if ( 'ebwp' !== pathinfo( $_POST['name'], PATHINFO_EXTENSION ) ) { // @phpcs:ignore
+		if ('blob' === $_FILES['file']['name']) { // @phpcs:ignore
+			if ('ebwp' !== pathinfo($_POST['name'], PATHINFO_EXTENSION)) { // @phpcs:ignore
 				$message = __( 'The current uploaded file seems to be tampered with.', 'everest-backup' );
 				Logs::error( $message );
 				everest_backup_send_error( $message );
 			}
-		} elseif ( 'ebwp' !== pathinfo( $_FILES['file']['name'], PATHINFO_EXTENSION ) ) { // @phpcs:ignore
+		} elseif ('ebwp' !== pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION)) { // @phpcs:ignore
 			// Validate file extension for regular uploads.
 			$message = __( 'The current uploaded file seems to be tampered with.', 'everest-backup' );
 			Logs::error( $message );
@@ -608,6 +615,9 @@ class Ajax {
 		/* translators: %s is the restore start time. */
 		Logs::info( sprintf( __( 'Restore started at: %s', 'everest-backup' ), wp_date( 'h:i:s A', $timer_start ) ) );
 
+		// Generate a restore token for this session.
+		$this->generate_restore_token();
+
 		// Update progress: Starting extraction.
 		Logs::set_proc_stat(
 			array(
@@ -618,7 +628,7 @@ class Ajax {
 		);
 
 		// Extract backup package.
-		$extract = new Extract( $response ); // @phpcs:ignore
+		$extract = new Extract($response); // @phpcs:ignore
 
 		// Restore WordPress components in sequence.
 		Restore_Config::init( $extract );      // WordPress configuration.
@@ -699,6 +709,32 @@ class Ajax {
 		// Activation failed.
 		http_response_code( 500 );
 		wp_send_json_error();
+	}
+
+	/**
+	 * Generate a unique token for the restore process and save it to a file.
+	 *
+	 * @return string The generated token.
+	 */
+	private function generate_restore_token() {
+		$token = wp_generate_password( 64, false );
+		Filesystem::init()->writefile( EVEREST_BACKUP_RESTORE_TOKEN_PATH, $token );
+		return $token;
+	}
+
+	/**
+	 * Validate the provided restore token against the stored file.
+	 *
+	 * @param string $token The token to validate.
+	 * @return bool True if valid, false otherwise.
+	 */
+	private function validate_restore_token( $token ) {
+		if ( ! file_exists( EVEREST_BACKUP_RESTORE_TOKEN_PATH ) ) {
+			return false;
+		}
+
+		$stored_token = file_get_contents( EVEREST_BACKUP_RESTORE_TOKEN_PATH );
+		return hash_equals( $stored_token, $token );
 	}
 }
 

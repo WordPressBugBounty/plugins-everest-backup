@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class for handling database import.
  *
@@ -24,6 +25,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 1.0.6 - Rewrite database class for import.
  */
 class Import_Database extends Database {
+
+
 
 	/**
 	 * List of prefixed tables during export.
@@ -72,16 +75,19 @@ class Import_Database extends Database {
 	 *
 	 * @param callable $query_count_cb Query count.
 	 */
-	public function import_table( callable $query_count_cb = null ) {
+	public function import_table( $query_count_cb = null ) {
 		if ( ! file_exists( $this->filename ) ) {
 			return false;
 		}
 
-		$handle = fopen( $this->filename, 'rb' ); // @phpcs:ignore
+		$handle = fopen($this->filename, 'rb'); // @phpcs:ignore
 
 		if ( ! is_resource( $handle ) ) {
 			return false;
 		}
+
+		// Disable foreign key checks to allow dropping tables with foreign key constraints.
+		// $this->query( 'SET FOREIGN_KEY_CHECKS=0' );
 
 		$imported    = false;
 		$queries     = array();
@@ -125,7 +131,6 @@ class Import_Database extends Database {
 
 				$queries = array();
 				$query   = '';
-
 			} else {
 
 				if ( is_callable( $query_count_cb ) ) {
@@ -147,6 +152,10 @@ class Import_Database extends Database {
 				Logs::error( $this->error_msg() );
 			}
 		}
+
+		// Re-enable foreign key checks after import.
+		// $this->query( 'SET FOREIGN_KEY_CHECKS=1' );
+
 		return $imported;
 	}
 
@@ -162,11 +171,15 @@ class Import_Database extends Database {
 
 		$filename = $this->filename;
 
-		$handle = fopen( $filename, 'r' ); // @phpcs:ignore
+		$handle = fopen($filename, 'r'); // @phpcs:ignore
 
 		$queries = array();
 
 		if ( $handle ) {
+
+			// Disable foreign key checks to allow dropping tables with foreign key constraints.
+			// $this->query( 'SET FOREIGN_KEY_CHECKS=0' );
+			Logs::save_to_activity_log( 'Foreign key checks disabled', false, true );
 
 			Logs::save_to_activity_log( 'Importing database', false, true );
 
@@ -252,7 +265,11 @@ class Import_Database extends Database {
 				}
 				$sql_line = '';
 			}
-			fclose( $handle ); // @phpcs:ignore
+			fclose($handle); // @phpcs:ignore
+
+			// Re-enable foreign key checks after import.
+			// $this->query( 'SET FOREIGN_KEY_CHECKS=1' );
+			Logs::save_to_activity_log( 'Foreign key checks re-enabled', false, true );
 		}
 		return $imported;
 	}

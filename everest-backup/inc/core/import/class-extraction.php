@@ -45,6 +45,25 @@ class Extraction {
 		'wpe-wp-sign-on-plugin.php',
 		'wpengine-security-auditor.php',
 		'aaa-wp-cerber.php',
+		'wp-migrate-db-pro-compatibility.php',
+	);
+
+	/**
+	 * Drop-ins to exclude during extraction.
+	 *
+	 * @var array $exclude_dropins_list
+	 */
+	public static $exclude_dropins_list = array(
+		'wp-content/object-cache.php',
+		'wp-content/advanced-cache.php',
+		'wp-content/db.php',
+		'wp-content/maintenance.php',
+		'wp-content/php-error.php',
+		'wp-content/fatal-error-handler.php',
+		'wp-content/sunrise.php',
+		'wp-content/blog-deleted.php',
+		'wp-content/blog-inactive.php',
+		'wp-content/blog-suspended.php',
 	);
 
 	/**
@@ -115,6 +134,7 @@ class Extraction {
 			if ( ! empty( $params['current_position'] ) ) {
 				$current_position = $params['current_position'];
 			}
+
 			if ( ! empty( $params['count'] ) ) {
 				$count = $params['count'];
 			}
@@ -191,10 +211,20 @@ class Extraction {
 
 						$type = $_type ? $_type : 'others';
 						$path = wp_normalize_path( WP_CONTENT_DIR . '/' . $path );
+
 						foreach ( self::$exclude_muplugins_list as $mu_plugin ) {
 							if ( substr( $path, -strlen( $mu_plugin ) ) === $mu_plugin ) {
 								$path = str_replace( '/mu-plugins/', '/mu-plugins-ebwp-excluded/', $path );
 								Logs::info( 'Skipped must-use plugin: ' . $mu_plugin );
+							}
+						}
+
+						// Skip drop-ins.
+						foreach ( self::$exclude_dropins_list as $dropin ) {
+							if ( substr( $path, -strlen( $dropin ) ) === $dropin ) {
+								$path .= '.ebwp-restored';
+								/* translators: %s: Drop-in file name */
+								Logs::info( sprintf( __( 'Restoring drop-in file as %s to avoid conflicts.', 'everest-backup' ), basename( $path ) ) );
 							}
 						}
 					}
@@ -373,7 +403,6 @@ class Extraction {
 			}
 
 			$archiver->close();
-
 		}
 
 		$general_settings     = everest_backup_get_settings( 'general' );

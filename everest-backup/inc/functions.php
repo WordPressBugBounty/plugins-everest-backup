@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Functions and definitions for Everest Backup plugin.
  *
@@ -86,16 +87,16 @@ function everest_backup_download_file( $source, $destination, $args = false ) {
 	$args       = (array) $args;
 	$seek       = ! empty( $args['seek'] ) ? $args['seek'] : 0;
 	$fo_mode    = 'ab';
-	if (array_key_exists('seek', $args) && 0 === $args['seek'] ) {
+	if ( array_key_exists( 'seek', $args ) && 0 === $args['seek'] ) {
 		$fo_mode = 'wb';
-		if (file_exists( $destination)) {
-			unlink( $destination);
+		if ( file_exists( $destination ) ) {
+			unlink( $destination );
 		}
 	}
 
-	$local_file = fopen( $destination, $fo_mode);
+	$local_file = fopen( $destination, $fo_mode );
 
-	if (false === $local_file) {
+	if ( false === $local_file ) {
 		return false;
 	}
 
@@ -106,21 +107,21 @@ function everest_backup_download_file( $source, $destination, $args = false ) {
 	$seek_to = $seek + $range_size;
 	$range   = $seek . '-' . $seek_to;
 
-	curl_setopt( $ch, CURLOPT_RANGE, $range);
+	curl_setopt( $ch, CURLOPT_RANGE, $range );
 
 	// Set cURL options.
-	curl_setopt( $ch, CURLOPT_URL, $source);
-	curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt( $ch, CURLOPT_TIMEOUT, $timeout);
+	curl_setopt( $ch, CURLOPT_URL, $source );
+	curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+	curl_setopt( $ch, CURLOPT_TIMEOUT, $timeout );
 
 	// Disable SSL certificate verification
-	curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false);
-	curl_setopt( $ch, CURLOPT_SSL_VERIFYHOST, false);
+	curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
+	curl_setopt( $ch, CURLOPT_SSL_VERIFYHOST, false );
 
 	// Execute the cURL request.
-	$response = curl_exec( $ch);
+	$response = curl_exec( $ch );
 
-	$http_code = (int) curl_getinfo( $ch, CURLINFO_HTTP_CODE);
+	$http_code = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
 	if (206 === $http_code) {
 		$success = true;
@@ -154,32 +155,32 @@ function everest_backup_download_file( $source, $destination, $args = false ) {
 	$downloaded   = $error ? $seek : $seek_to;
 	$size         = $args['size'];
 	$download_url = $args['download_url'];
-	$progress     = ( $downloaded / $size) * 100;
-	$progress     = ( $progress > 100) ? 100 : $progress;
+	$progress     = ($downloaded / $size) * 100;
+	$progress     = ($progress > 100) ? 100 : $progress;
 
 	// Check for curl errors (at this stage it is usually timeout error).
-	if (curl_errno( $ch)) {
+	if (curl_errno($ch)) {
 		$error = 3;
 	}
 
-	if ( $success || (!$error && $write)) {
-		fwrite( $local_file, $response); // write to file if no error.
+	if ($success || (!$error && $write)) {
+		fwrite($local_file, $response); // write to file if no error.
 	}
 
 	if (!$success && $error) {
 		$retry = get_transient('everest_backup_migrate_clone_download_retry');
-		$retry = $retry ? ( $retry + 1) : 1;
-		if ( $retry > 3) {
+		$retry = $retry ? ($retry + 1) : 1;
+		if ($retry > 3) {
 			delete_transient('everest_backup_migrate_clone_download_retry');
 			$set_proc_array = array(
 				'status'       => 'in-process',
-				'progress'     => round( $progress, 2),
+				'progress'     => round($progress, 2),
 				'message'      => sprintf(
 					/* translators: */
 					__('Downloading failure. Please try again later.', 'everest-backup') . ' Error: ' . $error,
 				),
 				/* translators: */
-				'detail'       => sprintf( __( 'Download failure.', 'everest-backup' ), esc_html( $retry ), esc_html( everest_backup_format_size( $size ) ) ),
+				'detail'       => sprintf(__('Download failure.', 'everest-backup'), esc_html($retry), esc_html(everest_backup_format_size($size))),
 				'download_url' => $download_url,
 				'size'         => $size,
 				'seek'         => $downloaded,
@@ -187,9 +188,9 @@ function everest_backup_download_file( $source, $destination, $args = false ) {
 			);
 			Logs::error(esc_html__('Download failed. Please try again later.', 'everest-backup') . ' Error with response code: ' . $http_code);
 			// Close cURL and the local file and delete local file.
-			curl_close( $ch );
-			fclose( $local_file );
-			@unlink( $destination );
+			curl_close($ch);
+			fclose($local_file);
+			@unlink($destination);
 
 			everest_backup_send_error();
 			die;
@@ -197,47 +198,47 @@ function everest_backup_download_file( $source, $destination, $args = false ) {
 			set_transient('everest_backup_migrate_clone_download_retry', $retry);
 			$set_proc_array = array(
 				'status'       => 'in-process',
-				'progress'     => round( $progress, 2),
+				'progress'     => round($progress, 2),
 				'message'      => sprintf(
 					/* translators: */
 					__('Download failure', 'everest-backup'),
 				),
 				/* translators: */
-				'detail'       => sprintf(__('Download failure. Retrying(%1$s)', 'everest-backup'), esc_html( $retry)),
+				'detail'       => sprintf(__('Download failure. Retrying(%1$s)', 'everest-backup'), esc_html($retry)),
 				'download_url' => $download_url,
 				'size'         => $size,
 				'seek'         => $downloaded,
 				'next'         => 'check', // Set next to same.
 			);
 		}
-		$set_proc_array = array_merge( $args, $set_proc_array);
-		Logs::set_proc_stat( $set_proc_array);
+		$set_proc_array = array_merge($args, $set_proc_array);
+		Logs::set_proc_stat($set_proc_array);
 	} elseif (!$complete) {
 		set_transient('everest_backup_migrate_clone_download_retry', 1);
 		$set_proc_array = array(
 			'status'       => 'in-process',
-			'progress'     => round( $progress, 2),
+			'progress'     => round($progress, 2),
 			'message'      => sprintf(
 				/* translators: */
 				__('Downloading file [ %1$s / %2$s ] : %3$d%% completed', 'everest-backup'),
-				esc_html(esc_html(everest_backup_format_size( $seek + strlen( $response)))),
-				esc_html(esc_html(everest_backup_format_size( $size))),
-				esc_html( $progress)
+				esc_html(esc_html(everest_backup_format_size($seek + strlen($response)))),
+				esc_html(esc_html(everest_backup_format_size($size))),
+				esc_html($progress)
 			),
 			/* translators: */
-			'detail'       => sprintf(__('Downloaded: %1$s out of %2$s', 'everest-backup'), esc_html(everest_backup_format_size( $seek + strlen( $response))), esc_html(everest_backup_format_size( $size))),
+			'detail'       => sprintf(__('Downloaded: %1$s out of %2$s', 'everest-backup'), esc_html(everest_backup_format_size($seek + strlen($response))), esc_html(everest_backup_format_size($size))),
 			'download_url' => $download_url,
 			'size'         => $size,
 			'seek'         => $downloaded + 1,
 			'next'         => 'check', // Set next to same.
 		);
-		$set_proc_array = array_merge( $args, $set_proc_array);
-		Logs::set_proc_stat( $set_proc_array);
+		$set_proc_array = array_merge($args, $set_proc_array);
+		Logs::set_proc_stat($set_proc_array);
 	}
 
 	// Close cURL and the local file.
-	curl_close( $ch );
-	fclose( $local_file );
+	curl_close($ch);
+	fclose($local_file);
 	// @phpcs:enable
 
 	if ( ! $complete ) {
@@ -332,9 +333,9 @@ function everest_backup_is_required_functions_enabled() {
 function everest_backup_is_gzip( $filename ) {
 
 	// @phpcs:disable
-	$handle = fopen( $filename, 'r');
-	$bytes = fread( $handle, 3); // Read the first 3 bytes.
-	fclose( $handle);
+	$handle = fopen($filename, 'r');
+	$bytes = fread($handle, 3); // Read the first 3 bytes.
+	fclose($handle);
 	// @phpcs:enable
 
 	$signature = '1F8B08'; // Gzip signature.
@@ -706,7 +707,7 @@ if ( ! function_exists( 'everest_backup_compress_init' ) ) {
  */
 function everest_backup_disk_free_space( $directory ) {
 	if ( everest_backup_is_php_function_enabled( 'disk_free_space' ) ) {
-		return disk_free_space( $directory); // @phpcs:ignore
+		return disk_free_space($directory); // @phpcs:ignore
 	}
 
 	return false;
@@ -1570,12 +1571,12 @@ function everest_backup_cron_cycles() {
 				'display'  => __( 'Hourly ( PRO )', 'everest-backup' ),
 			),
 			'everest_backup_daily'   => array(
-				'interval' => DAY_IN_SECONDS, // 24 hours.
-				'display'  => __( 'Daily', 'everest-backup' ),
+				'interval' => null, // 24 hours.
+				'display'  => __( 'Daily ( PRO )', 'everest-backup' ),
 			),
 			'everest_backup_weekly'  => array(
-				'interval' => WEEK_IN_SECONDS, // 1 week.
-				'display'  => __( 'Weekly', 'everest-backup' ),
+				'interval' => null, // 1 week.
+				'display'  => __( 'Weekly ( PRO )', 'everest-backup' ),
 			),
 			'everest_backup_monthly' => array(
 				'interval' => MONTH_IN_SECONDS, // 1 month.
@@ -1629,7 +1630,7 @@ function everest_backup_is_saving_to() {
 		$configpath = everest_backup_current_request_storage_path( EVEREST_BACKUP_CONFIG_FILENAME );
 
 		if ( file_exists( $configpath ) ) {
-			$decode = json_decode(file_get_contents( $configpath ), true); // @phpcs:ignore
+			$decode = json_decode(file_get_contents($configpath), true); // @phpcs:ignore
 
 			if ( ! empty( $decode['Params']['save_to'] ) ) {
 				return $decode['Params']['save_to'];
@@ -1645,8 +1646,8 @@ function everest_backup_is_saving_to() {
 	}
 
 	if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
-		if ( ! empty( $_REQUEST['cloud'] ) ) { // @phpcs:ignore
-			return sanitize_text_field( wp_unslash( $_REQUEST['cloud'] ) ); // @phpcs:ignore
+		if (! empty($_REQUEST['cloud'])) { // @phpcs:ignore
+			return sanitize_text_field(wp_unslash($_REQUEST['cloud'])); // @phpcs:ignore
 		}
 		$schedule_backup_data = everest_backup_get_settings( 'schedule_backup' );
 		return ! empty( $schedule_backup_data['save_to'] ) ? $schedule_backup_data['save_to'] : 'server';
@@ -1663,7 +1664,8 @@ function everest_backup_is_saving_to() {
  * @return int|string $key Array key.
  * @since 1.0.0
  */
-function everest_backup_array_search( $array, $field, $values ) { // @phpcs:ignore
+function everest_backup_array_search( $array, $field, $values )
+{ // @phpcs:ignore
 	if ( is_array( $array ) && ! empty( $array ) ) {
 		foreach ( $array as $key => $val ) {
 			if ( ! isset( $val[ $field ] ) ) {
@@ -2166,7 +2168,7 @@ function everest_backup_get_submitted_data( $type = 'request', $ajax = false ) {
  * @return array body response.
  * @since 1.0.0
  */
-function everest_backup_get_ajax_response( $action ) {
+function everest_backup_get_ajax_response( $action, $skip_auth_check = false ) {
 	if ( ! wp_doing_ajax() ) {
 		return array();
 	}
@@ -2175,17 +2177,19 @@ function everest_backup_get_ajax_response( $action ) {
 		return array();
 	}
 
-	if ( ! everest_backup_verify_nonce( 'everest_backup_ajax_nonce' ) ) {
-		/* translators: action */
-		$message = sprintf( __( 'Nonce verification failed. Action: "%s"', 'everest-backup' ), esc_html( $action ) );
-		Logs::error( $message );
-		everest_backup_send_error( $message );
-	}
+	if ( ! $skip_auth_check ) {
+		if ( ! everest_backup_verify_nonce( 'everest_backup_ajax_nonce' ) ) {
+			/* translators: action */
+			$message = sprintf( __( 'Nonce verification failed. Action: "%s"', 'everest-backup' ), esc_html( $action ) );
+			Logs::error( $message );
+			everest_backup_send_error( $message );
+		}
 
-	if ( ! current_user_can( 'manage_options' ) && ! get_transient( 'everest_backup_doing_scheduled_backup' ) ) {
-		$message = __( 'Permission denied.', 'everest-backup' );
-		Logs::error( $message );
-		everest_backup_send_error( $message );
+		if ( ! current_user_can( 'manage_options' ) && ! get_transient( 'everest_backup_doing_scheduled_backup' ) ) {
+			$message = __( 'Permission denied.', 'everest-backup' );
+			Logs::error( $message );
+			everest_backup_send_error( $message );
+		}
 	}
 
 	/**
@@ -2557,7 +2561,7 @@ function everest_backup_get_htaccess() {
 	$htaccess = EVEREST_BACKUP_HTACCESS_PATH;
 
 	if ( is_file( $htaccess ) ) {
-		return file_get_contents( $htaccess); // @phpcs:ignore
+		return file_get_contents($htaccess); // @phpcs:ignore
 	}
 }
 
@@ -2625,7 +2629,8 @@ function everest_backup_render_view( $template, $args = array() ) {
  * @return void
  * @since 1.0.0
  */
-function everest_backup_set_notice( $notice, $type ) { // @phpcs:ignore
+function everest_backup_set_notice( $notice, $type )
+{ // @phpcs:ignore
 	if ( ! session_id() ) {
 		session_start(
 			array(
@@ -2634,7 +2639,7 @@ function everest_backup_set_notice( $notice, $type ) { // @phpcs:ignore
 		);
 	}
 
-	$notices                 = isset( $_SESSION['ebwp_notice'] ) ? everest_backup_sanitize_array( $_SESSION['ebwp_notice'] ) : array(); // @phpcs:ignore
+	$notices                 = isset($_SESSION['ebwp_notice']) ? everest_backup_sanitize_array($_SESSION['ebwp_notice']) : array(); // @phpcs:ignore
 	$_SESSION['ebwp_notice'] = compact( 'notice', 'type' );
 }
 
@@ -2679,11 +2684,11 @@ function everest_backup_package_location_dropdown( $args ) {
 			foreach ( $package_locations as $key => $package_location ) {
 				?>
 				<option
-				<?php
-						selected( $selected, $key );
-						disabled( ( false === $package_location['is_active'] ) );
-				?>
-						value="<?php echo esc_attr( $key ); ?>" title="<?php echo esc_attr( $package_location['description'] ); ?>">
+					<?php
+					selected( $selected, $key );
+					disabled( ( false === $package_location['is_active'] ) );
+					?>
+					value="<?php echo esc_attr( $key ); ?>" title="<?php echo esc_attr( $package_location['description'] ); ?>">
 					<?php echo esc_html( $package_location['label'] ); ?> (&#8505;)
 				</option>
 				<?php
@@ -3318,12 +3323,12 @@ if ( ! function_exists( 'everest_backup_export_wp_database' ) ) {
 			global $wpdb;
 			$header = sprintf(
 				"-- Everest Backup SQL Dump\n" .
-				"--\n" .
-				"-- Prefix: %s\n" .
-				"-- Host: %s\n" .
-				"-- Database: %s\n" .
-				"-- Class: %s\n" .
-				"--\n",
+					"--\n" .
+					"-- Prefix: %s\n" .
+					"-- Host: %s\n" .
+					"-- Database: %s\n" .
+					"-- Class: %s\n" .
+					"--\n",
 				$wpdb->prefix,
 				$wpdb->dbhost,
 				$wpdb->dbname,

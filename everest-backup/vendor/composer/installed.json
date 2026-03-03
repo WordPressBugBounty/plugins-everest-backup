@@ -7,12 +7,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Ne-Lexa/php-zip.git",
-                "reference": "330c724ce6980a7ae0e00e0e7072893282644c6f"
+                "reference": "d25c2ab6b993157f18bc88a753a864ce23213f60"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Ne-Lexa/php-zip/zipball/330c724ce6980a7ae0e00e0e7072893282644c6f",
-                "reference": "330c724ce6980a7ae0e00e0e7072893282644c6f",
+                "url": "https://api.github.com/repos/Ne-Lexa/php-zip/zipball/d25c2ab6b993157f18bc88a753a864ce23213f60",
+                "reference": "d25c2ab6b993157f18bc88a753a864ce23213f60",
                 "shasum": ""
             },
             "require": {
@@ -41,7 +41,7 @@
                 "ext-iconv": "Needed to support convert zip entry name to requested character encoding",
                 "ext-openssl": "Needed to support encrypt zip entries or use ext-mcrypt"
             },
-            "time": "2022-06-19T08:27:45+00:00",
+            "time": "2025-11-16T19:00:23+00:00",
             "default-branch": true,
             "type": "library",
             "installation-source": "dist",
@@ -135,26 +135,26 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v7.3.5",
-            "version_normalized": "7.3.5.0",
+            "version": "v8.0.6",
+            "version_normalized": "8.0.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "9f696d2f1e340484b4683f7853b273abff94421f"
+                "reference": "441404f09a54de6d1bd6ad219e088cdf4c91f97c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/9f696d2f1e340484b4683f7853b273abff94421f",
-                "reference": "9f696d2f1e340484b4683f7853b273abff94421f",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/441404f09a54de6d1bd6ad219e088cdf4c91f97c",
+                "reference": "441404f09a54de6d1bd6ad219e088cdf4c91f97c",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.2"
+                "php": ">=8.4"
             },
             "require-dev": {
-                "symfony/filesystem": "^6.4|^7.0"
+                "symfony/filesystem": "^7.4|^8.0"
             },
-            "time": "2025-10-15T18:45:57+00:00",
+            "time": "2026-01-29T09:41:02+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -182,7 +182,7 @@
             "description": "Finds files and directories via an intuitive fluent interface",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/finder/tree/v7.3.5"
+                "source": "https://github.com/symfony/finder/tree/v8.0.6"
             },
             "funding": [
                 {

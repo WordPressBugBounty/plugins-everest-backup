@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Trait for core export.
  *
@@ -25,6 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 trait Export {
 
+
 	private static $LISTFILENAME = 'ebwp-files.ebwplist';
 
 	private static $REMOVELISTFILENAME = 'ebwp-files-remove.ebwplist';
@@ -49,6 +51,7 @@ trait Export {
 			$procstat = Logs::get_proc_stat();
 			everest_backup_send_json( $procstat );
 		}
+
 		set_transient( 'everest_backup_wp_cli_express', true, 60 );
 	}
 

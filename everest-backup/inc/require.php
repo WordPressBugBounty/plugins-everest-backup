@@ -115,7 +115,6 @@ function everest_backup_require_files() {
 		'inc/modules/cron/class-cron-actions.php',
 		'inc/modules/email/class-send-test-email.php',
 		'inc/modules/email/class-email-logs.php',
-
 		'inc/template-functions.php',
 
 		/**

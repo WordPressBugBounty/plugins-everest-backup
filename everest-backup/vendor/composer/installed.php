@@ -3,7 +3,7 @@
         'name' => 'everest-backup/everest-backup',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '1704838e12caa6e873ee79d032eaa428533eea10',
+        'reference' => '9721a9c380f8973b4314f6a3635d1dc3500ba7bc',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'everest-backup/everest-backup' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '1704838e12caa6e873ee79d032eaa428533eea10',
+            'reference' => '9721a9c380f8973b4314f6a3635d1dc3500ba7bc',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -22,7 +22,7 @@
         'nelexa/zip' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '330c724ce6980a7ae0e00e0e7072893282644c6f',
+            'reference' => 'd25c2ab6b993157f18bc88a753a864ce23213f60',
             'type' => 'library',
             'install_path' => __DIR__ . '/../nelexa/zip',
             'aliases' => array(
@@ -40,9 +40,9 @@
             'dev_requirement' => false,
         ),
         'symfony/finder' => array(
-            'pretty_version' => 'v7.3.5',
-            'version' => '7.3.5.0',
-            'reference' => '9f696d2f1e340484b4683f7853b273abff94421f',
+            'pretty_version' => 'v8.0.6',
+            'version' => '8.0.6.0',
+            'reference' => '441404f09a54de6d1bd6ad219e088cdf4c91f97c',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/finder',
             'aliases' => array(),

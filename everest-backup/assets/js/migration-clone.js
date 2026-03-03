@@ -49,6 +49,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     var processMsg = document.querySelector('#import-on-process #process-info .process-message');
     var backupErrorP = AfterRestoreError.querySelector('.everest-backup-error-during-backup-p');
     var restoreInitData = {};
+    var restoreToken = '';
     /**
      * Script for migration tab page.
      */
@@ -99,6 +100,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
             var url = new URL(_everest_backup.sseURL);
             url.searchParams.append('t', "".concat(+new Date()));
             url.searchParams.append('everest_backup_ajax_nonce', _everest_backup._nonce);
+            if (restoreToken) {
+                url.searchParams.append('restore_token', restoreToken);
+            }
             return url.toString();
         };
         var handleProcessSuccessError = function (success) {
@@ -146,7 +150,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
              *
              * @since 1.0.7
              */
-            return navigator.sendBeacon("".concat(ajaxUrl, "?action=").concat(actions.import, "&everest_backup_ajax_nonce=").concat(_nonce, "&t=").concat(t), JSON.stringify(data));
+            return navigator.sendBeacon("".concat(ajaxUrl, "?action=").concat(actions.import, "&everest_backup_ajax_nonce=").concat(_nonce, "&t=").concat(t, "&restore_token=").concat(restoreToken), JSON.stringify(data));
         };
         var skip_version_check = false;
         var handleProcStats = function (beaconSent) {
@@ -199,6 +203,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                                                 setTimeout(onBeaconSent, resInterval);
                                                 break;
                                             }
+                                        }
+                                        if (res.restore_token) {
+                                            restoreToken = res.restore_token;
                                         }
                                         if (!!res.next && res.next.length) {
                                             if (res.hash !== lastHash) {

@@ -55,10 +55,12 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 		 * @since 1.0.0
 		 */
 		private function init_hooks() {
+			add_action( 'init', array( $this, 'load_textdomain' ), 1 );
 			add_action( 'init', array( $this, 'handle_usage_stats' ) );
 			add_action( 'admin_init', array( $this, 'on_admin_init' ), 5 );
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 
+			add_action( 'plugins_loaded', array( $this, 'instantiate_modules' ), 1 );
 			add_action( 'plugins_loaded', array( $this, 'on_plugins_loaded' ) );
 
 			add_action( 'admin_notices', array( $this, 'print_admin_notices' ) );
@@ -102,6 +104,17 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 				}
 			}
 			// @phpcs:enable
+		}
+
+		/**
+		 * Instantiate modules.
+		 *
+		 * @since 2.3.12
+		 */
+		public function instantiate_modules() {
+			new \Everest_Backup\Modules\Cron_Handler();
+			new \Everest_Backup\Modules\Cron_Actions();
+			\Everest_Backup\Core\Init::init();
 		}
 
 		/**
@@ -151,6 +164,15 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 			}
 
 			return EverestThemes_Stats::get_instance( EVEREST_BACKUP_FILE, 'https://ps.w.org/everest-backup/assets/icon-128X128.gif' );
+		}
+
+		/**
+		 * Load text domain.
+		 *
+		 * @since 1.0.0
+		 */
+		public function load_textdomain() {
+			load_plugin_textdomain( 'everest-backup', false, EVEREST_BACKUP_PATH . 'languages' );
 		}
 
 		/**
@@ -243,8 +265,6 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 		 * @since 1.0.0
 		 */
 		public function on_admin_init() {
-
-			load_plugin_textdomain( 'everest-backup', false, EVEREST_BACKUP_PATH . 'languages' );
 
 			$this->force_reload();
 			$this->dismiss_upsell_notice();
@@ -992,7 +1012,7 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 
 			$max_upload_size = everest_backup_max_upload_size();
 
-			$addons_page_link = '<a href="' . esc_url( network_admin_url( '/admin.php?page=everest-backup-addons&cat=Upload+Limit' ) ) . '">' . esc_html__( 'Addons', 'everest-backup' ) . '</a>';
+			$addons_page_link = '<a href="' . esc_url( network_admin_url( '/admin.php?page=everest-backup-addons&cat=Everest+Backup+Pro' ) ) . '">' . esc_html__( 'Addons', 'everest-backup' ) . '</a>';
 
 			$data = array(
 				'_nonce'                 => everest_backup_create_nonce( 'everest_backup_ajax_nonce' ),
@@ -1134,10 +1154,11 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 			if ( 'backup' === $filetype || 'restore' === $filetype || 'migration-clone' === $filetype ) {
 
 				// We don't want heartbeat to occur when importing/exporting.
-				wp_deregister_script( 'heartbeat' );
+				wp_dequeue_script( 'heartbeat' );
 
 				// We don't want auth check for monitoring whether the user is still logged in.
 				remove_action( 'admin_enqueue_scripts', 'wp_auth_check_load' );
+				wp_dequeue_script( 'wp-auth-check' );
 
 			}
 
@@ -1158,6 +1179,7 @@ if ( ! class_exists( 'Everest_Backup' ) ) {
 		 */
 		public function print_addons_license_notices() {
 			$plugins = apply_filters( 'everest_backup_inactive_license_addons', array() );
+
 			if ( ! empty( $plugins ) ) {
 				?>
 				<div class="notice notice-error">

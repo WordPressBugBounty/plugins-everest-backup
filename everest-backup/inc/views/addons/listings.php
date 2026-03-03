@@ -75,6 +75,12 @@ $everest_backup_addons_data = ! empty( $everest_backup_addons['data'] ) ? $evere
 							$wrapper_class[] = "addon-slug-{$addon_slug}";
 							$wrapper_class[] = $is_active ? 'active-addon' : '';
 							$wrapper_class[] = $is_premium ? 'premium-addon' : '';
+
+							// The unlimited addons only showin if EVEREST_BACKUP_PRO_VERSION is less than 1.1.2
+							if ( defined( 'EVEREST_BACKUP_PRO_VERSION' ) && version_compare( EVEREST_BACKUP_PRO_VERSION, '1.1.2', '>=' ) && 'everest-backup-unlimited' === $addon_slug ) {
+								continue;
+							}
+
 							?>
 							<div <?php echo $is_active ? 'title="' . esc_attr__( 'Active', 'everest-backup' ) . '"' : ''; ?> class="<?php echo esc_attr( implode( ' ', $wrapper_class ) ); ?>">
 
@@ -145,15 +151,15 @@ $everest_backup_addons_data = ! empty( $everest_backup_addons['data'] ) ? $evere
 										}
 										?>
 									</div>
-					</div>
+								</div>
 
-										<?php
-										if ( $is_premium ) {
-											?>
-											</a>
-											<?php
-										}
-										?>
+								<?php
+								if ( $is_premium ) {
+									?>
+									</a>
+									<?php
+								}
+								?>
 							</div>
 							<?php
 						}

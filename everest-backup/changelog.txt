@@ -1,9 +1,14 @@
 == Changelog ==
+== v2.3.11 ==
+ * Enhancement: Added compatibility for drop-in plugins to prevent restore failures.
 
-== v2.3.9 ==
+== v2.3.10 ==
+ * Fix: Addressed missing authorization vulnerability affecting versions up to 2.3.8.
+
+ == v2.3.9 ==
  * Fixes: Minor issues
 
-== v2.3.8 ==
+== v2.3.8 =
  * Fixes: Minor issues
 
 == v2.3.7 =

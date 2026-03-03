@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Wrap up archive import.
  *
@@ -23,6 +24,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Wrap up import.
  */
 class Wrapup {
+
+
+
 
 	use Import;
 
@@ -91,6 +95,7 @@ class Wrapup {
 
 			$start_time  = time();
 			$current_key = $params['current_key'] ?? 0;
+
 			foreach ( $database_files as $database_file ) {
 
 				$progress = ( ( $current_key + 1 ) / $total_tables ) * 100;
@@ -98,6 +103,8 @@ class Wrapup {
 				$proc_stat_args = array(
 					'status'       => 'in-process',
 					'progress'     => round( $progress * 0.25 + 65, 2 ), // At the end, it is always going to be 90%.
+					'current_key'  => $current_key,
+					'total_tables' => $total_tables,
 					'message'      => sprintf(
 						/* translators: progress, current table number and total tables. */
 						__( 'Importing database: %1$d%% completed [ %2$s out of %3$s ]', 'everest-backup' ),
@@ -105,8 +112,6 @@ class Wrapup {
 						esc_html( $current_key + 1 ),
 						esc_html( $total_tables )
 					),
-					'current_key'  => $current_key,
-					'total_tables' => $total_tables,
 				);
 
 				$blog = \everest_backup_get_temp_values_during_backup( 'blog' );
@@ -137,6 +142,7 @@ class Wrapup {
 						$find_replace[ $old_upload_dir ] = $new_upload_dir;
 						$find_replace[ $old_upload_url ] = $new_upload_url;
 						$import_database                 = new Import_Database( $database_file, $db_configs['Tables'], $find_replace );
+
 						$import_database->import_table(
 							function ( $query_count ) use ( $proc_stat_args ) {
 								/* translators: query count. */
@@ -160,7 +166,7 @@ class Wrapup {
 				/**
 				 * Remove the imported database files.
 				 */
-				unlink( $database_file ); //phpcs:ignore
+				unlink($database_file); //phpcs:ignore
 				if ( ( $start_time + 20 ) < time() ) {
 					self::set_next( 'wrapup' );
 					return true;
@@ -170,9 +176,12 @@ class Wrapup {
 
 			if ( ! $critical ) {
 				$procstat = Logs::get_proc_stat();
+
 				if ( isset( $procstat['log'] ) ) {
 					unset( $procstat['log'] );
 				}
+
+				// And also set restore token.
 				$procstat['next']     = 'wrapup';
 				$procstat['critical'] = true;
 				return Logs::set_proc_stat( $procstat );
@@ -327,8 +336,6 @@ class Wrapup {
 		}
 
 		do_action( 'everest_backup_after_restore_done', $metadata );
-
-		set_transient( 'is_restore_completed', true, MINUTE_IN_SECONDS );
 
 		if ( get_transient( 'everest_backup_wp_cli_express' ) ) {
 			add_filter( 'everest_backup_disable_send_json', '__return_true' );

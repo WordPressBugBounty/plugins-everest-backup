@@ -191,11 +191,33 @@ class Cloner extends Migration_Clone {
 		$max_upload_size = everest_backup_max_upload_size();
 
 		if ( $max_upload_size && ( $key_info['size'] >= $max_upload_size ) ) {
+			// if everest-backup-pro is not installed  then show message for installed and activate license.
+			if ( ! function_exists( 'get_plugins' ) ) {
+				require_once ABSPATH . 'wp-admin/includes/plugin.php';
+			}
+
+			$plugins = get_plugins();
+			$message = '';
+			$link    = '';
+
+			if ( ! in_array( 'everest-backup-pro/everest-backup-pro.php', array_keys( $plugins ) ) ) {
+				$message = 'Please install and activate Everest Backup Pro to clone this site.';
+				$link    = '<a href="https://wpeverestbackup.com/pricing"> Get Everest Backup Pro </a>';
+
+			} elseif ( ! is_plugin_active( 'everest-backup-pro/everest-backup-pro.php' ) ) {
+				$message = 'It looks like Everest Backup Pro is already installed. Please activate the plugin and enter your valid license key to continue.';
+				$link    = '<a href="' . admin_url( 'plugins.php' ) . '"> Activate Plugin </a>';
+
+			} else {
+				$message = 'You have to activate your Everest Backup Pro license to clone this site.';
+				$link    = '<a href="' . admin_url( 'admin.php?page=everest-backup-license' ) . '"> Activate License </a>';
+			}
 
 			return sprintf(
-				/* translators: %s is the link to Everest Backup Unlimited. */
-				__( 'Package size is larger than allowed maximum upload size. Please increase maximum upload size or %s', 'everest-backup' ),
-				'<a href="https://wpeverestbackup.com/unlimited-upload-and-restore">' . __( 'Get Unlimited', 'everest-backup' ) . '</a>'
+				/* translators: %s is the link to Everest Backup Pro. */
+				__( '<span class="eb-text-danger">Restore size limit exceeded.</span> %1$s %2$s', 'everest-backup' ),
+				$message,
+				$link
 			);
 		}
 
@@ -224,18 +246,18 @@ class Cloner extends Migration_Clone {
 
 		//phpcs:disable
 		$ch = curl_init();
-	
+
 		curl_setopt( $ch, CURLOPT_RANGE, '0-1' );
-	
+
 		curl_setopt( $ch, CURLOPT_URL, $key_info['url'] );
 		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
 		curl_setopt( $ch, CURLOPT_TIMEOUT, 5 );
-	
+
 		curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
 		curl_setopt( $ch, CURLOPT_SSL_VERIFYHOST, false );
-	
+
 		curl_exec( $ch );
-	
+
 		$http_code = (int) curl_getinfo( $ch, CURLINFO_HTTP_CODE );
 		//phpcs:enable
 

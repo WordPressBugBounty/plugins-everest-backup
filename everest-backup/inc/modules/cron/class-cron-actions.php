@@ -567,5 +567,3 @@ class Cron_Actions {
 		}
 	}
 }
-
-new Cron_Actions();
