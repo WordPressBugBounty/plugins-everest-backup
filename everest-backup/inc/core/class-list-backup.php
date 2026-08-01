@@ -46,18 +46,23 @@ class List_Backup {
 	 * It will detect if the backup is encrypted or not.
 	 */
 	public function list_backup() {
-		if ( ! current_user_can( 'manage_options' ) ) {
-			return;
+		$request = everest_backup_get_ajax_response( 'everest_backup_list_backup_content' );
+
+		if ( empty( $request ) || empty( $request['file'] ) ) {
+			echo wp_json_encode( false );
+			exit;
 		}
-		$request = everest_backup_get_submitted_data();
-		$file    = $request['file'];
-		$resume  = $request['resume'] ?? false;
-		$c_seek  = $request['c_seek'] ?? false;
-		$path    = everest_backup_get_backup_full_path( $file );
-		if ( file_exists( $path ) ) {
+
+		$file   = basename( $request['file'] );
+		$resume = $request['resume'] ?? false;
+		$c_seek = $request['c_seek'] ?? false;
+		$path   = everest_backup_get_backup_full_path( $file );
+
+		if ( $path && file_exists( $path ) ) {
 			echo wp_json_encode( $this->scan_file( $path, $resume, $c_seek ) );
 			exit;
 		}
+
 		echo wp_json_encode( false );
 		exit;
 	}
@@ -101,17 +106,20 @@ class List_Backup {
 	 * @since 2.3.0
 	 */
 	public function generate_backup() {
-		if ( ! current_user_can( 'manage_options' ) ) {
-			return;
-		}
+		$request = everest_backup_get_ajax_response( 'everest_backup_generate_backup_list_file' );
 
-		$request = everest_backup_get_submitted_data();
-		if ( ! isset( $request['file'] ) || ! isset( $request['start'] ) ) {
+		if ( empty( $request ) ) {
 			echo wp_json_encode( false );
 			exit;
 		}
-		$backup = $request['backup'];
-		$file   = $request['file'];
+
+		if ( ! isset( $request['file'] ) || ! isset( $request['start'] ) || ! isset( $request['backup'] ) ) {
+			echo wp_json_encode( false );
+			exit;
+		}
+
+		$backup = basename( $request['backup'] );
+		$file   = sanitize_file_name( basename( $request['file'] ) );
 		$start  = $request['start'];
 		$end    = $request['end'];
 		$resume = $request['resume'] ?? false;
@@ -119,7 +127,7 @@ class List_Backup {
 
 		$path = everest_backup_get_backup_full_path( $backup );
 
-		if ( file_exists( $path ) ) {
+		if ( $path && file_exists( $path ) ) {
 			$archiver = new Archiver_V2( $path );
 			$archiver->open( 'rb' );
 

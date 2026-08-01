@@ -21,19 +21,17 @@ $message = '';
 $link    = '';
 
 if ( ! in_array( 'everest-backup-pro/everest-backup-pro.php', array_keys( $plugins ) ) ) {
-	$message = 'To bypass your server upload limit, install the Lightupload addon or upgrade to Everest Backup Pro.';
+	$message = 'This file size is larger than your server upload limit. To bypass this limit, install the Lightupload addon or upgrade to Everest Backup Pro.';
 	$link    = '<a href="' . admin_url( 'admin.php?page=everest-backup-addons&cat=Upload+Limit' ) . '">Install Lightupload Addon</a> or <a href="https://wpeverestbackup.com/pricing">Get Everest Backup Pro</a>';
 
 } elseif ( ! is_plugin_active( 'everest-backup-pro/everest-backup-pro.php' ) ) {
-	$message = 'Everest Backup Pro is installed but not active. Please activate the plugin and enter your valid license key to bypass your server upload limit.';
+	$message = 'This file size is larger than your server upload limit. Activate the plugin and enter your valid license key to bypass your server upload limit.';
 	$link    = '<a href="' . admin_url( 'plugins.php' ) . '">Activate Plugin</a>';
 
 } else {
-	$message = 'Your Everest Backup Pro license is not active. Please activate your license to bypass your server upload limit.';
+	$message = 'This file size is larger than your server upload limit. Activate your license to bypass your server upload limit.';
 	$link    = '<a href="' . admin_url( 'admin.php?page=everest-backup-license' ) . '">Activate License</a>';
 }
-
-
 ?>
 
 <div class="restore-container">
@@ -63,9 +61,9 @@ if ( ! in_array( 'everest-backup-pro/everest-backup-pro.php', array_keys( $plugi
 	<h2><?php echo esc_html__( 'Maximum upload size:', 'everest-backup' ) . ' ' . esc_html( $args['max_upload_size'] ); ?></h2>
 
 	<?php
-	if ( ! defined( 'EVEREST_BACKUP_UNLIMITED_FILE' ) && ! everest_backup_pro_active() ) {
+	if ( ! defined( 'EVEREST_BACKUP_UNLIMITED_FILE' ) ) {
 		?>
-		<h4 style="color: green;"><?php esc_html_e( $message, 'everest-backup' ); ?>
+		<h4 id="eb-restore-notice" class="hidden" style="color: green;"><?php esc_html_e( $message, 'everest-backup' ); ?>
 		<?php echo $link; ?>
 		</h4>
 		<?php

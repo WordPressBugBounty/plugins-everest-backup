@@ -1,4 +1,7 @@
 == Changelog ==
+== v2.3.12 ==
+ * Fixes: Minor issues
+
 == v2.3.11 ==
  * Enhancement: Added compatibility for drop-in plugins to prevent restore failures.
 

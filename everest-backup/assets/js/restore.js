@@ -375,13 +375,20 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
             var filesize = file.size;
             var isSizeValid = 0 !== maxLimit ? maxLimit > filesize : true;
             upload.refresh();
+            var noticeEl = document.getElementById('eb-restore-notice');
             if (!isSizeValid) {
                 setMessage(locale.fileSizeExceedMessage);
+                if (noticeEl) {
+                    noticeEl.classList.remove('hidden');
+                }
                 dragDropArea.style.borderColor = "#f00";
                 upload.removeFile(file);
             }
             else {
                 setMessage('');
+                if (noticeEl) {
+                    noticeEl.classList.add('hidden');
+                }
                 handleProgressInfo('', 0);
                 dragDropArea.style.borderColor = "#c3c4c7";
                 document.body.classList.add(bodyClass);

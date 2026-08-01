@@ -3,9 +3,9 @@ Contributors: pkjha, everestthemes
 Plugin link: https://wpeverestbackup.com/
 Tags: backup, clone, migration, pcloud, migrate wordpress
 Requires at least: 5.6
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.3.11
+Stable tag: 2.3.12
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
